@@ -33,7 +33,7 @@ internal sealed class ItemAdviceWindow : Window
     { Text = value, FontSize = size, Foreground = PetAppearance.Ink(color), FontWeight = weight ?? FontWeights.Normal, FontFamily = new FontFamily("Segoe UI"), TextWrapping = TextWrapping.Wrap };
     private void Fill(GearAdvice advice, bool comparisonRight = false)
     {
-        var key = advice.ClassLabel + advice.Title + advice.SlotLabel + advice.BindingRead + comparisonRight + string.Join("|", advice.Targets.Concat(advice.Skills).Select(t => t.Name + t.Present));
+        var key = advice.ClassLabel + advice.Build + advice.Note + advice.Title + advice.SlotLabel + advice.BindingRead + comparisonRight + string.Join("|", advice.Targets.Concat(advice.Skills).Select(t => t.Name + t.Present));
         if (_key == key) return; _key = key; _body.Children.Clear();
         var brand = new Grid(); brand.ColumnDefinitions.Add(new()); brand.ColumnDefinitions.Add(new() { Width = GridLength.Auto });
         brand.Children.Add(Text("A U R U M  /  BiS", 11, "#E8C77F", FontWeights.SemiBold));
@@ -41,6 +41,9 @@ internal sealed class ItemAdviceWindow : Window
             Child = Text("PvE DPS", 9, "#F0D48E", FontWeights.SemiBold) }; Grid.SetColumn(mode, 1); brand.Children.Add(mode); _body.Children.Add(brand);
         var title = Text(advice.ClassLabel + "  ·  " + advice.SlotLabel, 16, "#F7F0DC", FontWeights.SemiBold); title.Margin = new Thickness(0, 11, 0, 3); _body.Children.Add(title);
         var item = Text(advice.Title, 11, "#BAAF98"); item.TextTrimming = TextTrimming.CharacterEllipsis; item.TextWrapping = TextWrapping.NoWrap; _body.Children.Add(item);
+        if (!string.IsNullOrEmpty(advice.Build)) {
+            var build = Text(advice.Build, 10, "#96B2BE"); build.Margin = new Thickness(0, 4, 0, 0); _body.Children.Add(build);
+        }
         if (comparisonRight)
         {
             var source = Text("PRZEDMIOT Z INVENTORY · PRAWY TOOLTIP", 8.5, "#9EB8BF"); source.Margin = new Thickness(0, 6, 0, 0); _body.Children.Add(source);
@@ -57,7 +60,7 @@ internal sealed class ItemAdviceWindow : Window
         var status = Text(recognised, 9.5, "#9EAAAB"); status.Margin = new Thickness(0, 8, 0, 0); _body.Children.Add(status);
         if (advice.Skills.Count > 0)
         {
-            var caption = Text("BONUS +1 DLA TWOJEJ KLASY", 9, "#B6A682", FontWeights.SemiBold); caption.Margin = new Thickness(0, 14, 0, 5); _body.Children.Add(caption);
+            var caption = Text("PRIORYTETY +1 · UZUPEŁNIJ BRAKUJĄCE POZIOMY", 8.5, "#B6A682", FontWeights.SemiBold); caption.Margin = new Thickness(0, 14, 0, 5); _body.Children.Add(caption);
             foreach (var skill in advice.Skills)
             {
                 var line = Text((skill.Present ? "✓  " : "·  ") + skill.Name, 12, skill.Present ? "#B1E7C2" : "#E7DDC5"); line.Margin = new Thickness(0, 2, 0, 0); _body.Children.Add(line);
@@ -105,4 +108,11 @@ internal sealed class ItemAdviceWindow : Window
         var composite = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32); composite.Render(drawing); Save(composite, Path.Combine(directory, "item-advice-example.png")); Close();
     }
     private static void Save(BitmapSource image, string path) { var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(image)); using var file = File.Create(path); encoder.Save(file); }
+    internal double RenderPanelPreview(GearAdvice advice, string output)
+    {
+        Fill(advice); _frame.Measure(new Size(310, double.PositiveInfinity)); Height = _frame.DesiredSize.Height;
+        _frame.Arrange(new Rect(0, 0, 310, Height));
+        var bitmap = new RenderTargetBitmap(310, (int)Math.Ceiling(Height), 96, 96, PixelFormats.Pbgra32); bitmap.Render(_frame); Save(bitmap, output);
+        var height = Height; Close(); return height;
+    }
 }

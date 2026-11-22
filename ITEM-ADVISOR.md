@@ -19,11 +19,14 @@ or a command to reroll. They do not calculate skill breakpoints, caps, set bonus
 value of replacing the whole current loadout. Exact percentage/value maxima are omitted
 because they depend on the item and its level. Unknown classes/slots get no invented profile.
 
-Profiles cover the eight verified classes, 13 Soul Binding equipment slots, class damage
-actives/passives and useful alternative lines. Boots/earring movement is utility, separately
-listed. The disputed shoulder Double Chance line is omitted pending global-client confirmation.
-Skill bonus eligibility follows the verified weapon/ring active and armour/cloak/necklace/
-earring passive division; off-hand skill recommendations are omitted pending verification.
+Profiles cover eight Global classes and 13 explicit Soul Binding slot plans for each class.
+Each has a build name, own skill priorities, stat order, conditions and multiple sources.
+Shared useful stats remain shared where supported; there is no generic fallback build.
+Boot/earring movement is utility, separately listed. Shoulder Double Chance is now included,
+cross-checked against the Global Sorcerer gearing guide and the slot table.
+Rings recommend active skill lines; armour/cloak/necklace/earrings recommend the selected
+class's damage passives. Weapon/off-hand advice prioritises damage rolls rather than
+displacing them with skill lines. See BIS-RESEARCH.md for the per-class decisions.
 
 The green check means OCR recognised that target inside Soul Binding. It does not evaluate
 roll quality. Base stats and gem/socket stats are excluded; a section boundary and a large

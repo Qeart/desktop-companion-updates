@@ -7,11 +7,14 @@ the DPS/HEAL tab. Class comes from the exact local player in CombatTracker.
 
 ## Content
 
-Five card slots and eight verified classes have card-specific skill goals. The Chanter
-plan is four Primal Vigor cards and Bell of Magic; the set's HP >=70% condition is printed
-in the panel. Other profiles use this explicitly stated DPS starting plan and legal skill
-pools; they are not simulations of every gear/MP/tanking situation. Alternative card stats
-are shown separately. The panel does not assert that an entire set is already equipped.
+Five card slots and eight Global classes have explicit per-class cards, main stats,
+ordered skill priorities, conditional secondary goals and set plans. There is no generic
+card or hard-coded four-Vigor plan. Chanter/Gladiator/Templar/Spiritmaster use 3 Vigor +
+2 Magic; Ranger 2 + 3; Assassin/Sorcerer/Cleric 4 + 1. These are selected documented
+PvE DPS variants, not simulations of every loadout. Alternatives and the Vigor HP >=70%
+condition are printed in the panel. See BIS-RESEARCH.md for choices and conflicting sources.
+The panel does not assert that an entire set is already equipped. Unknown classes and
+missing slots of an explicit profile never fall back to another build.
 
 The selected screenshot Chalice has the recommended Time [Siel] stat (Combat Speed),
 and carries Dark Crush and Onslaught. Presence checks are green. Skill bonus numbers
@@ -48,10 +51,11 @@ not confirmed by OCR is labelled "nie potwierdzono", rather than asserted absent
 ## Sources checked 22 November 2026
 
 Short factual card/stat/skill names are recorded in data/arcana-advice.json; guide prose
-is not copied. Source URLs are stored per class:
+is not copied. Multiple source URLs, legal skill pools, build name and conditions are stored
+per class. BIS-RESEARCH.md records the research and the selected Global variants:
 
-- https://aion2.gg/guides/chanter-pve-build — card pools, DPS skill targets, card main stats,
-  four-Vigor-plus-Bell-of-Magic plan and the health condition.
+- https://aion2.gg/guides/chanter-pve-build — card pools, card main stats and the health condition;
+  its four-Vigor recommendation is retained as an alternative to the selected Wisdom build.
 - https://aion2.gg/guides/gladiator-pve-build
 - https://aion2.gg/guides/templar-pve-build
 - https://aion2.gg/guides/assassin-pve-build

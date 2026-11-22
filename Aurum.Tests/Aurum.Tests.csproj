@@ -7,4 +7,5 @@
   <ProjectReference Include="../Aurum.Distribution/Aurum.Distribution.csproj" />
   <Using Include="Xunit" />
  </ItemGroup>
+ <ItemGroup><None Include="../data/gear-advice.json;../data/arcana-advice.json" Link="bis-data/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
 </Project>

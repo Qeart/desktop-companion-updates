@@ -1,29 +1,1192 @@
 {
   "VerifiedOn": "2026-11-22",
   "Mode": "PvE DPS",
-  "Cards": [
-    { "Slot": "Chalice", "Label": "Kielich", "Family": "Vigor", "Stat": "Time [Siel]", "Effect": "Combat Speed", "Alternative": "Space [Israphel]: Block / Move Speed" },
-    { "Slot": "Parchment", "Label": "Pergamin", "Family": "Vigor", "Stat": "Life [Yustiel]", "Effect": "HP · część zestawu Primal Vigor", "Alternative": "Destiny [Marchutan]: MP" },
-    { "Slot": "Compass", "Label": "Kompas", "Family": "Vigor", "Stat": "Freedom [Vaizel]", "Effect": "Accuracy", "Alternative": "Death [Triniel]: Critical Hit" },
-    { "Slot": "Bell", "Label": "Dzwon", "Family": "Magic", "Stat": "Destruction [Zikel]", "Effect": "Attack", "Alternative": "Justice [Nezekan]: Defense / Perfect Chance" },
-    { "Slot": "Mirror", "Label": "Lustro", "Family": "Vigor", "Stat": "Illusion [Kaisinel]", "Effect": "Cooldown Reduction", "Alternative": "Wisdom [Lumiel]: Double Chance" }
-  ],
+  "Cards": [],
   "Classes": [
-    { "Class": "Chanter", "Label": "Chanter", "Source": "https://aion2.gg/guides/chanter-pve-build", "Goals": {
-      "Chalice": ["Dark Crush", "Spinning Strike", "Onslaught"], "Parchment": ["Dark Crush", "Spinning Strike", "Onslaught"], "Compass": ["Incandescent Blow", "Impactful Crush"], "Bell": ["Attack Preparation"], "Mirror": ["Wind's Promise", "Earth's Promise", "Impact Hit"] } },
-    { "Class": "Gladiator", "Label": "Gladiator", "Source": "https://aion2.gg/guides/gladiator-pve-build", "Goals": {
-      "Chalice": ["Overhead Slam", "Ruinous Blow", "Rending Blow"], "Parchment": ["Overhead Slam", "Ruinous Blow"], "Compass": ["Rending Blow", "Crushing Wave"], "Bell": ["Attack Preparation"], "Mirror": ["Experienced Counterstrike", "Murderous Burst", "Identify Weakness"] } },
-    { "Class": "Templar", "Label": "Templar", "Source": "https://aion2.gg/guides/templar-pve-build", "Goals": {
-      "Chalice": ["Judgment", "Fury"], "Parchment": ["Judgment", "Punishment", "Vicious Strike"], "Compass": ["Pummel", "Warding Strike", "Shield Smite"], "Bell": ["Fury"], "Mirror": ["Impact Hit"] } },
-    { "Class": "Assassin", "Label": "Assassin", "Source": "https://aion2.gg/guides/assassin-pve-build", "Goals": {
-      "Chalice": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Parchment": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Compass": ["Ambush", "Savage Roar"], "Bell": ["Assault Stance"], "Mirror": ["Rear Smite", "Exploit Weakness"] } },
-    { "Class": "Ranger", "Label": "Ranger", "Source": "https://aion2.gg/guides/ranger-pve-build", "Goals": {
-      "Chalice": ["Deadshot", "Drill Dart", "Tempest Shot"], "Parchment": ["Drill Dart", "Tempest Shot", "Snipe"], "Compass": ["Deadshot", "Gale Arrow"], "Bell": ["Hunter's Resolve"], "Mirror": ["Focused Eye", "Hunter's Soul"] } },
-    { "Class": "Sorcerer", "Label": "Sorcerer", "Source": "https://aion2.gg/guides/sorcerer-pve-build", "Goals": {
-      "Chalice": ["Hellfire", "Blaze", "Firestorm"], "Parchment": ["Hellfire", "Blaze", "Firestorm"], "Compass": ["Bittercold Wind"], "Bell": ["Fire Mark"], "Mirror": ["Robe of Flame", "Grace of Enhancement"] } },
-    { "Class": "Elementalist", "Label": "Spiritmaster", "Source": "https://aion2.gg/guides/spiritmaster-pve-build", "Goals": {
-      "Chalice": ["Combustion", "Elemental Fusion"], "Parchment": ["Elemental Fusion", "Summon: Fire Spirit", "Jointstrike: Curse"], "Compass": ["Combustion"], "Bell": ["Spirit Strike", "Element Unification"], "Mirror": ["Corrode", "Mental Focus"] } },
-    { "Class": "Cleric", "Label": "Cleric", "Source": "https://aion2.gg/guides/cleric-pve-build", "Goals": {
-      "Chalice": ["Condemnation", "Earth's Retribution"], "Parchment": ["Condemnation", "Earth's Retribution", "Chain of Torment"], "Compass": ["Judgment Thunder", "Divine Aura"], "Bell": ["Empyrean Lord's Grace"], "Mirror": ["Earth's Grace", "Radiant Benediction"] } }
-  ]
+    {
+      "Class": "Chanter",
+      "Label": "Chanter",
+      "Source": "https://aion2.gg/guides/chanter-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Dark Crush",
+          "Spinning Strike",
+          "Onslaught"
+        ],
+        "Parchment": [
+          "Dark Crush",
+          "Spinning Strike",
+          "Onslaught"
+        ],
+        "Compass": [
+          "Incandescent Blow",
+          "Impactful Crush"
+        ],
+        "Bell": [
+          "Attack Preparation"
+        ],
+        "Mirror": [
+          "Impact Hit",
+          "Wind's Promise",
+          "Inspiring Spell"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/chanter-pve-build",
+        "https://aion2-guides.info/en/chanter/"
+      ],
+      "Build": "Dark Crush · ofensywny Chanter",
+      "Plan": "3× Vigor + 2× Magic · Wisdom pod Double Chance. Vigor działa przy HP ≥70%.",
+      "Note": "Wariant 4× Vigor: Mirror / Illusion zamiast Wisdom. To wybór bonusu zestawu kosztem Double Chance.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Magic",
+          "Stat": "Wisdom [Lumiel]",
+          "Effect": "Double Chance",
+          "Alternative": "Vigor · Illusion [Kaisinel]: cooldowny lub domknięcie 4× Vigor"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [
+          "Incandescent Blow"
+        ],
+        "Parchment": [],
+        "Compass": [
+          "Recuperation"
+        ],
+        "Bell": [],
+        "Mirror": [
+          "Earth's Promise"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Dark Crush",
+          "Spinning Strike",
+          "Onslaught",
+          "Rushing Smash",
+          "Heat Wave Blow",
+          "Wave Blow"
+        ],
+        "Compass": [
+          "Incandescent Blow",
+          "Impactful Crush",
+          "Tremor Crush",
+          "Recuperation",
+          "Gust Rampage",
+          "Defiance"
+        ],
+        "Bell": [
+          "Blessing of Life",
+          "Protection Circle",
+          "Attack Preparation",
+          "Raging Spell",
+          "Survival Willpower"
+        ],
+        "Mirror": [
+          "Crossguard",
+          "Inspiring Spell",
+          "Impact Hit",
+          "Earth's Promise",
+          "Wind's Promise"
+        ],
+        "Chalice": [
+          "Dark Crush",
+          "Spinning Strike",
+          "Onslaught",
+          "Rushing Smash",
+          "Heat Wave Blow",
+          "Wave Blow",
+          "Incandescent Blow",
+          "Impactful Crush",
+          "Tremor Crush",
+          "Recuperation",
+          "Gust Rampage",
+          "Defiance",
+          "Blessing of Life",
+          "Protection Circle",
+          "Attack Preparation",
+          "Raging Spell",
+          "Survival Willpower",
+          "Crossguard",
+          "Inspiring Spell",
+          "Impact Hit",
+          "Earth's Promise",
+          "Wind's Promise"
+        ]
+      }
+    },
+    {
+      "Class": "Gladiator",
+      "Label": "Gladiator",
+      "Source": "https://aion2.gg/guides/gladiator-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Overhead Slam",
+          "Rending Blow",
+          "Ruinous Blow"
+        ],
+        "Parchment": [
+          "Overhead Slam",
+          "Ruinous Blow"
+        ],
+        "Compass": [
+          "Rending Blow",
+          "Crushing Wave"
+        ],
+        "Bell": [
+          "Attack Preparation"
+        ],
+        "Mirror": [
+          "Experienced Counterstrike",
+          "Murderous Burst",
+          "Impact Hit"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/gladiator-pve-build",
+        "https://aion2-guides.info/en/gladiator/",
+        "https://aion.nerfplz.com/builds/gladiator/pve-overhead-slam/"
+      ],
+      "Build": "Overhead Slam · obrażenia z przodu",
+      "Plan": "3× Vigor + 2× Magic · Freedom pod Accuracy, Wisdom pod Double Chance. Vigor: HP ≥70%.",
+      "Note": "Mirror / Illusion daje wariant 4× Vigor. Nie wymieniaj dobrych poziomów skilli wyłącznie dla koloru karty.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Magic",
+          "Stat": "Wisdom [Lumiel]",
+          "Effect": "Double Chance",
+          "Alternative": "Vigor · Illusion [Kaisinel]: cooldowny lub domknięcie 4× Vigor"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [],
+        "Parchment": [],
+        "Compass": [
+          "Rush Strike"
+        ],
+        "Bell": [],
+        "Mirror": [
+          "Identify Weakness"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Keen Strike",
+          "Ruinous Blow",
+          "Overhead Slam",
+          "Leaping Slam",
+          "Ankle Slice",
+          "Aerial Snare"
+        ],
+        "Compass": [
+          "Rending Blow",
+          "Crushing Wave",
+          "Defiance",
+          "Sword Aura Rampage",
+          "Mocking Blade",
+          "Rush Strike"
+        ],
+        "Bell": [
+          "Survival Stance",
+          "Blood Absorption",
+          "Attack Preparation",
+          "Destructive Impulse",
+          "Survival Willpower"
+        ],
+        "Mirror": [
+          "Protection Armor",
+          "Identify Weakness",
+          "Impact Hit",
+          "Experienced Counterstrike",
+          "Murderous Burst"
+        ],
+        "Chalice": [
+          "Keen Strike",
+          "Ruinous Blow",
+          "Overhead Slam",
+          "Leaping Slam",
+          "Ankle Slice",
+          "Aerial Snare",
+          "Rending Blow",
+          "Crushing Wave",
+          "Defiance",
+          "Sword Aura Rampage",
+          "Mocking Blade",
+          "Rush Strike",
+          "Survival Stance",
+          "Blood Absorption",
+          "Attack Preparation",
+          "Destructive Impulse",
+          "Survival Willpower",
+          "Protection Armor",
+          "Identify Weakness",
+          "Impact Hit",
+          "Experienced Counterstrike",
+          "Murderous Burst"
+        ]
+      }
+    },
+    {
+      "Class": "Templar",
+      "Label": "Templar",
+      "Source": "https://aion2.gg/guides/templar-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Pummel",
+          "Punishment",
+          "Judgment"
+        ],
+        "Parchment": [
+          "Judgment",
+          "Punishment",
+          "Vicious Strike"
+        ],
+        "Compass": [
+          "Pummel",
+          "Shield Smite",
+          "Warding Strike"
+        ],
+        "Bell": [
+          "Fury",
+          "Insulting Roar"
+        ],
+        "Mirror": [
+          "Impact Hit"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/templar-pve-build",
+        "https://aion2-guides.info/en/templar/",
+        "https://aion.nerfplz.com/builds/templar/pve-judgment/",
+        "https://solashur.com/builds/templar-global-build.html"
+      ],
+      "Build": "Judgment / Pummel · Templar DPS",
+      "Plan": "3× Vigor + 2× Magic · Freedom pod Accuracy, Wisdom pod Double Chance. Vigor: HP ≥70%.",
+      "Note": "Death na kompasie jest wariantem przy wystarczającej Accuracy. Ironclad Defense / Warding Shield służą przeżywalności.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Magic",
+          "Stat": "Wisdom [Lumiel]",
+          "Effect": "Double Chance",
+          "Alternative": "Vigor · Illusion [Kaisinel]: cooldowny lub domknięcie 4× Vigor"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [
+          "Fury"
+        ],
+        "Parchment": [],
+        "Compass": [],
+        "Bell": [
+          "Punishing Benediction"
+        ],
+        "Mirror": [
+          "Ironclad Defense",
+          "Warding Shield"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Vicious Strike",
+          "Poach",
+          "Annihilate",
+          "Judgment",
+          "Debilitating Smash",
+          "Punishment"
+        ],
+        "Compass": [
+          "Pummel",
+          "Shield Smite",
+          "Shield Rush",
+          "Warding Strike",
+          "Flash Rampage",
+          "Defiance"
+        ],
+        "Bell": [
+          "Enhance Health",
+          "Punishing Benediction",
+          "Guarding Seal",
+          "Insulting Roar",
+          "Fury"
+        ],
+        "Mirror": [
+          "Warding Shield",
+          "Ironclad Defense",
+          "Impact Hit",
+          "Survival Willpower",
+          "Block Pain"
+        ],
+        "Chalice": [
+          "Vicious Strike",
+          "Poach",
+          "Annihilate",
+          "Judgment",
+          "Debilitating Smash",
+          "Punishment",
+          "Pummel",
+          "Shield Smite",
+          "Shield Rush",
+          "Warding Strike",
+          "Flash Rampage",
+          "Defiance",
+          "Enhance Health",
+          "Punishing Benediction",
+          "Guarding Seal",
+          "Insulting Roar",
+          "Fury",
+          "Warding Shield",
+          "Ironclad Defense",
+          "Impact Hit",
+          "Survival Willpower",
+          "Block Pain"
+        ]
+      }
+    },
+    {
+      "Class": "Assassin",
+      "Label": "Assassin",
+      "Source": "https://aion2.gg/guides/assassin-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Heart Gore",
+          "Insignia Explosion",
+          "Quick Slice"
+        ],
+        "Parchment": [
+          "Heart Gore",
+          "Insignia Explosion",
+          "Quick Slice"
+        ],
+        "Compass": [
+          "Ambush",
+          "Savage Roar",
+          "Storm Rampage"
+        ],
+        "Bell": [
+          "Assault Stance"
+        ],
+        "Mirror": [
+          "Rear Smite",
+          "Exploit Weakness",
+          "Impact Hit"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/assassin-pve-build",
+        "https://aion2-guides.info/en/assassin/",
+        "https://aion.nerfplz.com/builds/assassin/pve-heart-gore/"
+      ],
+      "Build": "Heart Gore · krytyk i atak od tyłu",
+      "Plan": "4× Vigor + Bell of Magic · Illusion pod cooldowny. Bonus Vigor wymaga HP ≥70%.",
+      "Note": "Trzy główne skille dzielą Parchment. Chalice uzupełnia brakujące poziomy; Wisdom jest alternatywą kosztem cooldownów i 4-setu.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Vigor",
+          "Stat": "Illusion [Kaisinel]",
+          "Effect": "Cooldown Reduction",
+          "Alternative": "Magic · Wisdom [Lumiel]: Double Chance kosztem cooldownów / 4-setu"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [],
+        "Parchment": [],
+        "Compass": [],
+        "Bell": [
+          "Ambush Stance"
+        ],
+        "Mirror": []
+      },
+      "Pools": {
+        "Parchment": [
+          "Quick Slice",
+          "Shadowstrike",
+          "Insignia Explosion",
+          "Whirlwind Slice",
+          "Shadow Fall",
+          "Heart Gore"
+        ],
+        "Compass": [
+          "Flash Slice",
+          "Ambush",
+          "Savage Roar",
+          "Defiance",
+          "Storm Rampage",
+          "Infiltrate"
+        ],
+        "Bell": [
+          "Heightened Sixth Sense",
+          "Apply Poison",
+          "Assault Stance",
+          "Ambush Stance",
+          "Revitalization Contract"
+        ],
+        "Mirror": [
+          "Exploit Weakness",
+          "Rear Smite",
+          "Impact Hit",
+          "Defense Break",
+          "Determination"
+        ],
+        "Chalice": [
+          "Quick Slice",
+          "Shadowstrike",
+          "Insignia Explosion",
+          "Whirlwind Slice",
+          "Shadow Fall",
+          "Heart Gore",
+          "Flash Slice",
+          "Ambush",
+          "Savage Roar",
+          "Defiance",
+          "Storm Rampage",
+          "Infiltrate",
+          "Heightened Sixth Sense",
+          "Apply Poison",
+          "Assault Stance",
+          "Ambush Stance",
+          "Revitalization Contract",
+          "Exploit Weakness",
+          "Rear Smite",
+          "Impact Hit",
+          "Defense Break",
+          "Determination"
+        ]
+      }
+    },
+    {
+      "Class": "Ranger",
+      "Label": "Ranger",
+      "Source": "https://aion2.gg/guides/ranger-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Deadshot",
+          "Gale Arrow",
+          "Tempest Shot"
+        ],
+        "Parchment": [
+          "Snipe",
+          "Tempest Shot",
+          "Drill Dart"
+        ],
+        "Compass": [
+          "Deadshot",
+          "Gale Arrow"
+        ],
+        "Bell": [
+          "Hunter's Resolve"
+        ],
+        "Mirror": [
+          "Focused Eye",
+          "Hunter's Soul",
+          "Concentrated Fire"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/ranger-pve-build",
+        "https://aion2-guides.info/en/ranger/",
+        "https://aion.nerfplz.com/builds/ranger/pve-deadshot/"
+      ],
+      "Build": "Deadshot / Gale Arrow · Ranger DPS",
+      "Plan": "2× Vigor + 3× Magic · Death pod Critical Hit, Wisdom pod Double Chance. Vigor: HP ≥70%.",
+      "Note": "Wariant Accuracy: Compass / Freedom. Wariant 4× Vigor wymaga również Mirror / Illusion; nie ma wtedy Wisdom.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Magic",
+          "Stat": "Death [Triniel]",
+          "Effect": "Critical Hit",
+          "Alternative": "Vigor · Freedom [Vaizel]: gdy brakuje Accuracy"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Magic",
+          "Stat": "Wisdom [Lumiel]",
+          "Effect": "Double Chance",
+          "Alternative": "Vigor · Illusion [Kaisinel]: cooldowny; 4× Vigor wymaga też Compass / Freedom"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [],
+        "Parchment": [
+          "Burst Arrow"
+        ],
+        "Compass": [
+          "Marking Shot"
+        ],
+        "Bell": [
+          "Rooting Eye"
+        ],
+        "Mirror": []
+      },
+      "Pools": {
+        "Parchment": [
+          "Snipe",
+          "Drill Dart",
+          "Burst Arrow",
+          "Snare Shot",
+          "Explosion Trap",
+          "Tempest Shot"
+        ],
+        "Compass": [
+          "Deadshot",
+          "Suppressing Arrow",
+          "Marking Shot",
+          "Gale Arrow",
+          "Defiance",
+          "Arrow Scattershot"
+        ],
+        "Bell": [
+          "Vigilant Eye",
+          "Wind Vigor",
+          "Hunter's Resolve",
+          "Rooting Eye",
+          "Revitalization Contract"
+        ],
+        "Mirror": [
+          "Concentrated Fire",
+          "Focused Eye",
+          "Unyielding Resolve",
+          "Melee Fire",
+          "Hunter's Soul"
+        ],
+        "Chalice": [
+          "Snipe",
+          "Drill Dart",
+          "Burst Arrow",
+          "Snare Shot",
+          "Explosion Trap",
+          "Tempest Shot",
+          "Deadshot",
+          "Suppressing Arrow",
+          "Marking Shot",
+          "Gale Arrow",
+          "Defiance",
+          "Arrow Scattershot",
+          "Vigilant Eye",
+          "Wind Vigor",
+          "Hunter's Resolve",
+          "Rooting Eye",
+          "Revitalization Contract",
+          "Concentrated Fire",
+          "Focused Eye",
+          "Unyielding Resolve",
+          "Melee Fire",
+          "Hunter's Soul"
+        ]
+      }
+    },
+    {
+      "Class": "Sorcerer",
+      "Label": "Sorcerer",
+      "Source": "https://aion2.gg/guides/sorcerer-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Wish of Concentration",
+          "Hellfire",
+          "Blaze"
+        ],
+        "Parchment": [
+          "Wish of Concentration",
+          "Hellfire",
+          "Blaze"
+        ],
+        "Compass": [
+          "Bittercold Wind",
+          "Winter's Shackles"
+        ],
+        "Bell": [
+          "Fire Mark"
+        ],
+        "Mirror": [
+          "Robe of Flame",
+          "Grace of Enhancement",
+          "Robe of Earth"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/sorcerer-pve-build",
+        "https://aion2-guides.info/en/sorcerer/"
+      ],
+      "Build": "Wish of Concentration / Hellfire · ogień",
+      "Plan": "4× Vigor + Bell of Magic · Freedom pod Accuracy, Illusion pod cooldowny. Vigor: HP ≥70%.",
+      "Note": "Wisdom daje wariant Double Chance, lecz zdejmuje 4-set Vigor. Linie skilli i progi specjalizacji mają pierwszeństwo.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Vigor",
+          "Stat": "Illusion [Kaisinel]",
+          "Effect": "Cooldown Reduction",
+          "Alternative": "Magic · Wisdom [Lumiel]: Double Chance kosztem cooldownów / 4-setu"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [
+          "Firestorm"
+        ],
+        "Parchment": [
+          "Firestorm",
+          "Flame Arrow"
+        ],
+        "Compass": [
+          "Flame Scattershot"
+        ],
+        "Bell": [],
+        "Mirror": [
+          "Vitality Evaporation"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Firestorm",
+          "Blaze",
+          "Hellfire",
+          "Flame Arrow",
+          "Frost Burst",
+          "Wish of Concentration"
+        ],
+        "Compass": [
+          "Flame Scattershot",
+          "Ice Chain",
+          "Winter's Shackles",
+          "Frost",
+          "Defiance",
+          "Bittercold Wind"
+        ],
+        "Bell": [
+          "Fire Mark",
+          "Cold Snap",
+          "Robe of Cold",
+          "Grace of Resistance",
+          "Revitalization Contract"
+        ],
+        "Mirror": [
+          "Robe of Earth",
+          "Robe of Flame",
+          "Absorb Essence",
+          "Grace of Enhancement",
+          "Vitality Evaporation"
+        ],
+        "Chalice": [
+          "Firestorm",
+          "Blaze",
+          "Hellfire",
+          "Flame Arrow",
+          "Frost Burst",
+          "Wish of Concentration",
+          "Flame Scattershot",
+          "Ice Chain",
+          "Winter's Shackles",
+          "Frost",
+          "Defiance",
+          "Bittercold Wind",
+          "Fire Mark",
+          "Cold Snap",
+          "Robe of Cold",
+          "Grace of Resistance",
+          "Revitalization Contract",
+          "Robe of Earth",
+          "Robe of Flame",
+          "Absorb Essence",
+          "Grace of Enhancement",
+          "Vitality Evaporation"
+        ]
+      }
+    },
+    {
+      "Class": "Elementalist",
+      "Label": "Spiritmaster",
+      "Source": "https://aion2.gg/guides/spiritmaster-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Elemental Fusion",
+          "Mental Focus",
+          "Spirit Strike"
+        ],
+        "Parchment": [
+          "Elemental Fusion",
+          "Summon: Fire Spirit",
+          "Jointstrike: Curse"
+        ],
+        "Compass": [
+          "Combustion",
+          "Summon: Water Spirit"
+        ],
+        "Bell": [
+          "Spirit Strike",
+          "Element Unification"
+        ],
+        "Mirror": [
+          "Mental Focus",
+          "Corrode"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/spiritmaster-pve-build",
+        "https://aion2-guides.info/en/elementalist/",
+        "https://aion.nerfplz.com/builds/spiritmaster/pve-fire-spirit/",
+        "https://aion2sm.com/global/"
+      ],
+      "Build": "Elemental Fusion · Spiritmaster DPS",
+      "Plan": "3× Vigor + 2× Magic · Freedom pod Accuracy, Wisdom pod Double Chance. Vigor: HP ≥70%.",
+      "Note": "Mirror / Illusion jest wariantem cooldownów i 4× Vigor. Mental Focus ma wyższy priorytet od defensywnych pasywek.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Magic",
+          "Stat": "Wisdom [Lumiel]",
+          "Effect": "Double Chance",
+          "Alternative": "Vigor · Illusion [Kaisinel]: cooldowny lub domknięcie 4× Vigor"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [
+          "Combustion"
+        ],
+        "Parchment": [
+          "Cold Shock"
+        ],
+        "Compass": [],
+        "Bell": [
+          "Spirit's Descent"
+        ],
+        "Mirror": [
+          "Consecutive Countercurrent"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Cold Shock",
+          "Summon: Fire Spirit",
+          "Summon: Earth Spirit",
+          "Jointstrike: Curse",
+          "Elemental Fusion",
+          "Dimensional Control"
+        ],
+        "Compass": [
+          "Combustion",
+          "Soul's Cry",
+          "Summon: Water Spirit",
+          "Summon: Wind Spirit",
+          "Defiance",
+          "Rapid Scattershot"
+        ],
+        "Bell": [
+          "Spirit Strike",
+          "Spirit's Descent",
+          "Spirit Revitalization",
+          "Spirit Communion",
+          "Element Unification"
+        ],
+        "Mirror": [
+          "Spirit Protection",
+          "Corrode",
+          "Mental Focus",
+          "Revitalization Contract",
+          "Consecutive Countercurrent"
+        ],
+        "Chalice": [
+          "Cold Shock",
+          "Summon: Fire Spirit",
+          "Summon: Earth Spirit",
+          "Jointstrike: Curse",
+          "Elemental Fusion",
+          "Dimensional Control",
+          "Combustion",
+          "Soul's Cry",
+          "Summon: Water Spirit",
+          "Summon: Wind Spirit",
+          "Defiance",
+          "Rapid Scattershot",
+          "Spirit Strike",
+          "Spirit's Descent",
+          "Spirit Revitalization",
+          "Spirit Communion",
+          "Element Unification",
+          "Spirit Protection",
+          "Corrode",
+          "Mental Focus",
+          "Revitalization Contract",
+          "Consecutive Countercurrent"
+        ]
+      }
+    },
+    {
+      "Class": "Cleric",
+      "Label": "Cleric",
+      "Source": "https://aion2.gg/guides/cleric-pve-build",
+      "Goals": {
+        "Chalice": [
+          "Condemnation",
+          "Bolt",
+          "Earth's Retribution"
+        ],
+        "Parchment": [
+          "Condemnation",
+          "Bolt",
+          "Earth's Retribution"
+        ],
+        "Compass": [
+          "Divine Aura",
+          "Judgment Thunder"
+        ],
+        "Bell": [
+          "Empyrean Lord's Grace"
+        ],
+        "Mirror": [
+          "Earth's Grace"
+        ]
+      },
+      "Sources": [
+        "https://aion2.gg/guides/cleric-pve-build",
+        "https://aion2-guides.info/en/cleric/",
+        "https://aion.nerfplz.com/builds/cleric/pve-battle-cleric/"
+      ],
+      "Build": "Condemnation / Bolt · Cleric DPS",
+      "Plan": "4× Vigor + Bell of Magic · Illusion pod cooldowny Condemnation. Vigor wymaga HP ≥70%.",
+      "Note": "Death zamiast Freedom jest wariantem krytyka przy dobrej Accuracy (3× Vigor). Healing Enhancement / Radiant Benediction to użyteczność.",
+      "Cards": [
+        {
+          "Slot": "Chalice",
+          "Label": "Kielich",
+          "Family": "Vigor",
+          "Stat": "Time [Siel]",
+          "Effect": "Combat Speed",
+          "Alternative": "Magic · Space [Israphel]: wariant obrony; traci Combat Speed"
+        },
+        {
+          "Slot": "Parchment",
+          "Label": "Pergamin",
+          "Family": "Vigor",
+          "Stat": "Life [Yustiel]",
+          "Effect": "HP / Regeneration",
+          "Alternative": "Magic · Destiny [Marchutan]: dobieraj do bonusu zestawu i poziomów skilli"
+        },
+        {
+          "Slot": "Compass",
+          "Label": "Kompas",
+          "Family": "Vigor",
+          "Stat": "Freedom [Vaizel]",
+          "Effect": "Accuracy",
+          "Alternative": "Magic · Death [Triniel]: gdy wystarcza Accuracy i brakuje krytyka"
+        },
+        {
+          "Slot": "Bell",
+          "Label": "Dzwon",
+          "Family": "Magic",
+          "Stat": "Destruction [Zikel]",
+          "Effect": "Attack",
+          "Alternative": "Vigor · Justice [Nezekan]: Perfect Chance / przeżywalność; traci Attack"
+        },
+        {
+          "Slot": "Mirror",
+          "Label": "Lustro",
+          "Family": "Vigor",
+          "Stat": "Illusion [Kaisinel]",
+          "Effect": "Cooldown Reduction",
+          "Alternative": "Magic · Wisdom [Lumiel]: Double Chance kosztem cooldownów / 4-setu"
+        }
+      ],
+      "SecondaryGoals": {
+        "Chalice": [
+          "Divine Aura"
+        ],
+        "Parchment": [
+          "Chain of Torment"
+        ],
+        "Compass": [],
+        "Bell": [],
+        "Mirror": [
+          "Healing Enhancement",
+          "Radiant Benediction"
+        ]
+      },
+      "Pools": {
+        "Parchment": [
+          "Earth's Retribution",
+          "Debilitating Mark",
+          "Chain of Torment",
+          "Condemnation",
+          "Radiant Recovery",
+          "Bolt"
+        ],
+        "Compass": [
+          "Judgment Thunder",
+          "Divine Aura",
+          "Light of Regeneration",
+          "Healing Light",
+          "Lightning Strike Scattershot",
+          "Defiance"
+        ],
+        "Bell": [
+          "Warm Benediction",
+          "Empyrean Lord's Grace",
+          "Immortal Veil",
+          "Prayer of Concentration",
+          "Survival Willpower"
+        ],
+        "Mirror": [
+          "Empyrean Lords' Benediction",
+          "Healing Enhancement",
+          "Heal Block",
+          "Radiant Benediction",
+          "Earth's Grace"
+        ],
+        "Chalice": [
+          "Earth's Retribution",
+          "Debilitating Mark",
+          "Chain of Torment",
+          "Condemnation",
+          "Radiant Recovery",
+          "Bolt",
+          "Judgment Thunder",
+          "Divine Aura",
+          "Light of Regeneration",
+          "Healing Light",
+          "Lightning Strike Scattershot",
+          "Defiance",
+          "Warm Benediction",
+          "Empyrean Lord's Grace",
+          "Immortal Veil",
+          "Prayer of Concentration",
+          "Survival Willpower",
+          "Empyrean Lords' Benediction",
+          "Healing Enhancement",
+          "Heal Block",
+          "Radiant Benediction",
+          "Earth's Grace"
+        ]
+      }
+    }
+  ],
+  "Region": "Global · Season 1",
+  "Policy": "Curated PvE DPS targets; conditional alternatives, not a whole-loadout damage simulation."
 }

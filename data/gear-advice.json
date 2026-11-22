@@ -3,32 +3,2194 @@
   "Mode": "PvE DPS",
   "Sources": [
     "https://raidrelay.com/aion-2-best-stats-guide",
-    "https://aion2.gg/guides/chanter-pve-build",
-    "https://aion2-meta.com/guides/"
+    "https://aion2.gg/guides/soulbind-and-substats-explained"
   ],
-  "Slots": [
-    { "Slot": "Weapon", "Label": "Broń", "Targets": ["Combat Speed", "Weapon Damage Boost", "Damage Boost", "Might"], "Useful": ["Precision", "Attack"], "SkillKind": "Active" },
-    { "Slot": "OffHand", "Label": "Osłona / druga ręka", "Targets": ["Combat Speed", "Weapon Damage Boost", "Damage Boost", "Might"], "Useful": ["Precision", "Attack"], "SkillKind": "None" },
-    { "Slot": "Helmet", "Label": "Hełm", "Targets": ["Double Chance", "Attack increase", "Attack"], "Useful": [], "SkillKind": "Passive" },
-    { "Slot": "Shoulders", "Label": "Naramienniki", "Targets": ["Critical Damage Boost", "Attack"], "Useful": ["Accuracy"], "SkillKind": "Passive" },
-    { "Slot": "Chest", "Label": "Pancerz", "Targets": ["Damage Boost", "Perfect Chance", "Attack"], "Useful": ["Accuracy"], "SkillKind": "Passive" },
-    { "Slot": "Legs", "Label": "Spodnie", "Targets": ["Attack increase", "Perfect Chance", "Attack"], "Useful": ["Damage Tolerance"], "SkillKind": "Passive" },
-    { "Slot": "Gloves", "Label": "Rękawice", "Targets": ["Combat Speed", "Perfect Chance", "Attack"], "Useful": [], "SkillKind": "Passive" },
-    { "Slot": "Boots", "Label": "Buty", "Targets": ["Perfect Chance", "Attack"], "Useful": ["Move Speed"], "SkillKind": "Passive" },
-    { "Slot": "Cloak", "Label": "Peleryna", "Targets": ["Double Chance", "Attack increase", "Attack"], "Useful": ["Perfect Chance"], "SkillKind": "Passive" },
-    { "Slot": "Necklace", "Label": "Naszyjnik", "Targets": ["Combat Speed", "Might", "Attack"], "Useful": ["Precision", "Accuracy", "Critical Hit"], "SkillKind": "Passive" },
-    { "Slot": "Earrings", "Label": "Kolczyki", "Targets": ["Might", "Precision", "Attack"], "Useful": ["Move Speed", "Accuracy", "Critical Hit"], "SkillKind": "Passive" },
-    { "Slot": "Ring", "Label": "Pierścień", "Targets": ["Might", "Precision", "Attack"], "Useful": ["Accuracy", "Critical Hit"], "SkillKind": "Active" },
-    { "Slot": "Bracelet", "Label": "Bransoleta", "Targets": ["Time", "Wisdom", "Destruction"], "Useful": ["Death"], "SkillKind": "None" }
-  ],
+  "Slots": [],
   "Classes": [
-    { "Class": "Chanter", "Label": "Chanter", "Active": ["Dark Crush", "Onslaught", "Spinning Strike"], "Passive": ["Attack Preparation", "Impact Hit", "Wind's Promise"], "Note": "Przy pewnych krytach Dark Crush sam Critical Hit ma niższy priorytet. Bonusy +1 dobieraj także do progów specjalizacji.", "Source": "https://aion2.gg/guides/chanter-pve-build" },
-    { "Class": "Gladiator", "Label": "Gladiator", "Active": ["Overhead Slam", "Rending Blow", "Ruinous Blow"], "Passive": ["Murderous Burst", "Impact Hit", "Attack Preparation"], "Note": "Profil nastawiony na obrażenia. Nie zastępuje zestawu do tankowania.", "Source": "https://aion2-meta.com/guides/gladiator/" },
-    { "Class": "Templar", "Label": "Templar", "Active": ["Judgment", "Vicious Strike", "Punishment"], "Passive": ["Fury", "Impact Hit"], "Note": "Profil DPS; tankowanie wymaga osobnego doboru obrony.", "Source": "https://aion2-meta.com/guides/templar/" },
-    { "Class": "Assassin", "Label": "Assassin", "Active": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Passive": ["Rear Smite", "Assault Stance", "Exploit Weakness"], "Note": "Critical Hit ma znaczenie dla kolejnych użyć Heart Gore; uwzględnij statystyki całego zestawu.", "Source": "https://aion2-meta.com/guides/assassin/" },
-    { "Class": "Ranger", "Label": "Ranger", "Active": ["Deadshot", "Tempest Shot", "Snipe"], "Passive": ["Focused Eye", "Hunter's Resolve"], "Note": "Pilnuj Accuracy i Critical Hit w całym zestawie, zanim wymienisz użyteczną linię.", "Source": "https://aion2-meta.com/guides/ranger/" },
-    { "Class": "Sorcerer", "Label": "Sorcerer", "Active": ["Blaze", "Hellfire", "Bittercold Wind"], "Passive": ["Robe of Flame"], "Note": "Bonusy +1 oceniaj razem z aktualnymi poziomami umiejętności i specjalizacjami.", "Source": "https://aion2-meta.com/guides/sorcerer/" },
-    { "Class": "Elementalist", "Label": "Spiritmaster", "Active": ["Elemental Fusion", "Combustion", "Cold Shock"], "Passive": ["Spirit Strike", "Mental Focus", "Element Unification"], "Note": "Profil obrażeń przy grze z przywołanym duchem.", "Source": "https://aion2-meta.com/guides/spiritmaster/" },
-    { "Class": "Cleric", "Label": "Cleric", "Active": ["Condemnation", "Earth's Retribution"], "Passive": ["Empyrean Lord's Grace", "Earth's Grace"], "Note": "Wybrano cele DPS, niezależnie od przełącznika HEAL w liczniku.", "Source": "https://aion2-meta.com/guides/cleric/" }
-  ]
+    {
+      "Class": "Chanter",
+      "Label": "Chanter",
+      "Active": [
+        "Dark Crush",
+        "Spinning Strike",
+        "Onslaught",
+        "Incandescent Blow"
+      ],
+      "Passive": [
+        "Attack Preparation",
+        "Inspiring Spell",
+        "Wind's Promise"
+      ],
+      "Note": "Krytyk oceniaj z aktywnymi specjalizacjami Dark Crush. Pierścienie domykają poziomy skilli; broń zachowuje linie obrażeń.",
+      "Source": "https://aion2.gg/guides/chanter-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/chanter-pve-build",
+        "https://aion2-guides.info/en/chanter/"
+      ],
+      "Build": "Dark Crush · ofensywny Chanter",
+      "Priorities": [
+        "Combat Speed",
+        "Critical Damage Boost",
+        "Weapon Damage Boost",
+        "Double Chance",
+        "Damage Boost"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Precision",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Inspiring Spell",
+            "Wind's Promise"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Dark Crush",
+            "Spinning Strike",
+            "Onslaught",
+            "Incandescent Blow"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Wisdom",
+            "Time",
+            "Destruction"
+          ],
+          "Useful": [
+            "Illusion",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Gladiator",
+      "Label": "Gladiator",
+      "Active": [
+        "Overhead Slam",
+        "Rending Blow",
+        "Ruinous Blow",
+        "Crushing Wave"
+      ],
+      "Passive": [
+        "Attack Preparation",
+        "Experienced Counterstrike",
+        "Murderous Burst"
+      ],
+      "Note": "Accuracy chroni przed parowaniem z przodu. Najpierw domknij Overhead Slam, potem Rending Blow; krytyk oceniaj razem z buffami.",
+      "Source": "https://aion2.gg/guides/gladiator-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/gladiator-pve-build",
+        "https://aion2-guides.info/en/gladiator/",
+        "https://aion.nerfplz.com/builds/gladiator/pve-overhead-slam/"
+      ],
+      "Build": "Overhead Slam · obrażenia z przodu",
+      "Priorities": [
+        "Weapon Damage Boost",
+        "Combat Speed",
+        "Damage Boost",
+        "Might",
+        "Double Chance"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Weapon Damage Boost",
+            "Combat Speed",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Weapon Damage Boost",
+            "Combat Speed",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Attack Preparation",
+            "Experienced Counterstrike",
+            "Murderous Burst"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Overhead Slam",
+            "Rending Blow",
+            "Ruinous Blow",
+            "Crushing Wave"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Wisdom",
+            "Time",
+            "Destruction"
+          ],
+          "Useful": [
+            "Illusion",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Templar",
+      "Label": "Templar",
+      "Active": [
+        "Judgment",
+        "Pummel",
+        "Punishment",
+        "Vicious Strike"
+      ],
+      "Passive": [
+        "Fury",
+        "Impact Hit",
+        "Insulting Roar"
+      ],
+      "Note": "To profil DPS. Fury i Impact Hit są celami ofensywnymi; defensywne linie dobieraj dopiero do przeżywalności. Nie kopiujemy zestawów KR.",
+      "Source": "https://aion2.gg/guides/templar-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/templar-pve-build",
+        "https://aion2-guides.info/en/templar/",
+        "https://aion.nerfplz.com/builds/templar/pve-judgment/",
+        "https://solashur.com/builds/templar-global-build.html"
+      ],
+      "Build": "Judgment / Pummel · Templar DPS",
+      "Priorities": [
+        "Damage Boost",
+        "Weapon Damage Boost",
+        "Combat Speed",
+        "Might",
+        "Double Chance"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Damage Boost",
+            "Weapon Damage Boost",
+            "Combat Speed",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Damage Boost",
+            "Weapon Damage Boost",
+            "Combat Speed",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Fury",
+            "Impact Hit",
+            "Insulting Roar"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Judgment",
+            "Pummel",
+            "Punishment",
+            "Vicious Strike"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Wisdom",
+            "Destruction",
+            "Time"
+          ],
+          "Useful": [
+            "Illusion",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Assassin",
+      "Label": "Assassin",
+      "Active": [
+        "Heart Gore",
+        "Insignia Explosion",
+        "Quick Slice"
+      ],
+      "Passive": [
+        "Rear Smite",
+        "Assault Stance",
+        "Exploit Weakness"
+      ],
+      "Note": "Krytyk otwiera Heart Gore, a Illusion wspiera cooldowny. Nie przekładaj planu Chantera na Assassina; uzupełnij Accuracy przed utratą trafień.",
+      "Source": "https://aion2.gg/guides/assassin-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/assassin-pve-build",
+        "https://aion2-guides.info/en/assassin/",
+        "https://aion.nerfplz.com/builds/assassin/pve-heart-gore/"
+      ],
+      "Build": "Heart Gore · krytyk i atak od tyłu",
+      "Priorities": [
+        "Critical Hit",
+        "Combat Speed",
+        "Weapon Damage Boost",
+        "Damage Boost",
+        "Might"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Critical Hit",
+            "Precision",
+            "Attack"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Critical Hit",
+            "Precision",
+            "Attack"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Critical Hit",
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": "Krytyk pod Heart Gore; jego wartość zależy od całego zestawu."
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Critical Hit",
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Rear Smite",
+            "Assault Stance",
+            "Exploit Weakness"
+          ],
+          "Note": "Krytyk pod Heart Gore; jego wartość zależy od całego zestawu."
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Critical Hit",
+            "Accuracy"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Heart Gore",
+            "Insignia Explosion",
+            "Quick Slice"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Illusion",
+            "Time",
+            "Destruction"
+          ],
+          "Useful": [
+            "Wisdom",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Ranger",
+      "Label": "Ranger",
+      "Active": [
+        "Deadshot",
+        "Gale Arrow",
+        "Snipe",
+        "Tempest Shot"
+      ],
+      "Passive": [
+        "Focused Eye",
+        "Hunter's Resolve",
+        "Hunter's Soul"
+      ],
+      "Note": "Deadshot i Gale Arrow są na kompasie. Krytyk oceniaj po Marking Shot i buffach; Death zamień na Freedom, jeśli tracisz trafienia.",
+      "Source": "https://aion2.gg/guides/ranger-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/ranger-pve-build",
+        "https://aion2-guides.info/en/ranger/",
+        "https://aion.nerfplz.com/builds/ranger/pve-deadshot/"
+      ],
+      "Build": "Deadshot / Gale Arrow · Ranger DPS",
+      "Priorities": [
+        "Combat Speed",
+        "Weapon Damage Boost",
+        "Damage Boost",
+        "Critical Hit",
+        "Might"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Focused Eye",
+            "Hunter's Resolve",
+            "Hunter's Soul"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Deadshot",
+            "Gale Arrow",
+            "Snipe",
+            "Tempest Shot"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Time",
+            "Wisdom",
+            "Destruction"
+          ],
+          "Useful": [
+            "Illusion",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Sorcerer",
+      "Label": "Sorcerer",
+      "Active": [
+        "Wish of Concentration",
+        "Hellfire",
+        "Blaze",
+        "Firestorm"
+      ],
+      "Passive": [
+        "Robe of Flame",
+        "Grace of Enhancement",
+        "Robe of Earth"
+      ],
+      "Note": "Utrzymuj MP dla Grace of Enhancement i Robe of Earth. Priorytet poziomów Wish of Concentration / Hellfire zależy od braków z pierścieni.",
+      "Source": "https://aion2.gg/guides/sorcerer-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/sorcerer-pve-build",
+        "https://aion2-guides.info/en/sorcerer/"
+      ],
+      "Build": "Wish of Concentration / Hellfire · ogień",
+      "Priorities": [
+        "Combat Speed",
+        "Weapon Damage Boost",
+        "Damage Boost",
+        "Double Chance",
+        "Might"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Precision",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Robe of Flame",
+            "Grace of Enhancement",
+            "Robe of Earth"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Wish of Concentration",
+            "Hellfire",
+            "Blaze",
+            "Firestorm"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Time",
+            "Illusion",
+            "Destruction"
+          ],
+          "Useful": [
+            "Wisdom",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Elementalist",
+      "Label": "Spiritmaster",
+      "Active": [
+        "Elemental Fusion",
+        "Combustion",
+        "Summon: Fire Spirit",
+        "Jointstrike: Curse"
+      ],
+      "Passive": [
+        "Mental Focus",
+        "Spirit Strike",
+        "Element Unification"
+      ],
+      "Note": "Mental Focus, Spirit Strike i Element Unification to główne linie pasywne. Combat Speed nie skraca automatycznie cooldownów umiejętności duchów.",
+      "Source": "https://aion2.gg/guides/spiritmaster-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/spiritmaster-pve-build",
+        "https://aion2-guides.info/en/elementalist/",
+        "https://aion.nerfplz.com/builds/spiritmaster/pve-fire-spirit/",
+        "https://aion2sm.com/global/"
+      ],
+      "Build": "Elemental Fusion · Spiritmaster DPS",
+      "Priorities": [
+        "Weapon Damage Boost",
+        "Damage Boost",
+        "Double Chance",
+        "Combat Speed",
+        "Might"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Combat Speed",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Multi-hit Chance",
+            "Attack"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Weapon Damage Boost",
+            "Damage Boost",
+            "Combat Speed",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Multi-hit Chance",
+            "Attack"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Precision",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Mental Focus",
+            "Spirit Strike",
+            "Element Unification"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Elemental Fusion",
+            "Combustion",
+            "Summon: Fire Spirit",
+            "Jointstrike: Curse"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Wisdom",
+            "Illusion",
+            "Destruction"
+          ],
+          "Useful": [
+            "Time",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    },
+    {
+      "Class": "Cleric",
+      "Label": "Cleric",
+      "Active": [
+        "Condemnation",
+        "Divine Aura",
+        "Bolt",
+        "Judgment Thunder"
+      ],
+      "Passive": [
+        "Empyrean Lord's Grace",
+        "Earth's Grace"
+      ],
+      "Note": "Cele PvE DPS: bez priorytetu +1 do leczenia. Earth Punishment zmienia wartość krytyka Condemnation; cooldowny oceniaj w całym zestawie.",
+      "Source": "https://aion2.gg/guides/cleric-pve-build",
+      "Sources": [
+        "https://aion2.gg/guides/cleric-pve-build",
+        "https://aion2-guides.info/en/cleric/",
+        "https://aion.nerfplz.com/builds/cleric/pve-battle-cleric/"
+      ],
+      "Build": "Condemnation / Bolt · Cleric DPS",
+      "Priorities": [
+        "Damage Boost",
+        "Combat Speed",
+        "Weapon Damage Boost",
+        "Might",
+        "Double Chance"
+      ],
+      "Slots": [
+        {
+          "Slot": "Weapon",
+          "Label": "Broń",
+          "Targets": [
+            "Damage Boost",
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "OffHand",
+          "Label": "Osłona / druga ręka",
+          "Targets": [
+            "Damage Boost",
+            "Combat Speed",
+            "Weapon Damage Boost",
+            "Might"
+          ],
+          "Useful": [
+            "Precision",
+            "Attack",
+            "Multi-hit Chance"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Linie obrażeń przed +1 do skilla na broni."
+        },
+        {
+          "Slot": "Helmet",
+          "Label": "Hełm",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Shoulders",
+          "Label": "Naramienniki",
+          "Targets": [
+            "Double Chance",
+            "Critical Damage Boost",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Chest",
+          "Label": "Pancerz",
+          "Targets": [
+            "Damage Boost",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Legs",
+          "Label": "Spodnie",
+          "Targets": [
+            "Attack increase",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Damage Tolerance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Gloves",
+          "Label": "Rękawice",
+          "Targets": [
+            "Combat Speed",
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Boots",
+          "Label": "Buty",
+          "Targets": [
+            "Perfect Chance",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Cloak",
+          "Label": "Peleryna",
+          "Targets": [
+            "Double Chance",
+            "Attack increase",
+            "Attack"
+          ],
+          "Useful": [
+            "Perfect Chance"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Necklace",
+          "Label": "Naszyjnik",
+          "Targets": [
+            "Combat Speed",
+            "Might",
+            "Attack"
+          ],
+          "Useful": [
+            "Precision",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Earrings",
+          "Label": "Kolczyki",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Move Speed",
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Passive",
+          "Skills": [
+            "Empyrean Lord's Grace",
+            "Earth's Grace"
+          ],
+          "Note": ""
+        },
+        {
+          "Slot": "Ring",
+          "Label": "Pierścień",
+          "Targets": [
+            "Might",
+            "Precision",
+            "Attack"
+          ],
+          "Useful": [
+            "Accuracy",
+            "Critical Hit"
+          ],
+          "SkillKind": "Active",
+          "Skills": [
+            "Condemnation",
+            "Divine Aura",
+            "Bolt",
+            "Judgment Thunder"
+          ],
+          "Note": "Dobierz +1 do brakujących progów 16/20 po uwzględnieniu arkan; lista nie oznacza konieczności posiadania wszystkich linii."
+        },
+        {
+          "Slot": "Bracelet",
+          "Label": "Bransoleta",
+          "Targets": [
+            "Illusion",
+            "Time",
+            "Destruction"
+          ],
+          "Useful": [
+            "Wisdom",
+            "Death"
+          ],
+          "SkillKind": "None",
+          "Skills": [],
+          "Note": "Priorytet statystyk boga; pula zależy od rodzaju bransolety."
+        }
+      ]
+    }
+  ],
+  "Region": "Global · Season 1",
+  "Policy": "Curated PvE DPS targets; conditional alternatives, not a whole-loadout damage simulation."
 }

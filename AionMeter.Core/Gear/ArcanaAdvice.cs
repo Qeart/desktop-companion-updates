@@ -9,11 +9,14 @@ public enum ArcanaSlot { Unknown, Chalice, Parchment, Compass, Bell, Mirror }
 public sealed record ArcanaSkill(string Name, int? Bonus);
 public sealed record ArcanaPanel(string Title, ArcanaSlot Slot, string Family, string? MainStat, IReadOnlyList<ArcanaSkill> Skills, double SetBottom);
 public sealed record ArcanaCardAdvice(string Slot, string Label, string Family, string Stat, string Effect, string Alternative);
-public sealed record ArcanaClassAdvice(string Class, string Label, string Source, Dictionary<string, string[]> Goals);
+public sealed record ArcanaClassAdvice(string Class, string Label, string Source, Dictionary<string, string[]> Goals,
+    ArcanaCardAdvice[]? Cards = null, string Plan = "", string Build = "", string Note = "", string[]? Sources = null,
+    Dictionary<string, string[]>? SecondaryGoals = null, Dictionary<string, string[]>? Pools = null);
 public sealed record ArcanaAdviceData(string VerifiedOn, string Mode, ArcanaCardAdvice[] Cards, ArcanaClassAdvice[] Classes);
 public sealed record ArcanaSkillGoal(string Name, bool Present, int? Bonus);
 public sealed record ArcanaAdvice(string ClassLabel, string CardLabel, string GoalCard, string MainStat, string Effect,
-    bool MainMatches, string Alternative, IReadOnlyList<ArcanaSkillGoal> Skills, string Plan, string VerifiedOn);
+    bool MainMatches, string Alternative, IReadOnlyList<ArcanaSkillGoal> Skills, string Plan, string VerifiedOn,
+    string Build = "", string Note = "", IReadOnlyList<ArcanaSkillGoal>? SecondarySkills = null);
 
 public static class ArcanaPanelParser
 {
@@ -96,17 +99,26 @@ public sealed class ArcanaAdviceCatalog
     public ArcanaAdviceCatalog(ArcanaAdviceData data)
     {
         _data = data;
-        _skillNames = data.Classes.SelectMany(c => c.Goals.Values).SelectMany(names => names).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+        _skillNames = data.Classes.SelectMany(c => c.Goals.Values.Concat(c.SecondaryGoals?.Values ?? Enumerable.Empty<string[]>())
+            .Concat(c.Pools?.Values ?? Enumerable.Empty<string[]>())).SelectMany(names => names).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
     }
     public static ArcanaAdviceCatalog Load(string path) => new(JsonSerializer.Deserialize<ArcanaAdviceData>(File.ReadAllText(path)) ?? throw new InvalidDataException("Brak profili arkan."));
     public ArcanaAdvice? For(GameClass gameClass, ArcanaPanel panel)
     {
         var player = _data.Classes.FirstOrDefault(c => c.Class == gameClass.ToString());
-        var card = _data.Cards.FirstOrDefault(c => c.Slot == panel.Slot.ToString());
+        var card = (player?.Cards ?? _data.Cards).FirstOrDefault(c => c.Slot == panel.Slot.ToString());
         if (player == null || card == null || !player.Goals.TryGetValue(card.Slot, out var goals)) return null;
+        // Resolve OCR once against the complete legal vocabulary, including skills
+        // outside this build. A near-looking non-goal cannot become a false green tick.
+        var observed = panel.Skills.Select(s => (Name: OcrSkillNames.Find(s.Name, _skillNames), Skill: s)).ToArray();
+        ArcanaSkillGoal Goal(string goal) {
+            var seen = observed.FirstOrDefault(s => s.Name == goal).Skill;
+            return new(goal, seen != null, seen?.Bonus);
+        }
+        var secondary = player.SecondaryGoals?.GetValueOrDefault(card.Slot) ?? [];
         return new(player.Label, card.Label, card.Slot + " of " + card.Family, card.Stat, card.Effect,
-            panel.MainStat == card.Stat, card.Alternative, goals.Select(goal => {
-                var seen = panel.Skills.FirstOrDefault(s => OcrSkillNames.Find(s.Name, _skillNames) == goal); return new ArcanaSkillGoal(goal, seen != null, seen?.Bonus);
-            }).ToArray(), "Plan DPS: 4× Primal Vigor + Bell of Magic · premia przy HP ≥70%", _data.VerifiedOn);
+            panel.MainStat == card.Stat && (panel.Family.Length == 0 || panel.Family.Equals(card.Family, StringComparison.OrdinalIgnoreCase)),
+            card.Alternative, goals.Select(Goal).ToArray(), player.Plan, _data.VerifiedOn,
+            player.Build, player.Note, secondary.Select(Goal).ToArray());
     }
 }

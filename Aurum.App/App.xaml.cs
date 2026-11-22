@@ -20,6 +20,13 @@ public partial class App : System.Windows.Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        if (e.Args is ["--render-bis-catalog", var bisDirectory])
+        {
+            // Diagnostic only: no capture, updater, settings writes or game connection.
+            try { BisCataloguePreview.Render(bisDirectory); }
+            catch (Exception error) { Directory.CreateDirectory(bisDirectory); File.WriteAllText(Path.Combine(bisDirectory, "error.txt"), error.ToString()); }
+            Shutdown(); return;
+        }
         if (e.Args is ["--distribution-check", var distributionReport])
         {
             var locator = Velopack.Locators.VelopackLocator.Current;
