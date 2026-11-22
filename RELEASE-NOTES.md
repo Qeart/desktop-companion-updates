@@ -1,3 +1,10 @@
+# 0.2.1
+
+- Naprawiono pomijanie DPS/HPS graczy w dungeonach, gdy ich tożsamość nie zawierała serwera.
+- W instancji uwzględniani są jej nazwani uczestnicy, również po uruchomieniu licznika w trakcie dungeona.
+- Poza dungeonem pozostaje filtrowanie własnego party/force; NPC i nierozpoznane efekty nie są graczami.
+- Dodano diagnostykę kwalifikowania uczestników i testy restartu, leczenia, przywołań oraz wyjścia z instancji.
+
 # 0.2.0
 
 - Pierwszy instalator Windows x64 z aktualizacjami z GitHub Releases.

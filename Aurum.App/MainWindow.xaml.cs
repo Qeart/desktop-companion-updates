@@ -300,7 +300,7 @@ public partial class MainWindow : Window, IDisposable
                     CombatScreenCapture = false, ShopOcrEnabled = _settings.ShowShopPetProgress, Backend = _backend, State = status?.State.ToString(),
                     status?.Message, status?.Packets, status?.Events, PetsSynced = _petProgress.Synced, PetsFromCache = _petProgress.FromCache,
                     ShopPollMs = _shopTimer.Interval.TotalMilliseconds, Shop = _shopPets?.DiagnosticState, PetMap = _petMap?.DiagnosticState,
-                    PlayerPosition = _playerPosition.Snapshot(), PlayerScope = "PartyOrForce", Group = _tracker.GroupState,
+                    PlayerPosition = _playerPosition.Snapshot(), PlayerScope = _tracker.InDungeon ? "DungeonParticipants" : "PartyOrForce", Group = _tracker.GroupState,
                     HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
                 });
                 try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "session-status.json"), json); }

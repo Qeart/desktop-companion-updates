@@ -19,8 +19,10 @@ public sealed class CombatTracker
     private readonly GroupMembership _group = new();
     private readonly List<GameEvent> _pendingGroupSummons = [];
     public object GroupState { get { lock (_gate) return new { GroupOnly = Options.GroupOnly, SelfKnown = _entities.SelfId != null,
-        NamedMembers = _group.NamedMembers, MembershipSource = "OwnRoster", ObservedActors = _group.RecentActors(LastEventMs),
-        SelfId = _entities.SelfId, TrackedActors = _current is { IsActive: true } active ? active.Combatants.Keys.ToArray() : [] }; } }
+        NamedMembers = _group.NamedMembers, MembershipSource = InDungeon ? "DungeonParticipants" : "OwnRoster", MapId = _entities.MapId,
+        ObservedActors = _group.RecentActors(LastEventMs), SelfId = _entities.SelfId,
+        Players = _entities.Export().Players.Select(p => new { p.Id, p.Name, p.ServerId, Eligible = IsGroupSource(p.Id, LastEventMs) }).ToArray(),
+        TrackedActors = _current is { IsActive: true } active ? active.Combatants.Keys.ToArray() : [] }; } }
 
     public CombatTracker(GameData data, MeterOptions options)
     {
@@ -43,6 +45,7 @@ public sealed class CombatTracker
         get { lock (_gate) return _entities.Self?.Name; }
     }
     public GameClass SelfClass { get { lock (_gate) return _entities.Self?.Class ?? GameClass.Unknown; } }
+    public bool InDungeon { get { lock (_gate) return GameData.IsDungeonMap(_entities.MapId); } }
 
     public string? ZoneName
     {
@@ -481,6 +484,11 @@ public sealed class CombatTracker
     {
         if (_entities.IsUnowned(actor) || _entities.IsSummon(actor)) return false;
         _entities.TryGetPlayer(actor, out var player);
+        // Instance identities often omit the home server, and the own roster may
+        // be absent after a restart. Named players in this instance are its
+        // participants. NPCs, anonymous class-skill actors and unowned effects
+        // remain excluded; open-world party/force filtering stays strict.
+        if (GameData.IsDungeonMap(_entities.MapId) && player != null && !string.IsNullOrWhiteSpace(player.Name)) return true;
         return _group.Contains(actor, player, _entities.SelfId, at);
     }
     private static uint SourceOf(GameEvent ev) => ev switch { DamageEvent damage => damage.SourceId, HealEvent heal => heal.SourceId, _ => 0 };
