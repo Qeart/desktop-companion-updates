@@ -1,0 +1,3861 @@
+[
+  {
+    "Id": 1001,
+    "Name": "Black Dragon",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1002,
+    "Name": "Krall Laborer",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100075,
+        "NpcName": "Krall Armed Soldier",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100480,
+        "NpcName": "Krall Sentinel",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100914,
+        "NpcName": "Mutated Krall Laborer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1003,
+    "Name": "Forest Specter",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100601,
+        "NpcName": "Canyon Vine Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100662,
+        "NpcName": "Tainted Vine Specter",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1004,
+    "Name": "Fossa",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100163,
+        "NpcName": "Patrolling Fossa",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400254,
+        "NpcName": "Daeva Renegade Fossa",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400414,
+        "NpcName": "Tamed Beast",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1005,
+    "Name": "Klaw",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100078,
+        "NpcName": "Wandering Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600029,
+        "NpcName": "Abyss Klaw Mutant",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600688,
+        "NpcName": "Abyss Mutated Klaw",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1006,
+    "Name": "Sparkie",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100273,
+        "NpcName": "Wild Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100305,
+        "NpcName": "Meadow Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100753,
+        "NpcName": "Highland Odyle Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100795,
+        "NpcName": "Highland Odyle Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100986,
+        "NpcName": "Aullaeu Forest Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100992,
+        "NpcName": "Highland Sparkie",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1007,
+    "Name": "Potcrab",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100032,
+        "NpcName": "Marsh Moss Potcrab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100610,
+        "NpcName": "Flat Potcrab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101098,
+        "NpcName": "Eternal Moss Crab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400363,
+        "NpcName": "Moss Crab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400755,
+        "NpcName": "Coastal Moss Crab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400812,
+        "NpcName": "Coastal Moss Crab",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1008,
+    "Name": "Baby Odyle Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100034,
+        "NpcName": "Coastal Odyle Spider",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1009,
+    "Name": "Kernon",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1010,
+    "Name": "Manduri Fighter",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2110506,
+        "NpcName": "Crimson Manduri Fighter",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400617,
+        "NpcName": "Black Claw Manduri Combatant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1011,
+    "Name": "Skyray",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100047,
+        "NpcName": "Small Forest Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100048,
+        "NpcName": "Ellun River Falls Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100182,
+        "NpcName": "Tolbas Forest Lake Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100556,
+        "NpcName": "Ridge Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100607,
+        "NpcName": "Canyon Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100613,
+        "NpcName": "Canyon Lake Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100832,
+        "NpcName": "Pond Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101123,
+        "NpcName": "Ellun River Lake Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101124,
+        "NpcName": "Cantas Valley Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101132,
+        "NpcName": "Lake Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400163,
+        "NpcName": "Tranein Skyray",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400945,
+        "NpcName": "Lake Skyray",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1012,
+    "Name": "Fungie",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100041,
+        "NpcName": "Red Cap Fungie",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1013,
+    "Name": "Swarm",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400080,
+        "NpcName": "Contaminated Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400456,
+        "NpcName": "Giant Ore Insectoid",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600001,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600011,
+        "NpcName": "Abyss Aberrant Swarn",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600021,
+        "NpcName": "Abyss Swarm Mutant",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600601,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600621,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600641,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600661,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600681,
+        "NpcName": "Abyss Swarm",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1014,
+    "Name": "Drakan Guard Dog",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2101002,
+        "NpcName": "Drakan Guard Dog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101009,
+        "NpcName": "Nahid Drakan Guard Dog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400359,
+        "NpcName": "Drakan Guard Dog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400587,
+        "NpcName": "Drakan Patrol Armed Beast",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400655,
+        "NpcName": "Lagta Brigade Guard Dog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600052,
+        "NpcName": "Abyss Drakan Scout Beast",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1015,
+    "Name": "Kailin",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2101021,
+        "NpcName": "Ellun River Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400736,
+        "NpcName": "Unstable Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400905,
+        "NpcName": "Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400934,
+        "NpcName": "Kailin",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1016,
+    "Name": "Slink",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100165,
+        "NpcName": "Tolbas Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100188,
+        "NpcName": "Wetland Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101097,
+        "NpcName": "Eternal Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400520,
+        "NpcName": "Coastal Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400819,
+        "NpcName": "Coastal Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400909,
+        "NpcName": "Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400943,
+        "NpcName": "Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600048,
+        "NpcName": "Abyss Slink",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1017,
+    "Name": "Krall Warshaman",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100074,
+        "NpcName": "Krall Warshaman",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100855,
+        "NpcName": "Modified Krall Healer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1018,
+    "Name": "Varg Berserker",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400385,
+        "NpcName": "Varg Berserker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400609,
+        "NpcName": "Chief's Bodyguard",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1021,
+    "Name": "Aberrant Odyle Spider",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1022,
+    "Name": "Crasaur",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100215,
+        "NpcName": "Aquascale Crasaur",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100608,
+        "NpcName": "Docile Crasaur",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101083,
+        "NpcName": "Eternal Crasaur",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400327,
+        "NpcName": "Sensitive Crasaur",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400809,
+        "NpcName": "Crasaur",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1025,
+    "Name": "Mutated Aberrant Odyle Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100030,
+        "NpcName": "Marsh Odyle Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100663,
+        "NpcName": "Garden Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100745,
+        "NpcName": "Highland Odyle Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400744,
+        "NpcName": "Unstable Ashen Spider",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1026,
+    "Name": "Krall Warrior",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100073,
+        "NpcName": "Krall Assault Trooper",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100910,
+        "NpcName": "Modified Krall Warrior",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101005,
+        "NpcName": "Krall Test Subject",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1027,
+    "Name": "Withered Agrint",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100612,
+        "NpcName": "Withered Canyon Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100652,
+        "NpcName": "Thin Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600026,
+        "NpcName": "Withered Sulfur Agrint",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1028,
+    "Name": "Krao Mutant",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1029,
+    "Name": "Klaw Scout",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400313,
+        "NpcName": "Consumed Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600002,
+        "NpcName": "Abyss Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600012,
+        "NpcName": "Abyss Aberrant Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600602,
+        "NpcName": "Abyss Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600622,
+        "NpcName": "Abyss Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600642,
+        "NpcName": "Abyss Klaw",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600662,
+        "NpcName": "Abyss Klaw",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1030,
+    "Name": "Nagarant Guardian Warrior",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2600036,
+        "NpcName": "Abyss Nagarant Brawler",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600041,
+        "NpcName": "Abyss Nagarant Warrior",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600692,
+        "NpcName": "Unavarun Nagarant Praetorian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1031,
+    "Name": "Konutin Worker",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100157,
+        "NpcName": "Tolbas Konutin Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1032,
+    "Name": "Elite Keneire",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1033,
+    "Name": "Elite Manduri Fighter",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100557,
+        "NpcName": "Wandering Manduri Fighter",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100569,
+        "NpcName": "Wandering Manduri Fighter",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400605,
+        "NpcName": "Black Claw Manduri Fighter",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1034,
+    "Name": "Giant Sparkie",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100015,
+        "NpcName": "Splendent Hill Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100796,
+        "NpcName": "Highland Giant Odyle Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100987,
+        "NpcName": "Aullaeu Forest Giant Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100993,
+        "NpcName": "Highland Giant Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400341,
+        "NpcName": "Withered Branch Odyle Sparkie",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400466,
+        "NpcName": "Fafnite Luminous Sparkie",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1035,
+    "Name": "Skama",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100031,
+        "NpcName": "Foul Skama",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100376,
+        "NpcName": "Lake Skama",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100907,
+        "NpcName": "Drana Mutated Skama",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1036,
+    "Name": "Lupyllini",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100746,
+        "NpcName": "Tail Feather Lupyllini",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1037,
+    "Name": "Male Crestlich",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100151,
+        "NpcName": "Ellun River Crestlich Male",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100750,
+        "NpcName": "Highland Crestlich Male",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1038,
+    "Name": "Airon",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100144,
+        "NpcName": "Smallbeak Airon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100216,
+        "NpcName": "Pointbeak Airon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100609,
+        "NpcName": "Hardbeak Airon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100741,
+        "NpcName": "Longbeak Highland Airon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400567,
+        "NpcName": "Canyon Airon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400568,
+        "NpcName": "Baby Canyon Airon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1039,
+    "Name": "Crestlich",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100037,
+        "NpcName": "Stonebeak Crestlich",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100150,
+        "NpcName": "Ellun River Crestlich Female",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100799,
+        "NpcName": "Highland Crestlich Female",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1040,
+    "Name": "Aullaeu Shaman",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100950,
+        "NpcName": "Aullaeu Apprentice Shaman",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1041,
+    "Name": "Cave Bat",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100911,
+        "NpcName": "Drana Mutated Bat",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1042,
+    "Name": "Ursus",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100172,
+        "NpcName": "Hardhorn Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100552,
+        "NpcName": "Ridge Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100560,
+        "NpcName": "Ridge Violent Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100655,
+        "NpcName": "Confused Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100817,
+        "NpcName": "Hill Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400376,
+        "NpcName": "Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400916,
+        "NpcName": "Ursus",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1043,
+    "Name": "Elite Ursus",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1044,
+    "Name": "Aultross's Doppelganger",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1045,
+    "Name": "Sylphen",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100004,
+        "NpcName": "Highland Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100023,
+        "NpcName": "Ellun River Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100219,
+        "NpcName": "Ellun River Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100472,
+        "NpcName": "Aberrant Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100565,
+        "NpcName": "Ridge Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100743,
+        "NpcName": "Highland Sylphen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400362,
+        "NpcName": "Sylphen",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1046,
+    "Name": "Armadon",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400002,
+        "NpcName": "Red Shell Mole",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400249,
+        "NpcName": "Withered Armadon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1047,
+    "Name": "Aberrant Armadon",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100453,
+        "NpcName": "Splendent Armadon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100751,
+        "NpcName": "Highland Wild Armadon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1048,
+    "Name": "Forest Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100022,
+        "NpcName": "Marsh Vine Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100142,
+        "NpcName": "Contaminated Vine Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100555,
+        "NpcName": "Ridge Forest Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100611,
+        "NpcName": "Deep Canyon Forest Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400337,
+        "NpcName": "Forest Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1049,
+    "Name": "Mutated Forest Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100711,
+        "NpcName": "Mutated Vine Bundle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100715,
+        "NpcName": "Contaminated Vine Bundle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400061,
+        "NpcName": "Condensed Specter",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1050,
+    "Name": "Gravi",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100650,
+        "NpcName": "Red Stalk Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101125,
+        "NpcName": "Tolbas Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400307,
+        "NpcName": "Pink Gravi",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1051,
+    "Name": "Magic Gravi",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100659,
+        "NpcName": "Illusion Magic Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101126,
+        "NpcName": "Tolbas Magic Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400329,
+        "NpcName": "Purifying Forest Magic Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400731,
+        "NpcName": "Unstable Gravi",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1052,
+    "Name": "Large Leaf Gravi",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100285,
+        "NpcName": "Ellun River Hill Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100651,
+        "NpcName": "Large Leaf Gravi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400342,
+        "NpcName": "Large Leaf Gravi",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1053,
+    "Name": "Aberrant Potcrab",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100908,
+        "NpcName": "Drana Mutated Potcrab",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2110512,
+        "NpcName": "Eternal Moss Crab",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1054,
+    "Name": "Mumu Warrior",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400350,
+        "NpcName": "Mumu Watcher",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400570,
+        "NpcName": "Gribade Mumu Warrior",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400606,
+        "NpcName": "Mumu Watcher",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1055,
+    "Name": "Grave Rat",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1056,
+    "Name": "Drakan Probe",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100866,
+        "NpcName": "Drana Processing Maintenance Machine",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101014,
+        "NpcName": "Intruder Seeker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400143,
+        "NpcName": "Outpost Probe",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400162,
+        "NpcName": "Drakan Probe",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400382,
+        "NpcName": "Drana Processing Maintenance Machine",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400658,
+        "NpcName": "Lagta Brigade Seeker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1057,
+    "Name": "Coradon",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1058,
+    "Name": "Black Smoke Murute",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2300312,
+        "NpcName": "Black Smoke Murute",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310312,
+        "NpcName": "Black Smoke Murute",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320312,
+        "NpcName": "Black Smoke Murute",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1059,
+    "Name": "Giant Bee",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100551,
+        "NpcName": "Giant Stripe Bee",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1060,
+    "Name": "Starturtle",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100033,
+        "NpcName": "Coastal Starturtle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100808,
+        "NpcName": "Pond Starturtle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101082,
+        "NpcName": "Eternal Starturtle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400374,
+        "NpcName": "Beach Starturtle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400519,
+        "NpcName": "Starturtle",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400808,
+        "NpcName": "Starturtle",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1061,
+    "Name": "Slime",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400320,
+        "NpcName": "Unruly Slime",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1062,
+    "Name": "Contaminated Slime",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100025,
+        "NpcName": "Marsh Slime",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100717,
+        "NpcName": "Contaminated Poison Slime",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600023,
+        "NpcName": "Abyss Sulfur Slime",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600683,
+        "NpcName": "Abyss Drana Slime",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1063,
+    "Name": "Vigilant Oculazen",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400364,
+        "NpcName": "Vigilant Oculazen",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1064,
+    "Name": "Oculazen",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100854,
+        "NpcName": "Labor Manager Oculazen",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400711,
+        "NpcName": "Oculazen",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1065,
+    "Name": "Biruta",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100183,
+        "NpcName": "Biruta Wanderer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400920,
+        "NpcName": "Biruta Wanderer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1066,
+    "Name": "Papis",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2000926,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2000927,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2000928,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2000929,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2000951,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100009,
+        "NpcName": "Gentle Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100220,
+        "NpcName": "Ellun River Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100654,
+        "NpcName": "Garden Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400594,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400903,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400938,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400940,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400947,
+        "NpcName": "Faded Papis",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1067,
+    "Name": "Scorpion",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100709,
+        "NpcName": "Contaminated Scorpion",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400470,
+        "NpcName": "Ore Scorpion",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1068,
+    "Name": "Krao Test Subject",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1069,
+    "Name": "Stone Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100812,
+        "NpcName": "Hill Stone Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400301,
+        "NpcName": "Faded Stone Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600056,
+        "NpcName": "Abyss Rock Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1071,
+    "Name": "Cadaver Insectoid",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400018,
+        "NpcName": "Drana Cadaver Insectoid",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1072,
+    "Name": "Tog",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400912,
+        "NpcName": "Tog",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1073,
+    "Name": "Nepenthes",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100160,
+        "NpcName": "Tolbas Nepenthes",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100744,
+        "NpcName": "Scarlet Highland Nepenthes",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600049,
+        "NpcName": "Abyss Nasty Nepenthes",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1074,
+    "Name": "Kuru Worker",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100180,
+        "NpcName": "Tolbas Kuru Worker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100964,
+        "NpcName": "Harsh Kuru Tinkerer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101133,
+        "NpcName": "Eternal Kuru Worker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101136,
+        "NpcName": "Eternal Kuru Worker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400831,
+        "NpcName": "Kuru Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1075,
+    "Name": "Kuru Tinkerer",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100181,
+        "NpcName": "Tolbas Kuru Tinkerer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101134,
+        "NpcName": "Eternal Kuru Tinkerer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101137,
+        "NpcName": "Eternal Kuru Tinkerer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400832,
+        "NpcName": "Kuru Tinkerer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1077,
+    "Name": "Harcon",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2300104,
+        "NpcName": "Enhanced Harcon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310104,
+        "NpcName": "Enhanced Harcon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320104,
+        "NpcName": "Enhanced Harcon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1078,
+    "Name": "Urugugu Brawler",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1079,
+    "Name": "Ultimate Wind Spirit",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1080,
+    "Name": "Sentinel K'nash",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1081,
+    "Name": "Dionae",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1082,
+    "Name": "Ultimate Fire Spirit",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1083,
+    "Name": "Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2600046,
+        "NpcName": "Abyss Odyle Mutated Insectoid",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1084,
+    "Name": "Kalgolem",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100002,
+        "NpcName": "Hard Kalgolem",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100700,
+        "NpcName": "Ashen Kalgolem",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400328,
+        "NpcName": "Angry Kalgolem",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600070,
+        "NpcName": "Root Kalgolem",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1086,
+    "Name": "Fungen",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100456,
+        "NpcName": "Red Cap Fungen",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1087,
+    "Name": "Pino",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100953,
+        "NpcName": "Pino Worker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100954,
+        "NpcName": "Pino Laborer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1088,
+    "Name": "Pino Worker",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100955,
+        "NpcName": "Harsh Pino Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1089,
+    "Name": "Aberrant Skama",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100710,
+        "NpcName": "Yellow-Tailed Skama",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600024,
+        "NpcName": "Abyss Sulfur Skama",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600684,
+        "NpcName": "Abyss Drana Skama",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1090,
+    "Name": "Ultimate Water Spirit",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1091,
+    "Name": "Red Spark Ignus",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2300311,
+        "NpcName": "Red Spark Ignus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310311,
+        "NpcName": "Red Spark Ignus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320311,
+        "NpcName": "Red Spark Ignus",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1092,
+    "Name": "Lesser Wind Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100605,
+        "NpcName": "Air Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101096,
+        "NpcName": "Eternal Wind Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400324,
+        "NpcName": "Soft Breeze Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1093,
+    "Name": "Phantasmal Lakshmi",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2300401,
+        "NpcName": "Phantasmal Lakshmi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310401,
+        "NpcName": "Phantasmal Lakshmi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320401,
+        "NpcName": "Phantasmal Lakshmi",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1094,
+    "Name": "Intermediate Wind Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100658,
+        "NpcName": "Wandering Wind Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101103,
+        "NpcName": "Violent Wind Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400824,
+        "NpcName": "Immortal Wind Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1095,
+    "Name": "Superior Wind Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100666,
+        "NpcName": "Brisk Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400302,
+        "NpcName": "Whirlwind Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400818,
+        "NpcName": "Immortal Wind Spirit Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1096,
+    "Name": "Superior Fire Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100664,
+        "NpcName": "Hellfire Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400303,
+        "NpcName": "Flame Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400749,
+        "NpcName": "Unstable Superior Fire Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400815,
+        "NpcName": "Immortal Fire Spirit Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1097,
+    "Name": "Karnif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100174,
+        "NpcName": "Ferocious Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100348,
+        "NpcName": "Tolbas Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100349,
+        "NpcName": "Ferocious Tolbas Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100742,
+        "NpcName": "Toughmane Highland Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100752,
+        "NpcName": "Highland Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100802,
+        "NpcName": "Tamed Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100805,
+        "NpcName": "Tamed Karnif",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1098,
+    "Name": "Modified Karnif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100070,
+        "NpcName": "Scouting Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100096,
+        "NpcName": "Unruly Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100130,
+        "NpcName": "Trained Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100481,
+        "NpcName": "Sensitive Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600004,
+        "NpcName": "Abyss Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600014,
+        "NpcName": "Abyss Search Party Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600605,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600606,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600607,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600625,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600626,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600627,
+        "NpcName": "Chandala Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600645,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600646,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600647,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600665,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600666,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600667,
+        "NpcName": "Makarah Krall Karnif",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1099,
+    "Name": "Elite Karnif",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1100,
+    "Name": "Ultimate Earth Spirit",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1101,
+    "Name": "Forest Guardian",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100660,
+        "NpcName": "Garden Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1102,
+    "Name": "Dried Up Forest Guardian",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1103,
+    "Name": "Pretor Veil Administrator",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1104,
+    "Name": "Manduri Trebuchet Worker",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100816,
+        "NpcName": "Hill Manduri",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2110507,
+        "NpcName": "Crimson Manduri Slinger",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400615,
+        "NpcName": "Black Claw Manduri Scout",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1105,
+    "Name": "Biruta Herbalist",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400919,
+        "NpcName": "Biruta Herbalist",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1106,
+    "Name": "Tayga",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400564,
+        "NpcName": "Search Party Tayga",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400583,
+        "NpcName": "Guard Troopers Tayga",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400611,
+        "NpcName": "Tamed Tayga",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1107,
+    "Name": "Krao Seal Guardian",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1108,
+    "Name": "Enhanced Krall Combatant",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100097,
+        "NpcName": "Enhanced Krall Combatant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1109,
+    "Name": "Enhanced Krall Sentry",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100072,
+        "NpcName": "Enhanced Krall Sentry",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1110,
+    "Name": "Blue Kalgolem",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100454,
+        "NpcName": "Splendent Kalgolem",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400471,
+        "NpcName": "Blue Kalgolem",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600051,
+        "NpcName": "Abyssal Kalgolem",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1111,
+    "Name": "Swift Lugi",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1112,
+    "Name": "Wandering Merchant Lugi",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1114,
+    "Name": "Ashen Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100283,
+        "NpcName": "White Shell Octaside",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400230,
+        "NpcName": "Ashen Spider",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1115,
+    "Name": "Kuru Overseer",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2101139,
+        "NpcName": "Eternal Kuru Overseer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400833,
+        "NpcName": "Kuru Overseer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1116,
+    "Name": "Withered Branch Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2000956,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2000957,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400902,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400933,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400939,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400946,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400948,
+        "NpcName": "Withered Branch Spider",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1117,
+    "Name": "Unstable Spider",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2101023,
+        "NpcName": "Aullaeu Forest Odyle Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2110509,
+        "NpcName": "Crimson Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400319,
+        "NpcName": "Flame Rock Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400745,
+        "NpcName": "Unstable Poison Blood Spider",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600045,
+        "NpcName": "Abyss Red Mutated Insectoid",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1118,
+    "Name": "Aberrant Bee",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2000955,
+        "NpcName": "Black Armor Bee",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100286,
+        "NpcName": "Black Pattern Bee",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100550,
+        "NpcName": "Stripe Bee",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400900,
+        "NpcName": "Black Armor Bee",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400930,
+        "NpcName": "Black Armor Bee",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1119,
+    "Name": "Aberrant Coradon",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2000952,
+        "NpcName": "Aberrant Coradon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100699,
+        "NpcName": "Garden Coradon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100821,
+        "NpcName": "Hill Coradon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100828,
+        "NpcName": "Hill Coradon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400907,
+        "NpcName": "Aberrant Coradon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1120,
+    "Name": "Young Kailin",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2101022,
+        "NpcName": "Ellun River Young Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400737,
+        "NpcName": "Unstable Young Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400906,
+        "NpcName": "Young Kailin",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400935,
+        "NpcName": "Young Kailin",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1121,
+    "Name": "Young Slink",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100189,
+        "NpcName": "Young Wetland Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100473,
+        "NpcName": "Tolbas Young Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400910,
+        "NpcName": "Young Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400950,
+        "NpcName": "Young Slink",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600047,
+        "NpcName": "Abyss Young Slink",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1122,
+    "Name": "Young Tog",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1123,
+    "Name": "Young Ursus",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100173,
+        "NpcName": "Baby Horn Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100818,
+        "NpcName": "Hill Young Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400377,
+        "NpcName": "Young Ursus",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400917,
+        "NpcName": "Young Ursus",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1124,
+    "Name": "Zaif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100573,
+        "NpcName": "Rock Hill Zaif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100748,
+        "NpcName": "Highland Forest Zaif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100797,
+        "NpcName": "Highland Zaif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100813,
+        "NpcName": "Hill Zaif",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1125,
+    "Name": "Aberrant Zaif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100558,
+        "NpcName": "Yellow-Maned Zaif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400578,
+        "NpcName": "Golden Zaif",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1126,
+    "Name": "Aberrant Tog",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100006,
+        "NpcName": "Cairn Tog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100145,
+        "NpcName": "Hungry Tog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100288,
+        "NpcName": "Field Tog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100793,
+        "NpcName": "Wild Stripe Tog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100819,
+        "NpcName": "Hill Tog",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400936,
+        "NpcName": "Aberrant Tog",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1127,
+    "Name": "Odyle Stone Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2400734,
+        "NpcName": "Faded Odyle Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1128,
+    "Name": "Drana Slime",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400015,
+        "NpcName": "Drana Slime",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1129,
+    "Name": "Drana Swarm",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2110501,
+        "NpcName": "Crimson Drana Swarm",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1130,
+    "Name": "Mutated Cadaver Insectoid",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100554,
+        "NpcName": "Ridge Spider",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1131,
+    "Name": "Drana Spore",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2110502,
+        "NpcName": "Crimson Mutated Spore",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1132,
+    "Name": "Ashen Lupyllini",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1133,
+    "Name": "Forest Dionae",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1134,
+    "Name": "Eternal Coradon",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400941,
+        "NpcName": "Eternal Coradon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600061,
+        "NpcName": "Abyss Coradon",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1135,
+    "Name": "Ashen Dionae",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2400248,
+        "NpcName": "Ashen Dionae",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1136,
+    "Name": "Rafflesia",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2000925,
+        "NpcName": "Rafflesia",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2110513,
+        "NpcName": "Crimson Rafflesia",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400056,
+        "NpcName": "Rafflesia",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400735,
+        "NpcName": "Unstable Rafflesia",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400813,
+        "NpcName": "Rafflesia",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400949,
+        "NpcName": "Rafflesia",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1137,
+    "Name": "Mumu Worker",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400351,
+        "NpcName": "Mumu Worker",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400390,
+        "NpcName": "Escaped Mumu Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1138,
+    "Name": "Mumu Overseer",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1139,
+    "Name": "Swamp Monster",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1140,
+    "Name": "Forest Monster",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100350,
+        "NpcName": "Tolbas Forest Targon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400225,
+        "NpcName": "Burned Forester",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1141,
+    "Name": "Marsh Targon",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100021,
+        "NpcName": "Marsh Targon",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600686,
+        "NpcName": "Abyss Drana Mutant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1142,
+    "Name": "Distorted Mutant",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400312,
+        "NpcName": "Consumed Spirit Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1143,
+    "Name": "Mutated Ursus",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400217,
+        "NpcName": "Ashen Ursus",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1144,
+    "Name": "Mutated Forest Guardian",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2400214,
+        "NpcName": "Mutated Forest Guardian",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400751,
+        "NpcName": "Unstable Forest Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1145,
+    "Name": "Mutated Insectoid Valka",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1146,
+    "Name": "Gatekeeper Pinopi",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1147,
+    "Name": "Dratona",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100901,
+        "NpcName": "Scarlet Forest Dratona",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400116,
+        "NpcName": "Dratona Tinkerer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400161,
+        "NpcName": "Dratona Supporter",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400380,
+        "NpcName": "Dratona",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1148,
+    "Name": "Drakana Kalgolem",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400014,
+        "NpcName": "Crash Site Kalgolem",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1153,
+    "Name": "Drana Mutant Brute",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2101135,
+        "NpcName": "Eternal Drana Mutant",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2110503,
+        "NpcName": "Crimson Drana Mutant",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400834,
+        "NpcName": "Drana Mutant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1154,
+    "Name": "Faded Mutant Brute",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400476,
+        "NpcName": "Faded Mutant Brute",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1155,
+    "Name": "Superior Water Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100665,
+        "NpcName": "Torrent Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400306,
+        "NpcName": "Water Mist Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400739,
+        "NpcName": "Unstable Superior Water Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400816,
+        "NpcName": "Immortal Water Spirit Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1156,
+    "Name": "Elite Klaw",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100079,
+        "NpcName": "Bodyguard Teegant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1157,
+    "Name": "Cadaver Cleaner",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400275,
+        "NpcName": "Ruins Corpse Cleaner",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400412,
+        "NpcName": "Ferocious Cadaver Cleaner",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400418,
+        "NpcName": "Ferocious Cadaver Cleaner",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1158,
+    "Name": "Venomous Insect Sram",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1159,
+    "Name": "Parasite Swarm",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400473,
+        "NpcName": "Giant Ore Insectoid Adult",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1160,
+    "Name": "Drana Contaminant",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1161,
+    "Name": "Faded Floater",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400479,
+        "NpcName": "Faded Floater",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1162,
+    "Name": "Kerubar",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2101075,
+        "NpcName": "Eternal Kerubar",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101079,
+        "NpcName": "Eternal Kerubar",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400801,
+        "NpcName": "Kerubar",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1163,
+    "Name": "Basilisk",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400240,
+        "NpcName": "Black Ash Basilisk",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1164,
+    "Name": "Lesser Earth Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2101089,
+        "NpcName": "Eternal Earth Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1165,
+    "Name": "Intermediate Earth Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100653,
+        "NpcName": "Wandering Earth Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101102,
+        "NpcName": "Violent Earth Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400823,
+        "NpcName": "Immortal Earth Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1166,
+    "Name": "Superior Earth Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100667,
+        "NpcName": "Peculiar Rock Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400310,
+        "NpcName": "Corroded Soil Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400817,
+        "NpcName": "Immortal Earth Spirit Guardian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1167,
+    "Name": "Flame Stone Guardian Statue",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1168,
+    "Name": "Lesser Water Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100231,
+        "NpcName": "Water Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101088,
+        "NpcName": "Eternal Water Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1169,
+    "Name": "Intermediate Water Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100657,
+        "NpcName": "Wandering Water Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101101,
+        "NpcName": "Violent Water Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400738,
+        "NpcName": "Unstable Intermediate Water Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400822,
+        "NpcName": "Immortal Water Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1170,
+    "Name": "Kerubian",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2101076,
+        "NpcName": "Eternal Kerubian",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101080,
+        "NpcName": "Eternal Kerubian",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400802,
+        "NpcName": "Kerubian",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1171,
+    "Name": "Kerubiel",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2101077,
+        "NpcName": "Eternal Kerubiel",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400803,
+        "NpcName": "Kerubiel",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1172,
+    "Name": "Duduka Worker",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400612,
+        "NpcName": "Duduka Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1173,
+    "Name": "Duduka Trebuchet Worker",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400613,
+        "NpcName": "Duduka Slinger",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1174,
+    "Name": "Drana Predator",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2110505,
+        "NpcName": "Crimson Drana Predator",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400010,
+        "NpcName": "Drana Predator",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1175,
+    "Name": "Faded Predator",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400480,
+        "NpcName": "Faded Predator",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1176,
+    "Name": "Mudthorn",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400481,
+        "NpcName": "Addicted Mudthorn",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400707,
+        "NpcName": "Remnant of Subspace",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1177,
+    "Name": "Ancient Spirit",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1178,
+    "Name": "Spirit King's Bodyguard Warrior",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2600066,
+        "NpcName": "Old Tree Spirit Warrior",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1179,
+    "Name": "Drana Mutant",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400001,
+        "NpcName": "Twisted Mutant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1180,
+    "Name": "Faded Mutant",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400477,
+        "NpcName": "Faded Mutant",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1181,
+    "Name": "Brax",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2000954,
+        "NpcName": "Brax",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100217,
+        "NpcName": "Field Brax",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100303,
+        "NpcName": "Hungry Brax",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100740,
+        "NpcName": "Docile Highland Brax",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400375,
+        "NpcName": "Brax",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400914,
+        "NpcName": "Brax",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1182,
+    "Name": "Elite Soulless Corpse Gnat",
+    "Genus": "varian",
+    "Drops": []
+  },
+  {
+    "Id": 1183,
+    "Name": "Soulless Corpse Gnat",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400413,
+        "NpcName": "Soulless Corpse Gnat",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1184,
+    "Name": "Drakan Watcher",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100872,
+        "NpcName": "Processing Facility Drakan Scout",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400384,
+        "NpcName": "Drakan Manager",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400591,
+        "NpcName": "Drakan Patrol Watcher",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1185,
+    "Name": "Dratona Tinkerer",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1186,
+    "Name": "Poison Blood",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400311,
+        "NpcName": "Cursed Poison Blood",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400743,
+        "NpcName": "Unstable Poison Blood",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1187,
+    "Name": "Intermediate Fire Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2101100,
+        "NpcName": "Violent Fire Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400748,
+        "NpcName": "Unstable Intermediate Fire Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400821,
+        "NpcName": "Immortal Fire Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1188,
+    "Name": "Vivel",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100583,
+        "NpcName": "Highland Vivel",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400057,
+        "NpcName": "Vampire Vivel",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1189,
+    "Name": "Tamed Zaif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2100566,
+        "NpcName": "Marauders Zaif",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1190,
+    "Name": "Elite Poisonous Spore Fungen",
+    "Genus": "natura",
+    "Drops": []
+  },
+  {
+    "Id": 1191,
+    "Name": "Furious Feruk",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1192,
+    "Name": "Silver Blade Rotan",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2300310,
+        "NpcName": "Silver Blade Rotan",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310310,
+        "NpcName": "Silver Blade Rotan",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320310,
+        "NpcName": "Silver Blade Rotan",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600003,
+        "NpcName": "Abyss Rusty Rotan",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600013,
+        "NpcName": "Abyss Old Blade Rotan",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1193,
+    "Name": "Addicted Shulak Cart Worker",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2400455,
+        "NpcName": "Rampaging Shulak Cart Worker",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1194,
+    "Name": "Guardite",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100712,
+        "NpcName": "Uncontrollable Guardite",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1195,
+    "Name": "Dracuni Herbalist",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100867,
+        "NpcName": "Dracuni Processing Laborer",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400746,
+        "NpcName": "Poison Blood Gatherer",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1196,
+    "Name": "Elite Dratona",
+    "Genus": "cogni",
+    "Drops": []
+  },
+  {
+    "Id": 1197,
+    "Name": "Watcher Guardite",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100716,
+        "NpcName": "Contaminated Guardite",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1198,
+    "Name": "Ashen Basilisk",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1199,
+    "Name": "Flame Barghest",
+    "Genus": "fera",
+    "Drops": []
+  },
+  {
+    "Id": 1200,
+    "Name": "Naga Elite Priest",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2600042,
+        "NpcName": "Abyss Naga Dark Mage",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1201,
+    "Name": "Modified Lupyllini",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100815,
+        "NpcName": "Lupyllini Test Subject",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101086,
+        "NpcName": "Eternal Lupyllini",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400814,
+        "NpcName": "Modified Lupyllini",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1202,
+    "Name": "Decomposed Lupyllini",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2100747,
+        "NpcName": "Contaminated Highland Lupyllini",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400004,
+        "NpcName": "Decomposed Lupyllini",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400378,
+        "NpcName": "Decomposed Lupyllini",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400391,
+        "NpcName": "Ferocious Lupyllini",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400911,
+        "NpcName": "Decomposed Lupyllini",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1203,
+    "Name": "Tamed Karnif",
+    "Genus": "fera",
+    "Drops": [
+      {
+        "NpcCode": 2400257,
+        "NpcName": "Blades Karnif",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400503,
+        "NpcName": "Tamed Blades Beast",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1204,
+    "Name": "Pagati",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1206,
+    "Name": "Elite Guardite",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100718,
+        "NpcName": "Divine Ansas",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1207,
+    "Name": "Agrint",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100143,
+        "NpcName": "Decaying Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100698,
+        "NpcName": "Old Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100714,
+        "NpcName": "Contaminated Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101099,
+        "NpcName": "Eternal Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400221,
+        "NpcName": "Mutated Elim",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400415,
+        "NpcName": "Ruin Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400825,
+        "NpcName": "Island Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600027,
+        "NpcName": "Sulfur Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600071,
+        "NpcName": "Root Agrint",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1208,
+    "Name": "Ashen Agrint",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2400750,
+        "NpcName": "Unstable Agrint",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1209,
+    "Name": "Thin Agrint",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2110508,
+        "NpcName": "Crimson Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400054,
+        "NpcName": "Red Eye Agrint",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600028,
+        "NpcName": "Thin Sulfur Agrint",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1210,
+    "Name": "Dry Leaf Agrint",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100179,
+        "NpcName": "Forest Agrint",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1213,
+    "Name": "Lesser Fire Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2101087,
+        "NpcName": "Eternal Fire Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400325,
+        "NpcName": "Burning Ember Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1214,
+    "Name": "Black Spirit",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100460,
+        "NpcName": "Contaminated Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100807,
+        "NpcName": "Distorted Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400708,
+        "NpcName": "Black Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600069,
+        "NpcName": "Abyss Corrupted Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1215,
+    "Name": "Predator Saraswati",
+    "Genus": "cogni",
+    "Drops": [
+      {
+        "NpcCode": 2300403,
+        "NpcName": "Predator Saraswati",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2310403,
+        "NpcName": "Predator Saraswati",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2320403,
+        "NpcName": "Predator Saraswati",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1216,
+    "Name": "Dark Spirit",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2100600,
+        "NpcName": "Corrupted Spirit",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2100656,
+        "NpcName": "Wandering Dark Spirit",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1217,
+    "Name": "Congealed Drana",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400009,
+        "NpcName": "Congealed Drana",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1218,
+    "Name": "Faded Drana",
+    "Genus": "varian",
+    "Drops": [
+      {
+        "NpcCode": 2400478,
+        "NpcName": "Faded Chunk",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1219,
+    "Name": "Zelophi",
+    "Genus": "natura",
+    "Drops": [
+      {
+        "NpcCode": 2100458,
+        "NpcName": "Coastal Zelophi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2101085,
+        "NpcName": "Eternal Zelophi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2400811,
+        "NpcName": "Zelophi",
+        "Chance": 1
+      },
+      {
+        "NpcCode": 2600050,
+        "NpcName": "Abyss Zelophi",
+        "Chance": 1
+      }
+    ]
+  },
+  {
+    "Id": 1240,
+    "Name": "White Bunny",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1278,
+    "Name": "Chonky Hamster",
+    "Genus": "special",
+    "Drops": []
+  },
+  {
+    "Id": 1299,
+    "Name": "Two",
+    "Genus": "special",
+    "Drops": []
+  }
+]

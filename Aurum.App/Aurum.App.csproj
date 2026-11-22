@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+  <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+  <AssemblyName>AurumMeter</AssemblyName><Product>Aurum Meter</Product><Version>0.2.0</Version>
+  <StartupObject>Aurum.Program</StartupObject>
+  <ApplicationManifest>app.manifest</ApplicationManifest>
+ </PropertyGroup>
+ <ItemGroup><ProjectReference Include="../AionMeter.Core/AionMeter.Core.csproj" />
+  <ProjectReference Include="../Aurum.Distribution/Aurum.Distribution.csproj" />
+  <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
+  <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20261107" />
+  <PackageReference Include="Vortice.Direct3D11" Version="3.8.3" />
+  <PackageReference Include="Vortice.DXGI" Version="3.8.3" />
+  <Using Remove="System.Windows.Forms" /><Using Remove="System.Drawing" />
+ </ItemGroup>
+ <ItemGroup><None Include="../data/**/*" Link="data/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
+ <ItemGroup><None Include="../licenses/**/*" Link="licenses/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
+ <ItemGroup><None Include="../LICENSE;../NOTICE.txt;../*.md" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
+</Project>
+
+
+

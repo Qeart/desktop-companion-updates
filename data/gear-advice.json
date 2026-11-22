@@ -1,0 +1,34 @@
+{
+  "VerifiedOn": "2026-11-22",
+  "Mode": "PvE DPS",
+  "Sources": [
+    "https://raidrelay.com/aion-2-best-stats-guide",
+    "https://aion2.gg/guides/chanter-pve-build",
+    "https://aion2-meta.com/guides/"
+  ],
+  "Slots": [
+    { "Slot": "Weapon", "Label": "Broń", "Targets": ["Combat Speed", "Weapon Damage Boost", "Damage Boost", "Might"], "Useful": ["Precision", "Attack"], "SkillKind": "Active" },
+    { "Slot": "OffHand", "Label": "Osłona / druga ręka", "Targets": ["Combat Speed", "Weapon Damage Boost", "Damage Boost", "Might"], "Useful": ["Precision", "Attack"], "SkillKind": "None" },
+    { "Slot": "Helmet", "Label": "Hełm", "Targets": ["Double Chance", "Attack increase", "Attack"], "Useful": [], "SkillKind": "Passive" },
+    { "Slot": "Shoulders", "Label": "Naramienniki", "Targets": ["Critical Damage Boost", "Attack"], "Useful": ["Accuracy"], "SkillKind": "Passive" },
+    { "Slot": "Chest", "Label": "Pancerz", "Targets": ["Damage Boost", "Perfect Chance", "Attack"], "Useful": ["Accuracy"], "SkillKind": "Passive" },
+    { "Slot": "Legs", "Label": "Spodnie", "Targets": ["Attack increase", "Perfect Chance", "Attack"], "Useful": ["Damage Tolerance"], "SkillKind": "Passive" },
+    { "Slot": "Gloves", "Label": "Rękawice", "Targets": ["Combat Speed", "Perfect Chance", "Attack"], "Useful": [], "SkillKind": "Passive" },
+    { "Slot": "Boots", "Label": "Buty", "Targets": ["Perfect Chance", "Attack"], "Useful": ["Move Speed"], "SkillKind": "Passive" },
+    { "Slot": "Cloak", "Label": "Peleryna", "Targets": ["Double Chance", "Attack increase", "Attack"], "Useful": ["Perfect Chance"], "SkillKind": "Passive" },
+    { "Slot": "Necklace", "Label": "Naszyjnik", "Targets": ["Combat Speed", "Might", "Attack"], "Useful": ["Precision", "Accuracy", "Critical Hit"], "SkillKind": "Passive" },
+    { "Slot": "Earrings", "Label": "Kolczyki", "Targets": ["Might", "Precision", "Attack"], "Useful": ["Move Speed", "Accuracy", "Critical Hit"], "SkillKind": "Passive" },
+    { "Slot": "Ring", "Label": "Pierścień", "Targets": ["Might", "Precision", "Attack"], "Useful": ["Accuracy", "Critical Hit"], "SkillKind": "Active" },
+    { "Slot": "Bracelet", "Label": "Bransoleta", "Targets": ["Time", "Wisdom", "Destruction"], "Useful": ["Death"], "SkillKind": "None" }
+  ],
+  "Classes": [
+    { "Class": "Chanter", "Label": "Chanter", "Active": ["Dark Crush", "Onslaught", "Spinning Strike"], "Passive": ["Attack Preparation", "Impact Hit", "Wind's Promise"], "Note": "Przy pewnych krytach Dark Crush sam Critical Hit ma niższy priorytet. Bonusy +1 dobieraj także do progów specjalizacji.", "Source": "https://aion2.gg/guides/chanter-pve-build" },
+    { "Class": "Gladiator", "Label": "Gladiator", "Active": ["Overhead Slam", "Rending Blow", "Ruinous Blow"], "Passive": ["Murderous Burst", "Impact Hit", "Attack Preparation"], "Note": "Profil nastawiony na obrażenia. Nie zastępuje zestawu do tankowania.", "Source": "https://aion2-meta.com/guides/gladiator/" },
+    { "Class": "Templar", "Label": "Templar", "Active": ["Judgment", "Vicious Strike", "Punishment"], "Passive": ["Fury", "Impact Hit"], "Note": "Profil DPS; tankowanie wymaga osobnego doboru obrony.", "Source": "https://aion2-meta.com/guides/templar/" },
+    { "Class": "Assassin", "Label": "Assassin", "Active": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Passive": ["Rear Smite", "Assault Stance", "Exploit Weakness"], "Note": "Critical Hit ma znaczenie dla kolejnych użyć Heart Gore; uwzględnij statystyki całego zestawu.", "Source": "https://aion2-meta.com/guides/assassin/" },
+    { "Class": "Ranger", "Label": "Ranger", "Active": ["Deadshot", "Tempest Shot", "Snipe"], "Passive": ["Focused Eye", "Hunter's Resolve"], "Note": "Pilnuj Accuracy i Critical Hit w całym zestawie, zanim wymienisz użyteczną linię.", "Source": "https://aion2-meta.com/guides/ranger/" },
+    { "Class": "Sorcerer", "Label": "Sorcerer", "Active": ["Blaze", "Hellfire", "Bittercold Wind"], "Passive": ["Robe of Flame"], "Note": "Bonusy +1 oceniaj razem z aktualnymi poziomami umiejętności i specjalizacjami.", "Source": "https://aion2-meta.com/guides/sorcerer/" },
+    { "Class": "Elementalist", "Label": "Spiritmaster", "Active": ["Elemental Fusion", "Combustion", "Cold Shock"], "Passive": ["Spirit Strike", "Mental Focus", "Element Unification"], "Note": "Profil obrażeń przy grze z przywołanym duchem.", "Source": "https://aion2-meta.com/guides/spiritmaster/" },
+    { "Class": "Cleric", "Label": "Cleric", "Active": ["Condemnation", "Earth's Retribution"], "Passive": ["Empyrean Lord's Grace", "Earth's Grace"], "Note": "Wybrano cele DPS, niezależnie od przełącznika HEAL w liczniku.", "Source": "https://aion2-meta.com/guides/cleric/" }
+  ]
+}

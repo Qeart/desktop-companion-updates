@@ -1,0 +1,71 @@
+Aurum Meter 0.2
+
+New WPF frontend, dark/gold appearance, DPS/HEAL selector, healing display,
+per-skill healing summaries and modified healing aggregation developed locally.
+Floating menu and integrated Hidden Cube compass developed locally. The compass reuses
+the existing tested local CubeArrow camera-sector/navigation implementation and the
+shared Aurum position decoder; no Kisk executable or code is bundled.
+Ctrl item-advice UI, tooltip parser and inventory-comparison/class/slot selection developed locally. Short factual
+stat/skill recommendations are attributed in ITEM-ADVISOR.md and data/gear-advice.json.
+Automatic Arcana-screen advice is developed locally; factual sources and card-specific
+skill recommendations are attributed in ARCANA-ADVISOR.md and data/arcana-advice.json.
+Installer, update UI, channel configuration and data migration are developed locally,
+using Velopack 1.2.161 (MIT). Copyright Velopack Ltd and contributors; see
+licenses/Velopack-MIT.txt and https://github.com/velopack/velopack.
+
+The parser and combat engine are a modified fork of AionMeter.Core from:
+https://github.com/cyberbadger6969/aion2-dps-meter
+Base commit: 99032bbe988e4792e980a5afaa50b9c3d0f510f4
+Upstream authors and contributors retain their copyright.
+Upstream tests are retained in Aurum.Tests/Upstream.
+Game-data files retain their notices in data/NOTICE.md.
+
+The combined work is distributed under GPL-3.0; see LICENSE.
+Aurum Meter is a standalone fork; it is not an exclusively authored replacement
+for the upstream protocol parser and must retain the upstream licence/notices.
+No affiliation with NCSOFT, Kisk, or the upstream project's maintainers is implied.
+
+PktMon backend and raw Ethernet/IP/TCP reader were added locally.
+ABI documentation:
+https://learn.microsoft.com/en-us/windows/win32/pktmon/pktmon-reference
+https://learn.microsoft.com/en-us/windows/win32/pktmon/packetmonitor/nf-packetmonitor-packetmonitorcreaterealtimestream
+API name/string constants were cross-checked with the interface header at:
+https://github.com/emmachase/pktmon/blob/master/pktmon.h
+No source from that implementation is bundled; Windows supplies Pktmonapi.dll.
+
+Npcap is installed separately and is not redistributed here.
+Pet catalogue (pets.json) is derived from pets.js and sources.js in
+https://github.com/taengu/A2Tools-Plugins, commit
+0396123a6e38bbc5c09df0c8c44755ddbe68cc79 (GPL-3.0).
+The pet-souls plugin's packet layouts informed the local C# implementation.
+The original authors retain their copyright; game data belongs to NCSOFT.
+.NET, SharpPcap, PacketDotNet and K4os.Compression.LZ4 retain their upstream licences.
+
+Build with .NET 10 SDK from the source archive:
+dotnet publish AurumMeter/Aurum.App/Aurum.App.csproj -c Release -r win-x64 --self-contained true -o build
+dotnet test AurumMeter/Aurum.Tests/Aurum.Tests.csproj -c Release
+Black Cloud Market tab packet layout was cross-checked against
+https://github.com/taengu/A2Tools-DPS-Meter src-tauri/src/capture/black_market.rs (GPL-3.0).
+Shop-only screen matching uses the Windows OCR API. The Windows SDK .NET projection
+and WinRT runtime retain their upstream licences. No Kisk program code is bundled.
+Pet-map spawn coordinates and map pictures are derived from maps.js and maps/*.webp
+in https://github.com/taengu/A2Tools-Plugins, commit
+0396123a6e38bbc5c09df0c8c44755ddbe68cc79 (GPL-3.0).
+That dataset was built from aion2timers.com's interactive map, build 26077854.
+Map artwork and underlying game data belong to NCSOFT; original data compilers
+retain their copyright. See also data/NOTICE.md.
+Map registration uses OpenCvSharp4 / OpenCV 4.13.0, Apache-2.0:
+https://github.com/shimat/opencvsharp and https://opencv.org/license/.
+The local map feature uses image matching, not OCR or game-process memory access.
+Fast desktop-frame capture uses Vortice.Windows (Direct3D11/DXGI), MIT license:
+https://github.com/amerkoleci/Vortice.Windows, copyright Amer Koleci and contributors.
+Its SharpGen runtime and mathematics dependencies retain their upstream licences.
+The default Aurum map now renders its own terrain image and world markers together.
+Legacy registration/capture remains in the source but is not used by the owned map.
+The own-position decoder reuses the CubeArrow packet layouts verified against
+A2Tools-Plugins pet-souls/manifest.json and nearby.js (GPL-3.0).
+Party/force channel, party-left and vacant-slot layouts were checked against
+A2Tools-DPS-Meter src-tauri/src/capture/stream_processor.rs (GPL-3.0).
+207 pet portraits are from keytftw/aion2pettracker, commit
+8a57ba3c36ce0cccb9c783c35ffba4fd2983c3f6 (GPL-3.0), originally Questlog/NCSOFT
+game-art snapshots. See data/pet-icons/NOTICE.md and licenses/PetPortraits-GPL-3.0.txt.

@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+**/user-data/
+.vs/
+.idea/
+.tools/
+artifacts/
+Releases/
+*.user
+*.suo
+*.etl
+*.pcap
+*.pcapng
+*.pfx
+*.p12
+*.key
+.env

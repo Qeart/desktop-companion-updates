@@ -1,0 +1,65 @@
+name: Prepare release
+run-name: Prepare ${{ inputs.version }} (${{ inputs.channel }})
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version, for example 0.2.0 or 0.3.0-beta.1'
+        required: true
+        default: '0.2.0'
+        type: string
+      channel:
+        description: 'Release channel'
+        required: true
+        default: stable
+        type: choice
+        options: [stable, beta]
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ inputs.channel }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_CHANNEL: ${{ inputs.channel }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Validate version and find previous package
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ($env:RELEASE_VERSION -notmatch '^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$') { throw 'Invalid version' }
+          if ($env:RELEASE_CHANNEL -eq 'stable' -and $env:RELEASE_VERSION.Contains('-')) { throw 'Prerelease requires beta channel' }
+          $all = gh release list --repo $env:GITHUB_REPOSITORY --limit 100 --json tagName,isDraft,isPrerelease | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot list releases' }
+          if ($all.tagName -contains ('v' + $env:RELEASE_VERSION)) { throw 'This version already exists; use a new version number' }
+          $previous = $all | Where-Object { !$_.isDraft -and $_.isPrerelease -eq ($env:RELEASE_CHANNEL -eq 'beta') } | Select-Object -First 1
+          if ($previous) {
+            New-Item -ItemType Directory -Path artifacts/release -Force | Out-Null
+            gh release download $previous.tagName --repo $env:GITHUB_REPOSITORY --pattern '*-full.nupkg' --dir artifacts/release
+            if ($LASTEXITCODE -ne 0) { throw 'Cannot download previous package for delta generation' }
+          }
+      - name: Test and build installer
+        shell: pwsh
+        run: ./scripts/Build-Release.ps1 -Version $env:RELEASE_VERSION -Channel $env:RELEASE_CHANNEL -OutputDirectory "$env:GITHUB_WORKSPACE/artifacts/release"
+      - name: Create draft release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $releaseArgs = @('release','create',('v' + $env:RELEASE_VERSION),'--repo',$env:GITHUB_REPOSITORY,'--target',$env:GITHUB_SHA,'--draft','--title',('Aurum ' + $env:RELEASE_VERSION),'--notes-file','RELEASE-NOTES.md')
+          if ($env:RELEASE_CHANNEL -eq 'beta') { $releaseArgs += '--prerelease' }
+          $releaseArgs += @(Get-ChildItem -LiteralPath artifacts/release -File | ForEach-Object FullName)
+          gh @releaseArgs
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot create draft release' }

@@ -1,0 +1,29 @@
+{
+  "VerifiedOn": "2026-11-22",
+  "Mode": "PvE DPS",
+  "Cards": [
+    { "Slot": "Chalice", "Label": "Kielich", "Family": "Vigor", "Stat": "Time [Siel]", "Effect": "Combat Speed", "Alternative": "Space [Israphel]: Block / Move Speed" },
+    { "Slot": "Parchment", "Label": "Pergamin", "Family": "Vigor", "Stat": "Life [Yustiel]", "Effect": "HP · część zestawu Primal Vigor", "Alternative": "Destiny [Marchutan]: MP" },
+    { "Slot": "Compass", "Label": "Kompas", "Family": "Vigor", "Stat": "Freedom [Vaizel]", "Effect": "Accuracy", "Alternative": "Death [Triniel]: Critical Hit" },
+    { "Slot": "Bell", "Label": "Dzwon", "Family": "Magic", "Stat": "Destruction [Zikel]", "Effect": "Attack", "Alternative": "Justice [Nezekan]: Defense / Perfect Chance" },
+    { "Slot": "Mirror", "Label": "Lustro", "Family": "Vigor", "Stat": "Illusion [Kaisinel]", "Effect": "Cooldown Reduction", "Alternative": "Wisdom [Lumiel]: Double Chance" }
+  ],
+  "Classes": [
+    { "Class": "Chanter", "Label": "Chanter", "Source": "https://aion2.gg/guides/chanter-pve-build", "Goals": {
+      "Chalice": ["Dark Crush", "Spinning Strike", "Onslaught"], "Parchment": ["Dark Crush", "Spinning Strike", "Onslaught"], "Compass": ["Incandescent Blow", "Impactful Crush"], "Bell": ["Attack Preparation"], "Mirror": ["Wind's Promise", "Earth's Promise", "Impact Hit"] } },
+    { "Class": "Gladiator", "Label": "Gladiator", "Source": "https://aion2.gg/guides/gladiator-pve-build", "Goals": {
+      "Chalice": ["Overhead Slam", "Ruinous Blow", "Rending Blow"], "Parchment": ["Overhead Slam", "Ruinous Blow"], "Compass": ["Rending Blow", "Crushing Wave"], "Bell": ["Attack Preparation"], "Mirror": ["Experienced Counterstrike", "Murderous Burst", "Identify Weakness"] } },
+    { "Class": "Templar", "Label": "Templar", "Source": "https://aion2.gg/guides/templar-pve-build", "Goals": {
+      "Chalice": ["Judgment", "Fury"], "Parchment": ["Judgment", "Punishment", "Vicious Strike"], "Compass": ["Pummel", "Warding Strike", "Shield Smite"], "Bell": ["Fury"], "Mirror": ["Impact Hit"] } },
+    { "Class": "Assassin", "Label": "Assassin", "Source": "https://aion2.gg/guides/assassin-pve-build", "Goals": {
+      "Chalice": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Parchment": ["Heart Gore", "Quick Slice", "Insignia Explosion"], "Compass": ["Ambush", "Savage Roar"], "Bell": ["Assault Stance"], "Mirror": ["Rear Smite", "Exploit Weakness"] } },
+    { "Class": "Ranger", "Label": "Ranger", "Source": "https://aion2.gg/guides/ranger-pve-build", "Goals": {
+      "Chalice": ["Deadshot", "Drill Dart", "Tempest Shot"], "Parchment": ["Drill Dart", "Tempest Shot", "Snipe"], "Compass": ["Deadshot", "Gale Arrow"], "Bell": ["Hunter's Resolve"], "Mirror": ["Focused Eye", "Hunter's Soul"] } },
+    { "Class": "Sorcerer", "Label": "Sorcerer", "Source": "https://aion2.gg/guides/sorcerer-pve-build", "Goals": {
+      "Chalice": ["Hellfire", "Blaze", "Firestorm"], "Parchment": ["Hellfire", "Blaze", "Firestorm"], "Compass": ["Bittercold Wind"], "Bell": ["Fire Mark"], "Mirror": ["Robe of Flame", "Grace of Enhancement"] } },
+    { "Class": "Elementalist", "Label": "Spiritmaster", "Source": "https://aion2.gg/guides/spiritmaster-pve-build", "Goals": {
+      "Chalice": ["Combustion", "Elemental Fusion"], "Parchment": ["Elemental Fusion", "Summon: Fire Spirit", "Jointstrike: Curse"], "Compass": ["Combustion"], "Bell": ["Spirit Strike", "Element Unification"], "Mirror": ["Corrode", "Mental Focus"] } },
+    { "Class": "Cleric", "Label": "Cleric", "Source": "https://aion2.gg/guides/cleric-pve-build", "Goals": {
+      "Chalice": ["Condemnation", "Earth's Retribution"], "Parchment": ["Condemnation", "Earth's Retribution", "Chain of Torment"], "Compass": ["Judgment Thunder", "Divine Aura"], "Bell": ["Empyrean Lord's Grace"], "Mirror": ["Earth's Grace", "Radiant Benediction"] } }
+  ]
+}
