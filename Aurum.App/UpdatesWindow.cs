@@ -82,19 +82,20 @@ internal sealed class UpdatesWindow : Window
     internal void RenderPreview(string directory)
     {
         Directory.CreateDirectory(directory);
+        var body = (FrameworkElement)Content; Content = null;
+        var root = new Border { Background = Background, Child = body };
         foreach (var state in new[] {
             new UpdateStatus(UpdateStage.Available, "Nowa wersja jest dostępna. Możesz pobrać ją w dogodnym momencie.", "0.2.0", "0.2.1"),
             new UpdateStatus(UpdateStage.Ready, "Aktualizacja pobrana i sprawdzona. Możesz uruchomić program ponownie.", "0.2.0", "0.2.1", 100) })
         {
-            Refresh(state); var body = (FrameworkElement)Content;
-            body.Measure(new Size(465, double.PositiveInfinity)); var height = (int)Math.Ceiling(body.DesiredSize.Height);
-            body.Arrange(new Rect(0, 0, 465, height)); body.UpdateLayout();
-            var visual = new DrawingVisual(); using (var drawing = visual.RenderOpen())
-            { drawing.DrawRectangle(Background, null, new Rect(0, 0, 465, height)); drawing.DrawRectangle(new VisualBrush(body), null, new Rect(0, 0, 465, height)); }
-            var bitmap = new RenderTargetBitmap(465, height, 96, 96, PixelFormats.Pbgra32); bitmap.Render(visual);
+            Refresh(state);
+            root.Measure(new Size(465, double.PositiveInfinity)); var height = (int)Math.Ceiling(root.DesiredSize.Height);
+            root.Arrange(new Rect(0, 0, 465, height)); root.UpdateLayout();
+            var bitmap = new RenderTargetBitmap(465, height, 96, 96, PixelFormats.Pbgra32); bitmap.Render(root);
             var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
             using var file = File.Create(Path.Combine(directory, "updates-" + state.Stage + ".png")); encoder.Save(file);
         }
+        root.Child = null; Content = body;
         Close();
     }
 }

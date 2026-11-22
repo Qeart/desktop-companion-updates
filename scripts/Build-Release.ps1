@@ -45,4 +45,7 @@ try {
     }
     [IO.File]::WriteAllLines((Join-Path $OutputDirectory 'SHA256SUMS.txt'), $hashes, [Text.UTF8Encoding]::new($false))
     Write-Host "Wydanie $Version ($Channel) gotowe: $OutputDirectory"
+    # Robocopy uses 1 for a successful copy. GitHub's pwsh wrapper propagates the
+    # last native exit code, so report success explicitly after all checks pass.
+    $global:LASTEXITCODE = 0
 } finally { Pop-Location }
