@@ -18,6 +18,12 @@ and carries Dark Crush and Onslaught. Presence checks are green. Skill bonus num
 are shown only if OCR reads them confidently; otherwise the panel says "masz" and does
 not invent a value. A +1 existing skill is not labelled a maximum/finished BiS roll.
 
+Skill recognition compares complete names against the known recommendation catalogue.
+It tolerates only specified OCR glyph confusions (I/l/1, Polish ł in place of t/l,
+and zero in place of o) and a short leading effect-icon token. A visual match must
+be unique; partial names and arbitrary spelling changes are not guessed. A skill
+not confirmed by OCR is labelled "nie potwierdzono", rather than asserted absent.
+
 ## Reading and positioning
 
 - OCR first verifies all four Arcana menu labels, then the right card panel must contain

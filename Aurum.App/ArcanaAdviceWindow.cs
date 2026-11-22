@@ -43,7 +43,7 @@ internal sealed class ArcanaAdviceWindow : Window
         {
             var row = new Grid { Margin = new Thickness(0, 1, 0, 1) }; row.ColumnDefinitions.Add(new()); row.ColumnDefinitions.Add(new() { Width = GridLength.Auto });
             row.Children.Add(Text((skill.Present ? "✓  " : "·  ") + skill.Name, 12, skill.Present ? "#B0E6BD" : "#EEE3C9", FontWeights.SemiBold));
-            var bonus = Text(skill.Present ? skill.Bonus is { } value ? "+" + value : "masz" : "szukaj", 11, skill.Present ? "#B0E6BD" : "#A99D84");
+            var bonus = Text(skill.Present ? skill.Bonus is { } value ? "+" + value : "masz" : "nie potwierdzono", 11, skill.Present ? "#B0E6BD" : "#A99D84");
             Grid.SetColumn(bonus, 1); row.Children.Add(bonus); _body.Children.Add(row);
         }
         var alternative = Text("Alternatywa: " + advice.Alternative, 9, "#A7B6BB"); alternative.Margin = new Thickness(0, 8, 0, 0); _body.Children.Add(alternative);

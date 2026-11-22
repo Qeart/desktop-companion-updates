@@ -1,3 +1,9 @@
+# 0.2.2
+
+- Rozpoznawanie skilli arkan toleruje typowe pomyłki OCR (I/l/1, ł zamiast t/l, 0 zamiast o).
+- Dopasowania dotyczą całych nazw i muszą być jednoznaczne; inne i ucięte nazwy nie są zgadywane.
+- Niepotwierdzony odczyt nie jest przedstawiany jako pewny brak skilla na karcie.
+
 # 0.2.1
 
 - Naprawiono pomijanie DPS/HPS graczy w dungeonach, gdy ich tożsamość nie zawierała serwera.

@@ -38,7 +38,7 @@ On Windows x64, install the .NET 10 SDK, then run:
 
 ```powershell
 dotnet test Aurum.Tests/Aurum.Tests.csproj -c Release
-./scripts/Build-Release.ps1 -Version 0.2.0 -Channel stable
+./scripts/Build-Release.ps1 -Version 0.2.2 -Channel stable
 ```
 
 The script restores pinned Velopack 1.2.161 tooling, tests, publishes a self-contained

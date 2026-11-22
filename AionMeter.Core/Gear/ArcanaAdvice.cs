@@ -92,15 +92,13 @@ public static class ArcanaPanelParser
 public sealed class ArcanaAdviceCatalog
 {
     private readonly ArcanaAdviceData _data;
-    public ArcanaAdviceCatalog(ArcanaAdviceData data) => _data = data;
-    public static ArcanaAdviceCatalog Load(string path) => new(JsonSerializer.Deserialize<ArcanaAdviceData>(File.ReadAllText(path)) ?? throw new InvalidDataException("Brak profili arkan."));
-    private static bool SameSkill(string line, string skill)
+    private readonly string[] _skillNames;
+    public ArcanaAdviceCatalog(ArcanaAdviceData data)
     {
-        var key = ItemTooltipParser.Normalize(skill); var value = ItemTooltipParser.Normalize(line);
-        if (value == key) return true;
-        var first = line.IndexOf(' ');
-        return first is > 0 and <= 2 && ItemTooltipParser.Normalize(line[(first + 1)..]) == key;
+        _data = data;
+        _skillNames = data.Classes.SelectMany(c => c.Goals.Values).SelectMany(names => names).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
     }
+    public static ArcanaAdviceCatalog Load(string path) => new(JsonSerializer.Deserialize<ArcanaAdviceData>(File.ReadAllText(path)) ?? throw new InvalidDataException("Brak profili arkan."));
     public ArcanaAdvice? For(GameClass gameClass, ArcanaPanel panel)
     {
         var player = _data.Classes.FirstOrDefault(c => c.Class == gameClass.ToString());
@@ -108,7 +106,7 @@ public sealed class ArcanaAdviceCatalog
         if (player == null || card == null || !player.Goals.TryGetValue(card.Slot, out var goals)) return null;
         return new(player.Label, card.Label, card.Slot + " of " + card.Family, card.Stat, card.Effect,
             panel.MainStat == card.Stat, card.Alternative, goals.Select(goal => {
-                var seen = panel.Skills.FirstOrDefault(s => SameSkill(s.Name, goal)); return new ArcanaSkillGoal(goal, seen != null, seen?.Bonus);
+                var seen = panel.Skills.FirstOrDefault(s => OcrSkillNames.Find(s.Name, _skillNames) == goal); return new ArcanaSkillGoal(goal, seen != null, seen?.Bonus);
             }).ToArray(), "Plan DPS: 4× Primal Vigor + Bell of Magic · premia przy HP ≥70%", _data.VerifiedOn);
     }
 }
