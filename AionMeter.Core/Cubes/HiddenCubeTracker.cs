@@ -25,6 +25,7 @@ public sealed class HiddenCubeTracker
         {
             switch (ev)
             {
+                case LocalIdentityLostEvent: _self = 0; _cubes.Clear(); break;
                 case ZoneChangedEvent zone: _cubes.Clear(); _map = zone.MapId; break;
                 case SelfIdentifiedEvent self:
                     if (_self != 0 && self.ActorId != _self) _cubes.Clear();

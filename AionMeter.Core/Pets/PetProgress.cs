@@ -74,6 +74,9 @@ public sealed class PetProgress
         {
             switch (gameEvent)
             {
+                case LocalIdentityLostEvent:
+                    _self = 0; _awaitingIdentity = true; _pendingCollection = null;
+                    _ownHits.Clear(); _owners.Clear(); break;
                 case ZoneChangedEvent:
                     _awaitingIdentity = true; _pendingCollection = null;
                     _npcs.Clear(); _ownHits.Clear(); _owners.Clear(); _lastKill = null;

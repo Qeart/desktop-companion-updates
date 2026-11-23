@@ -89,6 +89,12 @@ public sealed class CombatTracker
 
             switch (e)
             {
+                case LocalIdentityLostEvent:
+                    // Save the outgoing fight while its self marker is still
+                    // valid; the following zone event must not erase that fact.
+                    if (_current is { IsActive: true }) Finish(EncounterEndReason.ZoneChange, _current.LastDamageMs);
+                    _entities.ForgetSelf(); _group.ForgetSelf(); _pendingGroupSummons.Clear();
+                    break;
                 case DamageEvent d:
                     OnDamage(d);
                     break;
@@ -97,7 +103,7 @@ public sealed class CombatTracker
                     break;
                 case SelfIdentifiedEvent s:
                     var groupBeforeSelf = _group.Version;
-                    _entities.SetSelf(s.ActorId, s.Name, s.ServerId, s.Class);
+                    _entities.SetSelf(s.ActorId, s.Name, s.ServerId, s.Class, s.FreshIdentity);
                     _group.SetSelf(_entities.Self); if (_group.Version != groupBeforeSelf) OnGroupChanged();
                     _entities.SetGear(s.Name, 0, s.CombatPower);
                     LinkSummonsCastBy(s.ActorId, s.Name);
@@ -656,7 +662,7 @@ public sealed class CombatTracker
         return c;
     }
 
-    private void RefreshIdentity(Combatant c)
+    private void RefreshIdentity(Combatant c, Encounter? encounter = null)
     {
         if (_entities.TryGetPlayer(c.ActorId, out var p))
         {
@@ -666,7 +672,7 @@ public sealed class CombatTracker
             if (p.GearScore > 0) c.GearScore = p.GearScore;
             if (p.CombatPower > 0) c.CombatPower = p.CombatPower;
         }
-        c.IsSelf = _entities.SelfId == c.ActorId;
+        c.IsSelf = (encounter is { IsActive: false } ? encounter.SelfIdAtEnd : _entities.SelfId) == c.ActorId;
         if (string.IsNullOrEmpty(c.Name)) c.Name = $"#{c.ActorId}";
     }
 
@@ -682,6 +688,7 @@ public sealed class CombatTracker
     {
         var enc = _current;
         if (enc is null || !enc.IsActive) return;
+        enc.SelfIdAtEnd = _entities.SelfId;
         enc.Reason = reason;
         enc.EndMs = Math.Max(endMs, enc.StartMs);
         if (enc.TotalDamage <= 0) return;
@@ -720,7 +727,7 @@ public sealed class CombatTracker
                 records = new List<FightRecord>(_justFinished.Count);
                 foreach (var enc in _justFinished)
                 {
-                    foreach (var c in enc.Combatants.Values) RefreshIdentity(c);
+                    foreach (var c in enc.Combatants.Values) RefreshIdentity(c, enc);
                     records.Add(BuildRecord(enc));
                 }
                 _justFinished.Clear();
@@ -836,7 +843,7 @@ public sealed class CombatTracker
         var rows = new List<CombatantSnapshot>(enc.Combatants.Count);
         foreach (var c in enc.Combatants.Values)
         {
-            RefreshIdentity(c);
+            RefreshIdentity(c, enc);
             var t = c.Total;
             rows.Add(new CombatantSnapshot(
                 c.ActorId, c.Name, c.Class, c.IsSelf,
@@ -878,6 +885,7 @@ public sealed class CombatTracker
 
     private CombatantDetail BuildDetail(Encounter enc, Combatant c, int maxCasts)
     {
+        RefreshIdentity(c, enc);
         var seconds = enc.CombatMs / 1000.0;
         var total = Math.Max(1, c.Total.Damage);
         var skills = c.Skills.Values

@@ -81,6 +81,9 @@ public sealed class PacketParser
                 ParseIdentity(body, 0, isSelf: true, SelfCombatPower(body));
                 ScanEmbeddedBundles(body);
                 break;
+            case Opcodes.OwnStats:
+                if (OwnStatsReader.Actor(body) is { } ownActor) Emit(new OwnStatsEvent(TimeMs, ownActor));
+                break;
             case Opcodes.PartyRoster:
                 ParsePartyRoster(body);
                 break;

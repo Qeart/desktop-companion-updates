@@ -151,6 +151,7 @@ public sealed class Combatant
 
 public sealed class Encounter
 {
+    public uint? SelfIdAtEnd { get; set; }
     public Guid Id { get; } = Guid.NewGuid();
     public required long StartMs { get; init; }
     public long LastDamageMs { get; set; }

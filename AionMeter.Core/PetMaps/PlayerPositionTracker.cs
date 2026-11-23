@@ -20,9 +20,10 @@ public sealed class PlayerPositionTracker
     public void SeedIdentity(uint actor, int map) { lock (_gate) { _self = actor; _map = map; } }
     public void Process(GameEvent ev)
     {
-        if (ev is not (SelfIdentifiedEvent or ZoneChangedEvent)) return;
+        if (ev is not (SelfIdentifiedEvent or ZoneChangedEvent or LocalIdentityLostEvent)) return;
         lock (_gate)
         {
+            if (ev is LocalIdentityLostEvent) { _self = 0; _position = null; }
             if (ev is SelfIdentifiedEvent self)
             {
                 if (_self != 0 && self.ActorId != _self) _position = null;

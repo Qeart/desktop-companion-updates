@@ -10,6 +10,7 @@ public static class Opcodes
 
     public const ushort Heartbeat = 0x0036;      // 8 data bytes, ~19/s
     public const ushort SelfInfo = 0x3336;       // own character
+    public const ushort OwnStats = 0x4A36;       // periodic local-character stat updates
     public const ushort PlayerInfo = 0x4536;     // another player
     public const ushort PlayerInfoOld = 0x4436;  // pre-June-2026 player record
     public const ushort Spawn = 0x4136;          // NPC / summon / effect entity
@@ -34,6 +35,7 @@ public static class Opcodes
     {
         Heartbeat => "Heartbeat",
         SelfInfo => "SelfInfo",
+        OwnStats => "OwnStats",
         PlayerInfo or PlayerInfoOld => "PlayerInfo",
         Spawn => "Spawn",
         Death => "Death",

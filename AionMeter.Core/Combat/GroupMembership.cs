@@ -30,6 +30,7 @@ internal sealed class GroupMembership
         _members.Clear(); _presence.Clear(); _pending.Clear(); _groupId = null; Version++;
     }
     public void ClearActorIds() => _presence.Clear();
+    public void ForgetSelf() { Clear(); _self = null; }
     public void Seen(uint actor, long at)
     {
         if (actor == 0) return;

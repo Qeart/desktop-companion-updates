@@ -6,7 +6,7 @@ public sealed record DataImportResult(int Copied, int Existing, IReadOnlyList<st
 
 public static class UserDataMigration
 {
-    private static readonly string[] SettingsFiles = ["settings.json", "pets-cache.json", "pet-progress.json", "names-cache.json"];
+    private static readonly string[] SettingsFiles = ["settings.json", "pets-cache.json", "pet-progress.json", "names-cache.json", "known-characters.json"];
 
     public static string DataDirectory(string appDirectory, string localAppData, bool installed)
         => Path.GetFullPath(installed ? Path.Combine(localAppData, "DesktopCompanionData") : Path.Combine(appDirectory, "user-data"));

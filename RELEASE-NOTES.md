@@ -1,3 +1,11 @@
+# 0.2.3
+
+- Automatyczne wykrywanie własnej postaci po uruchomieniu Auruma w trakcie gry, bez oczekiwania wyłącznie na pakiet logowania.
+- Potwierdzenie ID z bieżących komunikatów własnych statystyk; rozpoznawanie klasy z własnych umiejętności.
+- Osobna pamięć nazw/serwerów/klas bez zapisywania starych ID jako bieżącej postaci.
+- Wspólna identyfikacja dla DPS, podpowiedzi arkan/itemów, petów i pozycji.
+- Komunikat synchronizacji, gdy gra jeszcze nie wysłała danych postaci; ochrona przed pomyleniem gracza z osobą obok.
+
 # 0.2.2
 
 - Osobne plany PvE DPS dla 8 klas: 104 plany slotów wyposażenia i 40 planów kart arkan.

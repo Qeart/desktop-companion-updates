@@ -56,7 +56,12 @@ public sealed record HealEvent(long TimeMs, uint SourceId, uint TargetId, int Sk
 /// <summary>The local player's own character.</summary>
 /// <param name="CombatPower">The character's combat power (CP) as the game shows it; 0 when the record did not carry it.</param>
 public sealed record SelfIdentifiedEvent(long TimeMs, uint ActorId, string Name, int ServerId, GameClass Class, int Level = 0,
-    long CombatPower = 0) : GameEvent(TimeMs);
+    long CombatPower = 0, bool FreshIdentity = false) : GameEvent(TimeMs);
+
+/// <summary>A validated own-stat update (4A 36), including an unchanged/empty update.</summary>
+public sealed record OwnStatsEvent(long TimeMs, uint ActorId) : GameEvent(TimeMs);
+/// <summary>A real zone/character transition invalidates the previous entity binding.</summary>
+public sealed record LocalIdentityLostEvent(long TimeMs) : GameEvent(TimeMs);
 
 /// <summary>One member of the party roster: the only place the server gives other players' gear score and combat power.</summary>
 /// <param name="GearScore">Equipment item level ("GS"); 0 when it did not read.</param>

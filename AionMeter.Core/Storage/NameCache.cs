@@ -52,4 +52,17 @@ public sealed class NameCache(string path)
             return null;
         }
     }
+
+    /// <summary>Migrate stable metadata even when the session's actor ids have expired.</summary>
+    public KnownCharacter? LoadCharacter()
+    {
+        try {
+            if (!File.Exists(path)) return null;
+            var data = JsonSerializer.Deserialize<FileData>(File.ReadAllText(path), Json);
+            var own = data?.Players?.FirstOrDefault(p => p.Id == data.SelfId);
+            return own is { ServerId: >= 1000 and < 3000 } && !string.IsNullOrWhiteSpace(own.Name)
+                && own.Class != AionMeter.Core.Events.GameClass.Unknown && Enum.IsDefined(own.Class) ? new(own.Name, own.ServerId, own.Class) : null;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return null; }
+    }
 }

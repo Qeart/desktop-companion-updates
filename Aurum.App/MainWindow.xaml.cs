@@ -28,6 +28,9 @@ public partial class MainWindow : Window, IDisposable
     private readonly bool _preview;
     private readonly GameData _data;
     private readonly CombatTracker _tracker;
+    private readonly LocalPlayerResolver? _identity;
+    private readonly KnownCharacterStore? _characters;
+    private int _savedCharacterVersion;
     private readonly IEventSource? _capture;
     private readonly string _backend;
     private readonly PetProgress _petProgress;
@@ -82,12 +85,18 @@ public partial class MainWindow : Window, IDisposable
         if (!preview)
         {
             _names = new NameCache(Path.Combine(UserSettings.DataDirectory, "names-cache.json"));
+            _characters = new KnownCharacterStore(Path.Combine(UserSettings.DataDirectory, "known-characters.json"));
+            var remembered = _characters.Load().ToList();
+            if (_names.LoadCharacter() is { } previousCharacter) remembered.Add(previousCharacter);
+            _identity = new LocalPlayerResolver(remembered);
             string? expectedProfile = null;
             if (_names.Load() is { } cache)
             {
-                _tracker.ImportCache(cache);
+                // Restore nearby metadata, but wait for the game to confirm our
+                // current entity. An old id must not select a class or party.
+                _tracker.ImportCache(cache with { SelfId = null });
                 _gameMapId = cache.MapId;
-                _playerPosition.SeedIdentity(cache.SelfId ?? 0, cache.MapId);
+                _playerPosition.SeedIdentity(0, cache.MapId);
                 var own = cache.Players.FirstOrDefault(p => p.Id == cache.SelfId);
                 if (own is { ServerId: > 0 } && !string.IsNullOrWhiteSpace(own.Name)) expectedProfile = own.ServerId + ":" + own.Name;
             }
@@ -140,14 +149,15 @@ public partial class MainWindow : Window, IDisposable
                 { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "history-error.txt"), ex.Message); }
             };
             _capture = _backend == "PktMon" ? new PktmonCapture(_data) : new LiveCapture(_data, new LiveCaptureOptions());
-            _capture.EventDecoded += _tracker.Process;
-            _capture.EventDecoded += _petProgress.Process;
-            _capture.EventDecoded += _playerPosition.Process;
-            _capture.EventDecoded += _hiddenCubes.Process;
+            _identity!.EventDecoded += _tracker.Process;
+            _identity.EventDecoded += _petProgress.Process;
+            _identity.EventDecoded += _playerPosition.Process;
+            _identity.EventDecoded += _hiddenCubes.Process;
+            _capture.EventDecoded += _identity.Process;
             var positionPipeline = _capture switch { PktmonCapture pktmon => pktmon.Pipeline, LiveCapture live => live.Pipeline, _ => null };
             if (positionPipeline != null) { positionPipeline.Parser.Tap += _playerPosition.Raw; positionPipeline.Parser.Tap += _hiddenCubes.Raw; }
-            _capture.EventDecoded += ev => { if (ev is MarketTabEvent market) Interlocked.Exchange(ref _shopTabRequest, market.Tab); };
-            _capture.EventDecoded += ev => { if (ev is ZoneChangedEvent zone) Interlocked.Exchange(ref _gameMapId, zone.MapId); };
+            _identity.EventDecoded += ev => { if (ev is MarketTabEvent market) Interlocked.Exchange(ref _shopTabRequest, market.Tab); };
+            _identity.EventDecoded += ev => { if (ev is ZoneChangedEvent zone) Interlocked.Exchange(ref _gameMapId, zone.MapId); };
             _capture.Start();
             _tray = new System.Windows.Forms.NotifyIcon
             {
@@ -301,10 +311,15 @@ public partial class MainWindow : Window, IDisposable
                     status?.Message, status?.Packets, status?.Events, PetsSynced = _petProgress.Synced, PetsFromCache = _petProgress.FromCache,
                     ShopPollMs = _shopTimer.Interval.TotalMilliseconds, Shop = _shopPets?.DiagnosticState, PetMap = _petMap?.DiagnosticState,
                     PlayerPosition = _playerPosition.Snapshot(), PlayerScope = _tracker.InDungeon ? "DungeonParticipants" : "PartyOrForce", Group = _tracker.GroupState,
+                    LocalPlayer = _identity?.State,
                     HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
                 });
                 try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "session-status.json"), json); }
                 catch (IOException) { }
+                if (_identity != null && _characters != null && _savedCharacterVersion != _identity.KnownVersion)
+                {
+                    var version = _identity.KnownVersion; _characters.Save(_identity.KnownCharacters); _savedCharacterVersion = version;
+                }
             }
             var notices = _petProgress.TakeNotices(now);
             if (notices.Count > 0) _petToast ??= new PetToastWindow();
@@ -332,6 +347,8 @@ public partial class MainWindow : Window, IDisposable
         CaptureLabel.ToolTip = _capture?.Status.Message;
         CaptureLabel.Text = _preview ? "PODGLĄD • dane przykładowe"
             : _capture?.Status.State == CaptureState.Error ? _backend + ": " + _capture.Status.Message
+            : _capture?.Status.State == CaptureState.Capturing && _identity?.State.Stage == "AwaitingLiveIdentity" ? "Synchronizacja postaci · użyj umiejętności lub buffa"
+            : _capture?.Status.State == CaptureState.Capturing && _tracker.SelfClass == GameClass.Unknown ? "Postać wykryta · użyj umiejętności, aby rozpoznać klasę"
             : unnamed > 0 ? "Brak nicków: zmień lokację lub wejdź ponownie na postać"
             : _capture?.Status.State == CaptureState.Capturing ? "● " + _backend + " · odczyt aktywny"
             : _backend + " · czekam na połączenie z Aion 2";
@@ -346,6 +363,11 @@ public partial class MainWindow : Window, IDisposable
             Rows.Clear(); FightTitle.Text = "Czekam na walkę"; ClockLabel.Text = "00:00";
             TotalLabel.Text = "0"; FightState.Text = "PARTY / FORCE · solo: tylko Ty";
             EmptyLabel.Text = healing ? "Leczenie pojawi się podczas walki.\nPrzełącznik nie zeruje wyniku DPS." : "Dane pojawią się podczas walki.";
+            if (!_preview && _capture?.Status.State == CaptureState.Capturing && _identity?.State.ActorId == null)
+            {
+                FightTitle.Text = "Synchronizacja postaci";
+                EmptyLabel.Text = "Gra jest połączona. Użyj umiejętności lub buffa,\naby program rozpoznał postać bez ponownego logowania.";
+            }
             EmptyLabel.Visibility = Visibility.Visible; return;
         }
         var seconds = Math.Max(1, snapshot.CombatMs / 1000.0);
@@ -565,6 +587,7 @@ public partial class MainWindow : Window, IDisposable
         if (!_preview) _petStore.Save(_petProgress.Snapshot());
         _placementTimer.Stop(); PersistPlacement();
         if (!_preview && _tracker.CacheVersion != _savedNamesVersion) _names?.Save(_tracker.ExportCache());
+        if (!_preview && _identity != null) _characters?.Save(_identity.KnownCharacters);
         if (!_preview) _tracker.Reset(); // save the active encounter on a graceful update/exit
         _tray?.Dispose();
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 1);

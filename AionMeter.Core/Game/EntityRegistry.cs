@@ -81,7 +81,7 @@ public sealed class EntityRegistry
     /// <summary>Bumped whenever a player's identity or a boss's changes, so the cache knows when to save.</summary>
     public int CacheVersion { get; private set; }
 
-    public void SetSelf(uint actorId, string name, int serverId, GameClass cls)
+    public void SetSelf(uint actorId, string name, int serverId, GameClass cls, bool freshIdentity = false)
     {
         if (SelfId is { } old && old != actorId)
         {
@@ -90,9 +90,14 @@ public sealed class EntityRegistry
             // id now belongs to someone else.
             DropCached();
         }
+        // A confirmed live actor without a name must not inherit a previous
+        // session's nickname/class merely because its numeric id was reused.
+        if (freshIdentity) _players.Remove(actorId);
         SelfId = actorId;
         UpsertPlayer(actorId, name, serverId, cls);
     }
+
+    public void ForgetSelf() { if (SelfId != null) { SelfId = null; CacheVersion++; } }
 
     public PlayerInfo UpsertPlayer(uint actorId, string name, int serverId, GameClass cls)
     {
@@ -105,6 +110,8 @@ public sealed class EntityRegistry
         CacheVersion++;
         if (!string.IsNullOrWhiteSpace(name))
         {
+            if (p.Name.Length > 0 && p.Name != name || serverId != 0 && p.ServerId != 0 && serverId != p.ServerId)
+            { p.Class = GameClass.Unknown; p.ServerId = 0; p.GearScore = 0; p.CombatPower = 0; }
             // A name belongs to one entity at a time: forget stale ids still carrying it.
             if (p.Name != name)
                 foreach (var other in _players.Values.Where(o => o.ActorId != actorId && o.Name == name).ToList())

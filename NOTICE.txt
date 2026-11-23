@@ -26,6 +26,11 @@ for the upstream protocol parser and must retain the upstream licence/notices.
 No affiliation with NCSOFT, Kisk, or the upstream project's maintainers is implied.
 
 PktMon backend and raw Ethernet/IP/TCP reader were added locally.
+Local-player recovery through validated own-stat updates (4A 36) was developed
+locally. The record layout/local scope were cross-checked against
+https://github.com/taengu/A2Tools-DPS-Meter, commit
+a9c18e035f7258f91d9f63e86b76ba532f203387 (GPL-3.0), capture/abnormal.rs,
+which credits Seralth's Daevalog (GPL-3.0). See IDENTITY-RECOVERY.md.
 ABI documentation:
 https://learn.microsoft.com/en-us/windows/win32/pktmon/pktmon-reference
 https://learn.microsoft.com/en-us/windows/win32/pktmon/packetmonitor/nf-packetmonitor-packetmonitorcreaterealtimestream
