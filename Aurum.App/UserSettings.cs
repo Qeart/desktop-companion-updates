@@ -20,6 +20,10 @@ public sealed class UserSettings
     public bool ShowHiddenCube { get; set; } = true;
     public bool ShowItemAdvice { get; set; } = true;
     public double CubeNearbyMetres { get; set; } = 100;
+    public int CubePositionLiveMilliseconds { get; set; } = 1000;
+    public int CubePositionStaleMilliseconds { get; set; } = 3000;
+    public int CubePredictionMilliseconds { get; set; } = 2000;
+    public int CubeCameraFreshMilliseconds { get; set; } = 400;
     public double? LauncherLeft { get; set; }
     public double? LauncherTop { get; set; }
     public bool UseOwnPetMap { get; set; } = true;

@@ -40,7 +40,7 @@ public partial class MainWindow : Window, IDisposable
     private int _shopTabRequest;
     private int _gameMapId;
     private PetMapController? _petMap;
-    private readonly PlayerPositionTracker _playerPosition = new();
+    private readonly PlayerPositionTracker _playerPosition;
     private readonly HiddenCubeTracker _hiddenCubes = new();
     private HiddenCubeController? _cube;
     private AurumHubWindow? _hub;
@@ -76,6 +76,8 @@ public partial class MainWindow : Window, IDisposable
     {
         _preview = preview;
         _settings = preview ? new() : UserSettings.Load();
+        _playerPosition = new(new PositionTrackingOptions { LiveMilliseconds = _settings.CubePositionLiveMilliseconds,
+            StaleMilliseconds = _settings.CubePositionStaleMilliseconds, MaxPredictionMilliseconds = _settings.CubePredictionMilliseconds });
         _backend = (captureBackend ?? _settings.CaptureBackend).Equals("Pktmon", StringComparison.OrdinalIgnoreCase) ? "PktMon" : "Npcap";
         _settings.CaptureBackend = _backend;
         _data = GameData.Load(Path.Combine(AppContext.BaseDirectory, "data"));
@@ -203,7 +205,7 @@ public partial class MainWindow : Window, IDisposable
             _updateTimer.Tick += async (_, _) => { if (_settings.CheckUpdatesAutomatically) await _updates.Check(); };
             _updateTimer.Start();
             Loaded += async (_, _) => { await Task.Delay(12000); if (!_disposed && _settings.CheckUpdatesAutomatically) await _updates.Check(); };
-            _cube = new HiddenCubeController(_settings, _hiddenCubes, _playerPosition.Snapshot,
+            _cube = new HiddenCubeController(_settings, _hiddenCubes, _playerPosition.Tracking,
                 () => _petMap?.HasMapView == true || _shopPets?.HasShopView == true || _arcanaAdvice?.HasView == true);
             _itemAdvice = new ItemAdviceController(_settings, () => _tracker.SelfClass, () => _petMap?.HasMapView == true);
             _arcanaAdvice = new ArcanaAdviceController(_settings, () => _tracker.SelfClass, () => _petMap?.HasMapView == true);
@@ -311,6 +313,7 @@ public partial class MainWindow : Window, IDisposable
                     status?.Message, status?.Packets, status?.Events, PetsSynced = _petProgress.Synced, PetsFromCache = _petProgress.FromCache,
                     ShopPollMs = _shopTimer.Interval.TotalMilliseconds, Shop = _shopPets?.DiagnosticState, PetMap = _petMap?.DiagnosticState,
                     PlayerPosition = _playerPosition.Snapshot(), PlayerScope = _tracker.InDungeon ? "DungeonParticipants" : "PartyOrForce", Group = _tracker.GroupState,
+                    PositionTracking = _playerPosition.Diagnostics(now), CaptureDiagnostics = (_capture as PktmonCapture)?.Statistics(),
                     LocalPlayer = _identity?.State,
                     HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
                 });

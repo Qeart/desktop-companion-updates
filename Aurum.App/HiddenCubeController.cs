@@ -108,59 +108,92 @@ internal sealed class HiddenCubeController : IDisposable
 {
     private readonly UserSettings _settings;
     private readonly HiddenCubeTracker _tracker;
-    private readonly Func<PlayerMapPosition?> _position;
+    private readonly Func<long, PositionTrackingSnapshot> _position;
     private readonly Func<bool> _suppressed;
     private readonly CubeCameraReader _camera = new();
-    private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
+    private readonly DispatcherTimer _renderTimer = new(DispatcherPriority.Render) { Interval = TimeSpan.FromMilliseconds(33) };
+    private readonly DispatcherTimer _cameraTimer = new() { Interval = TimeSpan.FromMilliseconds(100) };
     private CubeCompassWindow? _window;
     private bool _busy, _disposed;
-    private HiddenCubeTarget? _target;
-    private CameraReading? _heading;
+    private HiddenCubeNavigation? _navigation;
+    private readonly CameraOrientationTracker _orientation = new();
+    private GameViewport? _viewport;
+    private int _cameraGeneration;
+    private bool _cameraFresh;
+    private double? _relative;
+    private uint _relativeTarget;
     private long _readMs;
     public string Status { get; private set; } = "Szukam skrzynki w pobliżu";
     public object DiagnosticState => new { Enabled = _settings.ShowHiddenCube, Visible = _window?.IsVisible == true,
-        Status, Cubes = _tracker.Count, Target = _target, Camera = _heading, CameraReadMilliseconds = _readMs, SharedCapture = true, Backend = "Aurum" };
-    internal HiddenCubeController(UserSettings settings, HiddenCubeTracker tracker, Func<PlayerMapPosition?> position, Func<bool> suppressed)
+        Status, Cubes = _tracker.Count, Navigation = _navigation, PositionState = _navigation?.State.ToString(),
+        Camera = _orientation.Reading, CameraAt = _orientation.At, CameraFresh = _cameraFresh,
+        CameraAgeMilliseconds = _orientation.At == 0 ? (long?)null : Math.Max(0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - _orientation.At),
+        CameraReadMilliseconds = _readMs, RenderIntervalMilliseconds = 33, SharedCapture = true, Backend = "Aurum" };
+    internal HiddenCubeController(UserSettings settings, HiddenCubeTracker tracker, Func<long, PositionTrackingSnapshot> position, Func<bool> suppressed)
     {
         _settings = settings; _tracker = tracker; _position = position; _suppressed = suppressed;
-        _timer.Tick += async (_, _) => await Tick(); _timer.Start();
+        _renderTimer.Tick += (_, _) => Render();
+        _cameraTimer.Tick += async (_, _) => await ReadCamera();
+        _renderTimer.Start(); _cameraTimer.Start();
     }
     internal void RefreshEnabled()
     {
         if (!_settings.ShowHiddenCube) { _window?.Hide(); Status = "Wskaźnik wyłączony"; }
-        else { Status = "Szukam skrzynki w pobliżu"; _ = Tick(); }
+        else { Status = "Szukam skrzynki w pobliżu"; Render(); _ = ReadCamera(); }
     }
-    private async Task Tick()
+    private void SuspendCamera()
+    {
+        if (_viewport != null) { _viewport = null; _cameraGeneration++; }
+        _orientation.Clear(); _cameraFresh = false; _relative = null; _relativeTarget = 0;
+    }
+    private void Render()
     {
         if (_disposed) return;
-        if (!_settings.ShowHiddenCube || _suppressed()) { _window?.Hide(); Status = _settings.ShowHiddenCube ? "Wstrzymany podczas otwartej mapy lub sklepu" : "Wskaźnik wyłączony"; return; }
+        if (!_settings.ShowHiddenCube || _suppressed())
+        { _window?.Hide(); SuspendCamera(); Status = _settings.ShowHiddenCube ? "Wstrzymany podczas otwartej mapy lub sklepu" : "Wskaźnik wyłączony"; return; }
         var game = GameWindowAccess.ForegroundGame();
-        if (game == null) { _window?.Hide(); return; }
+        if (game == null) { _window?.Hide(); SuspendCamera(); return; }
+        if (_viewport != game) { SuspendCamera(); _viewport = game; }
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var range = double.IsFinite(_settings.CubeNearbyMetres) ? Math.Clamp(_settings.CubeNearbyMetres, 1, 250) : 100;
-        _target = _tracker.Nearest(_position(), now, range);
-        if (_target == null) { _window?.Hide(); Status = _tracker.Count > 0 && _position()?.Fresh(now) != true ? "Odśwież pozycję umiejętnością" : "Szukam skrzynki w pobliżu"; return; }
-        if (_busy) return;
+        var tracking = _position(now);
+        _navigation = _tracker.Navigate(tracking, range);
+        if (_navigation == null)
+        { _window?.Hide(); _relative = null; _relativeTarget = 0; Status = _tracker.Count > 0 && tracking.Position == null ? "Skrzynka wykryta · czekam na pozycję" : "Szukam skrzynki w pobliżu"; return; }
+        if (_relativeTarget != _navigation.Target.Id) { _relative = null; _relativeTarget = _navigation.Target.Id; }
+        _cameraFresh = _orientation.TryHeading(now, Math.Clamp(_settings.CubeCameraFreshMilliseconds, 100, 1000), out var heading);
+        if (_cameraFresh) _relative = Navigation.Relative(_navigation.Target.Bearing, heading);
+        // No usable orientation: retain a visibly historical needle, or show no needle at all.
+        _window ??= new CubeCompassWindow();
+        _window.UpdateTarget(_navigation, _relative, _cameraFresh, game.Value);
+        Status = _navigation.State switch {
+            PositionState.Live => $"Skrzynka {_navigation.DistanceMetres:0} m od Ciebie",
+            PositionState.Estimated => $"Skrzynka ≈ {_navigation.DistanceMetres:0} m · pozycja szacowana",
+            _ => "Skrzynka wykryta · kierunek historyczny, brak aktualnej pozycji"
+        };
+        if (!_cameraFresh) Status += " · brak aktualnego kierunku kamery";
+    }
+    private async Task ReadCamera()
+    {
+        if (_disposed || _busy || !_settings.ShowHiddenCube || _suppressed() || _navigation == null || _viewport is not { } game) return;
+        var generation = _cameraGeneration;
+        var acquiredAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _busy = true;
         try
         {
-            var watch = Stopwatch.StartNew(); _heading = await Task.Run(() => _camera.Read(game.Value)); _readMs = watch.ElapsedMilliseconds;
+            var watch = Stopwatch.StartNew(); var reading = await Task.Run(() => _camera.Read(game)); _readMs = watch.ElapsedMilliseconds;
             if (_disposed) return;
-            if (!_settings.ShowHiddenCube || _suppressed() || Native.GetForegroundWindow() != game.Value.Handle) { _window?.Hide(); return; }
-            _target = _tracker.Nearest(_position(), DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), range);
-            if (_heading is not { } heading || _target is not { } target)
-            { _window?.Hide(); Status = _target == null ? "Szukam skrzynki w pobliżu" : "Skrzynka wykryta · czekam na kierunek kamery"; return; }
-            _window ??= new CubeCompassWindow();
-            _window.UpdateTarget(target, Navigation.Relative(target.Bearing, heading.Heading), game.Value);
-            Status = $"Skrzynka {target.Metres:0} m od Ciebie";
+            if (generation != _cameraGeneration || !_settings.ShowHiddenCube || _suppressed() || GameWindowAccess.ForegroundGame() != game) return;
+            _orientation.Observe(reading, acquiredAt);
+            Render();
         }
         catch (Exception error)
         {
             if (_disposed) return;
-            _window?.Hide(); Status = "Odczyt kierunku chwilowo niedostępny";
+            _orientation.Observe(null, acquiredAt); Render();
             try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "cube-error.txt"), error.ToString()); } catch (IOException) { }
         }
         finally { _busy = false; }
     }
-    public void Dispose() { _disposed = true; _timer.Stop(); _window?.Close(); }
+    public void Dispose() { _disposed = true; _renderTimer.Stop(); _cameraTimer.Stop(); _window?.Close(); }
 }

@@ -1,3 +1,13 @@
+# 0.2.4
+
+- Hidden Cube: wspólny stan pozycji, walidacja czasu/mapy i krótka predykcja wyłącznie z wiarygodnej pary pomiarów.
+- Odrębne stany LIVE / SZACUNEK / NIEAKTUALNA POZYCJA; brak starego dystansu przedstawianego jako aktualny.
+- Wykryta skrzynka pozostaje widoczna po utracie aktualności pozycji. Render co 33 ms niezależnie od odczytu kamery i pakietów.
+- Osobna kontrola aktualności orientacji; usunięto dodatkowe opóźnienie animacji igły.
+- Poprawiono kasowanie pozycji podczas obsługi tej samej ramki zmiany mapy.
+- Diagnostyka obu kierunków PktMon, luk/duplikatów TCP, opóźnienia kolejki i źródeł pozycji.
+- Ograniczenie: długi bieg bez nowych współrzędnych nie daje ciągłego dokładnego śledzenia. Nie dodano zgadywania niepotwierdzonych opcode'ów ani Ring-Fix. Szczegóły i testy w HIDDEN-CUBE-POSITION.md.
+
 # 0.2.3
 
 - Automatyczne wykrywanie własnej postaci po uruchomieniu Auruma w trakcie gry, bez oczekiwania wyłącznie na pakiet logowania.

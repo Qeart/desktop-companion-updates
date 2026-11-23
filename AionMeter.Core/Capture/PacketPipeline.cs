@@ -45,6 +45,14 @@ public sealed class PacketPipeline
     /// <summary>Holes in the game streams skipped since start (lost packets): each costs whatever the hole held.</summary>
     public long Gaps { get; private set; }
     public long LastGameDataMs { get; private set; }
+    public object Diagnostics => new {
+        Segments, GameFlows, GameBytes, Gaps,
+        TcpDuplicates = _flows.Values.Sum(f => f.Reassembler?.Duplicates ?? 0),
+        TcpOutOfOrder = _flows.Values.Sum(f => f.Reassembler?.OutOfOrder ?? 0),
+        Frames = _flows.Values.Sum(f => f.Decoder?.Frames ?? 0),
+        Resyncs = _flows.Values.Sum(f => f.Decoder?.Resyncs ?? 0),
+        DroppedFrameBytes = _flows.Values.Sum(f => f.Decoder?.DroppedBytes ?? 0)
+    };
 
     public event Action<FlowKey>? FlowLocked;
 

@@ -53,7 +53,7 @@ internal static class PktmonNative
         public ulong Packets, Bytes;
         public static Constraint Game(ushort port) => new()
         {
-            Name = "Aurum-Aion2-Inbound", Present = (1u << 5) | (1u << 11),
+            Name = "Aurum-Aion2-TCP", Present = (1u << 5) | (1u << 11),
             Protocol = 6, Port1 = port, Mac1 = new byte[6], Mac2 = new byte[6],
         };
     }

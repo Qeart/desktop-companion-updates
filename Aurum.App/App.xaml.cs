@@ -62,6 +62,9 @@ public partial class App : System.Windows.Application
             Directory.CreateDirectory(hubDirectory);
             new AurumHubWindow(new UserSettings(), () => new HubState(true, false, true, true, true, "Skrzynka 18 m od Ciebie"), _ => { }, preview: true).RenderPreview(hubDirectory);
             new CubeCompassVisual().RenderSample(Path.Combine(hubDirectory, "hidden-cube.png"));
+            new CubeCompassVisual().RenderSample(Path.Combine(hubDirectory, "hidden-cube-estimated.png"), AionMeter.Core.PetMaps.PositionState.Estimated);
+            new CubeCompassVisual().RenderSample(Path.Combine(hubDirectory, "hidden-cube-stale.png"), AionMeter.Core.PetMaps.PositionState.Stale);
+            new CubeCompassVisual().RenderSample(Path.Combine(hubDirectory, "hidden-cube-no-camera.png"), cameraFresh: false);
             Shutdown(); return;
         }
         if (e.Args is ["--render-pet-upgrade", var shopBackground, var petCache, var previewDirectory])

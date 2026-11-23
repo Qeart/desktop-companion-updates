@@ -21,6 +21,9 @@ public sealed class PktmonCapture : IEventSource
     private readonly object _pipeGate = new();
     private CaptureStatus _status = CaptureStatus.Stopped;
     private long _packets, _events, _missed, _unsupported, _lastPacket;
+    private long _inbound, _outbound, _lagMs, _maxLagMs;
+    private long _streamWarnings, _oversizePackets;
+    private int _lastStreamWarning;
     private int _lastStreamError;
     public PacketPipeline Pipeline => _pipeline;
     public long MissedPackets => Interlocked.Read(ref _missed);
@@ -33,6 +36,12 @@ public sealed class PktmonCapture : IEventSource
             Backend = "PktMon API", Status, MissedPackets, UnsupportedPackets, StreamError,
             GameFlows = _pipeline.GameFlows, _pipeline.GameBytes, _pipeline.Gaps,
             DamageRecords = _pipeline.Parser.DamageRecords, Heartbeats = _pipeline.Parser.Heartbeats,
+            InboundSegments = _inbound, OutboundSegments = _outbound,
+            ConsumerLagMilliseconds = Interlocked.Read(ref _lagMs), MaxConsumerLagMilliseconds = Interlocked.Read(ref _maxLagMs),
+            TruncationSize = 9000,
+            Pipeline = _pipeline.Diagnostics,
+            StreamWarnings = Interlocked.Read(ref _streamWarnings), OversizePackets = Interlocked.Read(ref _oversizePackets),
+            LastStreamWarning = Volatile.Read(ref _lastStreamWarning),
         };
     }
     public CaptureStatus Status
@@ -45,6 +54,9 @@ public sealed class PktmonCapture : IEventSource
         }
     }
     public event Action<GameEvent>? EventDecoded;
+    // Both TCP directions, after IP/TCP validation and before the server-only application decoder.
+    // Diagnostic subscribers must be bounded and nonblocking. Outbound bytes are never assumed plaintext.
+    public event Action<SegmentReader.Segment>? SegmentObserved;
     public event Action<CaptureStatus>? StatusChanged;
 
     public PktmonCapture(GameData data, ushort gamePort = PacketPipeline.GamePort)
@@ -150,7 +162,14 @@ public sealed class PktmonCapture : IEventSource
                 Volatile.Write(ref _lastStreamError, code);
                 SetStatus(CaptureState.Error, $"PktMon: błąd strumienia ({code}).");
             }
-            else if (kind == 3) Interlocked.Increment(ref _missed);
+            else if (kind == 3)
+            {
+                var code = information == 0 ? -1 : Marshal.ReadInt32(information, 4);
+                Interlocked.Increment(ref _streamWarnings); Volatile.Write(ref _lastStreamWarning, code);
+                // PROCESS_INFO is a warning/error, not a count of missed packets. Code 122
+                // specifically reports packets above the API's 9000-byte internal buffer.
+                if (code == 122) Interlocked.Increment(ref _oversizePackets);
+            }
         }
         catch (Exception) { Volatile.Write(ref _lastStreamError, -1); }
     }
@@ -164,6 +183,13 @@ public sealed class PktmonCapture : IEventSource
                 Interlocked.Increment(ref _packets);
                 if (!RawTcpReader.TryRead(item.Packet, item.Type == 1, item.Time, out var segment))
                 { Interlocked.Increment(ref _unsupported); continue; }
+                if (segment.Key.SrcPort != _port && segment.Key.DstPort != _port) continue;
+                var lag = Math.Max(0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - segment.TimeMs);
+                Interlocked.Exchange(ref _lagMs, lag);
+                if (lag > Interlocked.Read(ref _maxLagMs)) Interlocked.Exchange(ref _maxLagMs, lag);
+                if (segment.Key.SrcPort == _port) Interlocked.Increment(ref _inbound);
+                else Interlocked.Increment(ref _outbound);
+                SegmentObserved?.Invoke(segment);
                 if (segment.Key.SrcPort != _port) continue;
                 lock (_pipeGate)
                 {
