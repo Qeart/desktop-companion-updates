@@ -22,6 +22,14 @@ public static class ArcanaPanelParser
 {
     private static readonly string[] MainStats = ["Time [Siel]", "Space [Israphel]", "Life [Yustiel]", "Destiny [Marchutan]", "Freedom [Vaizel]", "Death [Triniel]", "Justice [Nezekan]", "Destruction [Zikel]", "Illusion [Kaisinel]", "Wisdom [Lumiel]"];
     private static string Clean(string value) => ItemTooltipParser.Normalize(value);
+    // Advice windows are intentionally visible in screenshots. Their own text
+    // must not extend the game's Set Effects section or enter image-cache probes.
+    public static IReadOnlyList<ShopText> GameRows(IReadOnlyList<ShopText> rows)
+    {
+        var top = rows.Where(r => Clean(r.Text).StartsWith("aurumarkana", StringComparison.Ordinal))
+            .Select(r => r.Y).DefaultIfEmpty(double.PositiveInfinity).Min();
+        return double.IsFinite(top) ? rows.Where(r => r.Y < top).ToArray() : rows;
+    }
     public static bool IsHeader(string text)
     {
         var value = Clean(text);
@@ -30,7 +38,7 @@ public static class ArcanaPanelParser
     }
     public static ArcanaPanel? Parse(IReadOnlyList<ShopText> rows)
     {
-        var ordered = rows.OrderBy(r => r.Y).ThenBy(r => r.X).ToArray();
+        var ordered = GameRows(rows).OrderBy(r => r.Y).ThenBy(r => r.X).ToArray();
         var equipped = ordered.FirstOrDefault(r => Clean(r.Text).Contains("equippedeffect") || Clean(r.Text).Contains("eguippedeffect"));
         var set = ordered.FirstOrDefault(r => Clean(r.Text).Contains("seteffect"));
         if (equipped == null || set == null || set.Y <= equipped.Y) return null;

@@ -14,7 +14,7 @@
   </Grid>
   <Grid Grid.Row="1" Margin="0,18,0,13">
    <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-   <StackPanel><TextBlock x:Name="FightTitle" Text="Czekam na walkę" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" /><TextBlock x:Name="FightState" Text="Uruchom przed wejściem na postać" Foreground="{StaticResource Muted}" FontSize="10" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" /></StackPanel>
+   <StackPanel><TextBlock x:Name="FightTitle" Text="Czekam na walkę" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" /><TextBlock x:Name="FightState" Text="" Visibility="Collapsed" Foreground="{StaticResource Muted}" FontSize="10" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" /></StackPanel>
    <TextBlock x:Name="ClockLabel" Grid.Column="1" Text="00:00" FontSize="21" Foreground="{StaticResource Gold}" FontFamily="Consolas" VerticalAlignment="Center" Margin="10,0,0,0" />
   </Grid>
   <Grid Grid.Row="2" Margin="0,0,0,12">
@@ -45,10 +45,7 @@
    <TextBlock x:Name="EmptyLabel" Text="Dane pojawią się podczas walki." Foreground="{StaticResource Muted}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="290" TextAlignment="Center" />
   </Grid>
   <Border Grid.Row="4" BorderBrush="#383124" BorderThickness="0,1,0,0" Padding="0,10,0,0" Margin="0,10,0,0">
-   <Grid><Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-    <TextBlock x:Name="CaptureLabel" Text="Łączenie…" Foreground="{StaticResource Muted}" FontSize="9" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
-    <StackPanel Grid.Column="1" Orientation="Horizontal"><Button x:Name="UpdateButton" Content="↻" Click="UpdatesClick" ToolTip="Aktualizacje" FontSize="10" Padding="5,3" Margin="5,0,0,0" /><Button Content="Historia" Click="HistoryClick" FontSize="10" Padding="7,3" Margin="5,0,5,0" /><Button Content="i" Click="AboutClick" FontSize="10" Padding="7,3" /></StackPanel>
-   </Grid>
+   <Button Content="Historia" Click="HistoryClick" HorizontalAlignment="Right" FontSize="10" Padding="7,3" />
   </Border>
  </Grid>
  </Border>

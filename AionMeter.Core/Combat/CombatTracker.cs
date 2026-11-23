@@ -20,6 +20,7 @@ public sealed class CombatTracker
     private readonly List<GameEvent> _pendingGroupSummons = [];
     public object GroupState { get { lock (_gate) return new { GroupOnly = Options.GroupOnly, SelfKnown = _entities.SelfId != null,
         NamedMembers = _group.NamedMembers, MembershipSource = InDungeon ? "DungeonParticipants" : "OwnRoster", MapId = _entities.MapId,
+        AwaitingGroupOwnerConfirmation = _group.AwaitingSelfConfirmation,
         ObservedActors = _group.RecentActors(LastEventMs), SelfId = _entities.SelfId,
         Players = _entities.Export().Players.Select(p => new { p.Id, p.Name, p.ServerId, Eligible = IsGroupSource(p.Id, LastEventMs) }).ToArray(),
         TrackedActors = _current is { IsActive: true } active ? active.Combatants.Keys.ToArray() : [] }; } }
@@ -89,11 +90,13 @@ public sealed class CombatTracker
 
             switch (e)
             {
-                case LocalIdentityLostEvent:
+                case LocalIdentityLostEvent lost:
                     // Save the outgoing fight while its self marker is still
                     // valid; the following zone event must not erase that fact.
                     if (_current is { IsActive: true }) Finish(EncounterEndReason.ZoneChange, _current.LastDamageMs);
-                    _entities.ForgetSelf(); _group.ForgetSelf(); _pendingGroupSummons.Clear();
+                    _entities.ForgetSelf();
+                    if (lost.IsZoneChange) _group.SuspendSelf(); else _group.ForgetSelf();
+                    _pendingGroupSummons.Clear();
                     break;
                 case DamageEvent d:
                     OnDamage(d);

@@ -1,3 +1,13 @@
+# 0.2.5
+
+- Aktualizacje w głównym menu okrągłej ikony Aurum, ze wskazaniem dostępnej wersji.
+- Czystszy licznik DPS/HEAL: ze stopki usunięto aktualizacje, ikonę informacji i opis przechwytywania; usunięto napis PARTY / FORCE i etykietę solo.
+- Ikona Aurum, podpowiedzi sprzętu/arkan i kompas są dostępne dla zrzutów ekranu.
+- Odczyt arkan pomija własną podpowiedź, aby nie przesuwać jej i nie analizować własnych zaleceń.
+- Poprawiono kasowanie potwierdzonego party/force podczas zmiany lokacji. Skład wraca po potwierdzeniu tej samej postaci i serwera, z nowymi ID aktorów.
+- Zachowano odrzucanie obcych graczy, zmianę postaci i opuszczenie grupy. Nie dodano zgadywania składu z osób w pobliżu.
+- 406 testów; regresja party/force po zmianie mapy odtworzona przez rzeczywisty przepływ resolvera. Test na żywo w party w Abyssie pozostaje do wykonania.
+
 # 0.2.4
 
 - Hidden Cube: wspólny stan pozycji, walidacja czasu/mapy i krótka predykcja wyłącznie z wiarygodnej pary pomiarów.

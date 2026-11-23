@@ -45,7 +45,7 @@ public sealed class LocalPlayerResolver
             {
                 _players.Clear(); _classes.Clear(); _nonPlayers.Clear(); _pending.Clear();
                 _self = _published = null; _candidate = 0; _streak = 0; _lastStatsAt = 0; _source = "ZoneChange";
-                Emit(new LocalIdentityLostEvent(ev.TimeMs)); Emit(ev); return;
+                Emit(new LocalIdentityLostEvent(ev.TimeMs, IsZoneChange: true)); Emit(ev); return;
             }
             switch (ev)
             {

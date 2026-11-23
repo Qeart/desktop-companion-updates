@@ -12,6 +12,7 @@ internal sealed class GroupMembership
     private readonly Queue<PartyRosterEvent> _pending = new();
     private (string Name, int Server)? _self;
     private uint? _groupId;
+    public bool AwaitingSelfConfirmation { get; private set; }
     public int Version { get; private set; }
     public int NamedMembers => _members.Count;
     public int RecentActors(long now) => _presence.Count(p => now - p.Value <= 10_000);
@@ -20,9 +21,11 @@ internal sealed class GroupMembership
     {
         if (self == null || self.ServerId == 0 || string.IsNullOrWhiteSpace(self.Name)) return;
         var identity = (Key(self.Name), self.ServerId);
-        if (_self is { } old && (old.Name != identity.Item1 || old.Server != 0 && identity.ServerId != 0 && old.Server != identity.ServerId)) Clear();
-        _self = identity;
         var pending = _pending.ToArray(); _pending.Clear();
+        if (_self is { } old && (old.Name != identity.Item1 || old.Server != 0 && identity.ServerId != 0 && old.Server != identity.ServerId)) Clear();
+        if (AwaitingSelfConfirmation && _members.Count > 0) Version++;
+        AwaitingSelfConfirmation = false;
+        _self = identity;
         foreach (var roster in pending) Roster(roster);
     }
     public void Clear()
@@ -30,7 +33,15 @@ internal sealed class GroupMembership
         _members.Clear(); _presence.Clear(); _pending.Clear(); _groupId = null; Version++;
     }
     public void ClearActorIds() => _presence.Clear();
-    public void ForgetSelf() { Clear(); _self = null; }
+    public void ForgetSelf() { Clear(); _self = null; AwaitingSelfConfirmation = false; }
+    // Numeric actor ids are reissued on a map load; the proven named roster still
+    // belongs to the same group. Suspend it until the owner name AND server match.
+    // No roster is persisted to disk, and a different character discards it.
+    public void SuspendSelf()
+    {
+        _presence.Clear();
+        if (!AwaitingSelfConfirmation) { AwaitingSelfConfirmation = true; Version++; }
+    }
     public void Seen(uint actor, long at)
     {
         if (actor == 0) return;
@@ -40,7 +51,7 @@ internal sealed class GroupMembership
     }
     public bool Roster(PartyRosterEvent roster)
     {
-        if (_self == null)
+        if (_self == null || AwaitingSelfConfirmation)
         {
             _pending.Enqueue(roster); while (_pending.Count > 4) _pending.Dequeue(); return false;
         }
@@ -59,6 +70,7 @@ internal sealed class GroupMembership
     public bool Contains(uint actor, PlayerInfo? identity, uint? selfId, long now)
     {
         if (selfId == actor) return true;
+        if (AwaitingSelfConfirmation) return false;
         if (identity == null || string.IsNullOrWhiteSpace(identity.Name)) return false;
         var name = Key(identity.Name);
         return identity.ServerId != 0 && _members.Contains((name, identity.ServerId));

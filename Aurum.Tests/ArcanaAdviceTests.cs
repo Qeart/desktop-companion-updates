@@ -21,6 +21,18 @@ public class ArcanaAdviceTests
         Assert.DoesNotContain(panel.Skills, s => s.Name.Contains("PvE") || s.Name.Contains("Primal"));
     }
     [Theory]
+    [InlineData("A U R U M / ARKANA")]
+    [InlineData("AURUM / ARKANA Chanter · PvE DPS")]
+    public void Screenshot_visible_advice_does_not_move_its_own_anchor_or_contaminate_cached_rows(string header)
+    {
+        var rows = ScreenshotRows.Concat(new[] { Text(header, 550), Text("Chalice of Magic", 574), Text("Death [Triniel]", 600),
+            Text("Onslaught niepotwierdzono", 630), Text("Primal Magic", 656) }).ToArray();
+        var panel = Assert.IsType<ArcanaPanel>(ArcanaPanelParser.Parse(rows));
+        Assert.Equal(539, panel.SetBottom); Assert.Equal("Time [Siel]", panel.MainStat);
+        Assert.Equal(4, panel.Skills.Single(s => s.Name == "g Onslaught").Bonus);
+        Assert.Equal(ScreenshotRows.Length, ArcanaPanelParser.GameRows(rows).Count);
+    }
+    [Theory]
     [InlineData("Arcana Equip Extract Transmute", true)] [InlineData("Arcana Eguip Extract Transrnute", true)]
     [InlineData("Special Pets Skins", false)] [InlineData("Arcana", false)] [InlineData("Equip Transmute", false)]
     public void Requires_the_complete_arcana_screen_context(string text, bool expected) => Assert.Equal(expected, ArcanaPanelParser.IsHeader(text));

@@ -106,7 +106,6 @@ internal sealed class CubeCompassWindow : Window
         SourceInitialized += (_, _) => {
             var handle = new WindowInteropHelper(this).Handle;
             Native.SetWindowLongPtr(handle, -20, Native.GetWindowLongPtr(handle, -20) | 0x08000000 | 0x80 | 0x20);
-            Native.SetWindowDisplayAffinity(handle, 0x11);
         };
         IsVisibleChanged += (_, _) => _visual.Animate(IsVisible);
         Closed += (_, _) => _visual.Animate(false);

@@ -61,7 +61,7 @@ public sealed record SelfIdentifiedEvent(long TimeMs, uint ActorId, string Name,
 /// <summary>A validated own-stat update (4A 36), including an unchanged/empty update.</summary>
 public sealed record OwnStatsEvent(long TimeMs, uint ActorId) : GameEvent(TimeMs);
 /// <summary>A real zone/character transition invalidates the previous entity binding.</summary>
-public sealed record LocalIdentityLostEvent(long TimeMs) : GameEvent(TimeMs);
+public sealed record LocalIdentityLostEvent(long TimeMs, bool IsZoneChange = false) : GameEvent(TimeMs);
 
 /// <summary>One member of the party roster: the only place the server gives other players' gear score and combat power.</summary>
 /// <param name="GearScore">Equipment item level ("GS"); 0 when it did not read.</param>

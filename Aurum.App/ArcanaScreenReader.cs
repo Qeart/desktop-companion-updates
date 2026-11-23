@@ -77,11 +77,11 @@ internal sealed class ArcanaScreenReader
         if (!ArcanaPanelParser.IsHeader(headerText)) { _lastOcrMs = clock.ElapsedMilliseconds; return null; }
         using var captured = body == null ? captureBody() : null;
         var source = body ?? captured!;
-        IReadOnlyList<ShopText> rows = await _ocr.Read(source, Math.Clamp(1728d / height, .6, 3));
+        IReadOnlyList<ShopText> rows = ArcanaPanelParser.GameRows(await _ocr.Read(source, Math.Clamp(1728d / height, .6, 3)));
         var parsed = ArcanaPanelParser.Parse(rows);
         if (parsed == null)
         {
-            rows = await _ocr.Read(source, Math.Clamp(2160d / height, .7, 3.5));
+            rows = ArcanaPanelParser.GameRows(await _ocr.Read(source, Math.Clamp(2160d / height, .7, 3.5)));
             parsed = ArcanaPanelParser.Parse(rows);
         }
         if (parsed?.Skills.Any(s => s.Bonus == null) == true)

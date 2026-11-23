@@ -30,7 +30,18 @@ po uruchomieniu w trwającej grupie może być potrzebny kolejny komunikat o sk�
 Dokładne rekordy `13 92 00 00` i `1D 97 00 00` oznaczają opuszczenie grupy.
 Zmiana potwierdzonego składu kończy poprzedni segment i czyści bieżące wiersze;
 nowa walka obejmuje nowy skład. Zmiana lokacji unieważnia identyfikatory aktorów,
-zachowując rozpoznane nazwiska/nicki składu.
+zachowując rozpoznane nazwiska/nicki składu. Przy ponownym wiązaniu własnego ID
+skład jest zawieszony, aż bieżący odczyt potwierdzi tę samą nazwę i serwer właściciela.
+Samo anonimowe własne ID lub klasa nie aktywują zachowanego składu. Inna postać
+albo opuszczenie grupy kasuje go. Nowe składy otrzymane podczas ładowania są
+sprawdzane po potwierdzeniu postaci. Skład nie jest przywracany z pliku cache.
+
+Regresja z wersji 0.2.3–0.2.4: resolver wysyłał `LocalIdentityLostEvent` również
+przy zwykłej zmianie lokacji. Licznik wykonywał wtedy `ForgetSelf` dla grupy,
+kasując skład zanim dotarło zdarzenie nowej mapy. Instancje ukrywały ten problem
+dzięki osobnemu kwalifikowaniu nazwanych uczestników. Od 0.2.5 zdarzenie odróżnia
+zmianę mapy od utraty tożsamości z innego powodu; tylko zmiana mapy pozwala
+zawiesić i następnie ponownie potwierdzić skład.
 
 Przywołania są przypisywane do potwierdzonego właściciela. Nierozpoznane efekty
 nie stają się osobnymi graczami; do 5 sekund ich zdarzeń może zostać przypisane
@@ -41,6 +52,8 @@ może oznaczać pominięcie części obrażeń przywołania.
 Diagnostyka: `session-status.json` zawiera PlayerScope=PartyOrForce lub
 DungeonParticipants i Group (GroupOnly, SelfKnown, NamedMembers, MembershipSource,
 MapId, Players z flagą Eligible, ObservedActors).
+`AwaitingGroupOwnerConfirmation` informuje o oczekiwaniu na potwierdzenie
+właściciela zachowanego składu.
 ObservedActors to liczba obserwowanych obiektów, a nie liczba członków grupy.
 
 Testy obejmują: obcy gracz w otwartym świecie nie rozpoczyna walki i nie zwiększa DPS/HEAL,
@@ -49,6 +62,13 @@ wyjście i zmiana składu, wygaśnięcie potwierdzenia aktora, przywołania,
 niekompletne listy, odrzucanie samych wiadomości pomocniczych i 12-osobowy skład.
 Regresja dungeonów obejmuje brak serwera, brak rosteru, restart z cache, podgrupę,
 sumy i udziały DPS/HPS, historię, przywołania i przywrócenie filtra po wyjściu.
+Testy integracji z resolverem obejmują party/12-osobowy force po zmianie lokacji,
+nowe ID aktorów, DPS i leczenie, obcego gracza, zmianę postaci/serwera, wyjście
+podczas ładowania i nowy skład otrzymany przed potwierdzeniem własnej postaci.
+Weryfikacja na żywo w party w Abyssie pozostaje do wykonania — przy przygotowaniu
+0.2.5 użytkownik grał solo. Brak bieżącego rosteru po uruchomieniu Auruma w już
+istniejącej grupie oraz brak serwera w tożsamości innego gracza nadal wymagają
+potwierdzonych danych; nie kwalifikujemy z tego powodu wszystkich osób w pobliżu.
 
 Układy kanałów grupowych, opuszczenia grupy i wolnych slotów porównano
 z A2Tools-DPS-Meter `src-tauri/src/capture/stream_processor.rs` (GPL-3.0).

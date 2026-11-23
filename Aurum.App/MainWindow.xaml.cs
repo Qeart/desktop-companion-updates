@@ -71,6 +71,7 @@ public partial class MainWindow : Window, IDisposable
     private UpdatesWindow? _updatesWindow;
     private System.Windows.Forms.ToolStripMenuItem? _updateMenu;
     private string? _notifiedVersion;
+    private string _captureSummary = "Czekam na połączenie z grą";
 
     public MainWindow(bool preview = false, string? captureBackend = null)
     {
@@ -210,7 +211,9 @@ public partial class MainWindow : Window, IDisposable
             _itemAdvice = new ItemAdviceController(_settings, () => _tracker.SelfClass, () => _petMap?.HasMapView == true);
             _arcanaAdvice = new ArcanaAdviceController(_settings, () => _tracker.SelfClass, () => _petMap?.HasMapView == true);
             _hub = new AurumHubWindow(_settings, () => new HubState(IsVisible, _petMap?.HasMapView == true,
-                _settings.ShowHiddenCube, _settings.ShowPetProgress, _settings.ShowShopPetProgress, _cube.Status, _settings.ShowItemAdvice), HubAction);
+                _settings.ShowHiddenCube, _settings.ShowPetProgress, _settings.ShowShopPetProgress, _cube.Status, _settings.ShowItemAdvice,
+                _updates?.Status.Message ?? "Sprawdź dostępną wersję", _updates?.Status.Stage is UpdateStage.Available or UpdateStage.Ready,
+                _captureSummary), HubAction);
             _timer.Start();
             _shopTimer.Start();
         }
@@ -347,13 +350,12 @@ public partial class MainWindow : Window, IDisposable
         if (_selected is { } saved && live is { IsActive: true } && live.StartedAt > saved.Summary.StartedAt) _selected = null;
         Apply(_selected?.Summary ?? live);
         var unnamed = _snapshot?.Combatants.Count(p => !p.IsUnknownSummons && p.Name.StartsWith('#')) ?? 0;
-        CaptureLabel.ToolTip = _capture?.Status.Message;
-        CaptureLabel.Text = _preview ? "PODGLĄD • dane przykładowe"
+        _captureSummary = _preview ? "PODGLĄD • dane przykładowe"
             : _capture?.Status.State == CaptureState.Error ? _backend + ": " + _capture.Status.Message
             : _capture?.Status.State == CaptureState.Capturing && _identity?.State.Stage == "AwaitingLiveIdentity" ? "Synchronizacja postaci · użyj umiejętności lub buffa"
             : _capture?.Status.State == CaptureState.Capturing && _tracker.SelfClass == GameClass.Unknown ? "Postać wykryta · użyj umiejętności, aby rozpoznać klasę"
             : unnamed > 0 ? "Brak nicków: zmień lokację lub wejdź ponownie na postać"
-            : _capture?.Status.State == CaptureState.Capturing ? "● " + _backend + " · odczyt aktywny"
+            : _capture?.Status.State == CaptureState.Capturing ? "Licznik walki party i force"
             : _backend + " · czekam na połączenie z Aion 2";
     }
 
@@ -364,7 +366,7 @@ public partial class MainWindow : Window, IDisposable
         if (snapshot is null)
         {
             Rows.Clear(); FightTitle.Text = "Czekam na walkę"; ClockLabel.Text = "00:00";
-            TotalLabel.Text = "0"; FightState.Text = "PARTY / FORCE · solo: tylko Ty";
+            TotalLabel.Text = "0"; FightState.Text = ""; FightState.Visibility = Visibility.Collapsed;
             EmptyLabel.Text = healing ? "Leczenie pojawi się podczas walki.\nPrzełącznik nie zeruje wyniku DPS." : "Dane pojawią się podczas walki.";
             if (!_preview && _capture?.Status.State == CaptureState.Capturing && _identity?.State.ActorId == null)
             {
@@ -377,8 +379,9 @@ public partial class MainWindow : Window, IDisposable
         var elapsed = TimeSpan.FromMilliseconds(snapshot.IsActive ? snapshot.ClockMs : snapshot.CombatMs);
         ClockLabel.Text = $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}";
         FightTitle.Text = snapshot.Title;
+        FightState.Visibility = Visibility.Visible;
         FightState.Text = _selected is not null ? "ZAPISANA WALKA • następna walka wróci do live"
-            : (snapshot.IsActive ? "● WALKA TRWA" : "OSTATNIA WALKA") + " · PARTY / FORCE" + (healing ? "  · HPS = heal / czas walki" : "  · DPS = obrażenia / czas walki");
+            : (snapshot.IsActive ? "● WALKA TRWA" : "OSTATNIA WALKA") + (healing ? "  · HPS = heal / czas walki" : "  · DPS = obrażenia / czas walki");
         var total = healing ? snapshot.TotalHealing : snapshot.TotalDamage;
         TotalLabel.Text = MetricRow.Compact(total);
         var players = snapshot.Combatants.Where(c => !c.IsUnknownSummons && (healing ? c.Healing : c.Damage) > 0)
@@ -509,7 +512,6 @@ public partial class MainWindow : Window, IDisposable
     private void AboutClick(object sender, RoutedEventArgs e) => TextWindow("Aurum Meter • informacje",
         "AURUM METER 0.2\n\nWłasny interfejs i tryb leczenia.\nParser i silnik walki: fork AionMeter.Core\ncyberbadger6969/aion2-dps-meter\nLicencja GPL-3.0 — patrz LICENSE i NOTICE.txt.\n\nDPS / HEAL przełącza prezentację tej samej walki.\nDane obejmują zdarzenia dostarczone przez serwer do tego klienta.\nHPS: odczytane leczenie / czas walki.\nNie ustalamy osobno nadleczenia.\n\nCtrl+Shift+M: pokaż/ukryj\nReset: zamknij walkę i zacznij nowy pomiar.\nZamknij program z ikony obok zegara.\nDane użytkownika: " + UserSettings.DataDirectory).Show();
 
-    private void UpdatesClick(object sender, RoutedEventArgs e) => OpenUpdates();
     private void OpenUpdates()
     {
         if (_updates == null) return;
@@ -524,13 +526,11 @@ public partial class MainWindow : Window, IDisposable
     private void UpdateState(UpdateStatus state)
     {
         if (_disposed) return;
-        UpdateButton.Content = state.Stage is UpdateStage.Available or UpdateStage.Ready ? "↑" : "↻";
-        UpdateButton.ToolTip = state.Message;
         if (_updateMenu != null) _updateMenu.Text = state.NewVersion == null ? "Aktualizacje…" : "Aktualizacja " + state.NewVersion + "…";
         if (state.Stage == UpdateStage.Available && state.NewVersion != _notifiedVersion)
         {
             _notifiedVersion = state.NewVersion;
-            _tray?.ShowBalloonTip(6000, "Aurum — nowa wersja " + state.NewVersion, "Otwórz Aktualizacje z menu programu. Podmianę możesz odłożyć do końca walki.", System.Windows.Forms.ToolTipIcon.Info);
+            _tray?.ShowBalloonTip(6000, "Aurum — nowa wersja " + state.NewVersion, "Kliknij ikonę Aurum → Aktualizacje. Podmianę możesz odłożyć do końca walki.", System.Windows.Forms.ToolTipIcon.Info);
         }
         _ = Task.Run(() => { try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "update-status.json"), System.Text.Json.JsonSerializer.Serialize(state)); } catch (IOException) { } });
     }
@@ -611,6 +611,7 @@ public partial class MainWindow : Window, IDisposable
     {
         switch (command)
         {
+            case HubCommand.Updates: OpenUpdates(); break;
             case HubCommand.Meter: ToggleVisible(); break;
             case HubCommand.Map:
                 if (!_settings.ShowPetMap && _mapMenu != null) _mapMenu.Checked = true;

@@ -14,8 +14,10 @@ using Path = System.Windows.Shapes.Path;
 
 namespace Aurum;
 
-internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice }
-internal sealed record HubState(bool MeterVisible, bool MapVisible, bool CubeEnabled, bool SoulsEnabled, bool ShopEnabled, string CubeStatus, bool ItemAdviceEnabled = true);
+internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice, Updates }
+internal sealed record HubState(bool MeterVisible, bool MapVisible, bool CubeEnabled, bool SoulsEnabled, bool ShopEnabled, string CubeStatus,
+    bool ItemAdviceEnabled = true, string UpdateStatus = "Sprawdź dostępną wersję", bool UpdateAvailable = false,
+    string MeterStatus = "Licznik walki party i force");
 
 internal sealed class AurumOrbVisual : FrameworkElement
 {
@@ -41,7 +43,7 @@ internal sealed class AurumOrbVisual : FrameworkElement
 
 internal sealed class AurumHubWindow : Window
 {
-    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 446, Gap = 10;
+    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 502, Gap = 10;
     private readonly Canvas _canvas = new();
     private readonly AurumOrbVisual _orbVisual = new() { Width = 64, Height = 64 };
     private readonly Border _orb;
@@ -87,7 +89,6 @@ internal sealed class AurumHubWindow : Window
         SourceInitialized += (_, _) => {
             _handle = new WindowInteropHelper(this).Handle;
             Native.SetWindowLongPtr(_handle, -20, Native.GetWindowLongPtr(_handle, -20) | 0x08000000 | 0x80);
-            Native.SetWindowDisplayAffinity(_handle, 0x11);
         };
         Closed += (_, _) => { _disposed = true; _timer.Stop(); };
         if (!preview) { _timer.Tick += (_, _) => Refresh(); _timer.Start(); Refresh(); }
@@ -111,6 +112,7 @@ internal sealed class AurumHubWindow : Window
         AddRow(body, HubCommand.Cube, "Hidden Cube", "Złoty kompas do skrzynki", true, "M11,1 L21,7 L21,18 L11,24 L1,18 L1,7 Z M1,7 L11,13 L21,7 M11,13 L11,24");
         AddRow(body, HubCommand.Souls, "Zdobywane dusze", "Postęp po podniesieniu soula", true, "M12,1 C17,6 22,9 22,14 C22,20 18,24 12,24 C6,24 2,20 2,14 C2,9 7,6 12,1 Z M12,8 L12,19 M7,14 L17,14");
         AddRow(body, HubCommand.Shop, "Cloud Market", "Liczniki na kartach petów", true, "M3,8 L21,8 L22,24 L2,24 Z M8,9 L8,4 C8,-1 16,-1 16,4 L16,9");
+        AddRow(body, HubCommand.Updates, "Aktualizacje", "Sprawdź dostępną wersję", false, "M19,8 A9,9 0 1 0 21,17 M19,1 L19,8 L12,8 M11,12 L11,21 M7,17 L11,21 L15,17");
         body.Children.Add(new TextBlock { Text = "Przeciągnij ikonę  ·  Ctrl+Shift+A", Foreground = PetAppearance.Ink("#9D9483"), FontSize = 9,
             Margin = new Thickness(4, 12, 0, 0), HorizontalAlignment = HorizontalAlignment.Center });
         return new Border { Width = PanelWidth, Height = PanelHeight, CornerRadius = new CornerRadius(12), BorderThickness = new Thickness(1),
@@ -131,7 +133,7 @@ internal sealed class AurumHubWindow : Window
         var button = new Button { Content = grid, Height = 52, Margin = new Thickness(0, 2, 0, 2), Padding = new Thickness(5, 0, 6, 0),
             Background = Brushes.Transparent, BorderBrush = Brushes.Transparent, Template = RowTemplate, HorizontalContentAlignment = HorizontalAlignment.Stretch, Focusable = false, Cursor = Cursors.Hand };
         AutomationProperties.SetName(button, title);
-        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map) SetExpanded(false); };
+        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map or HubCommand.Updates) SetExpanded(false); };
         parent.Children.Add(button); _rows[command] = (detail, action, state);
     }
     private static FrameworkElement Switch(bool enabled)
@@ -147,6 +149,11 @@ internal sealed class AurumHubWindow : Window
         var state = _state(); if (state == _lastState) return; _lastState = state;
         if (IsVisible && _handle != 0) Native.SetWindowPos(_handle, -1, 0, 0, 0, 0, 0x13);
         _rows[HubCommand.Meter].Action!.Text = state.MeterVisible ? "UKRYJ" : "OTWÓRZ";
+        _rows[HubCommand.Meter].Description.Text = state.MeterStatus;
+        _rows[HubCommand.Meter].Description.ToolTip = state.MeterStatus;
+        _rows[HubCommand.Updates].Action!.Text = state.UpdateAvailable ? "NOWA" : "OTWÓRZ";
+        _rows[HubCommand.Updates].Description.Text = state.UpdateStatus;
+        _rows[HubCommand.Updates].Description.ToolTip = state.UpdateStatus;
         _rows[HubCommand.Map].Action!.Text = state.MapVisible ? "ZAMKNIJ" : "OTWÓRZ";
         _rows[HubCommand.Cube].State.Child = Switch(state.CubeEnabled);
         _rows[HubCommand.Cube].Description.Text = state.CubeEnabled ? state.CubeStatus : "Wskaźnik wyłączony";

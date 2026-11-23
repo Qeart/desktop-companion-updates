@@ -23,7 +23,6 @@ internal sealed class ArcanaAdviceWindow : Window
         SourceInitialized += (_, _) => {
             var handle = new WindowInteropHelper(this).Handle;
             Native.SetWindowLongPtr(handle, -20, Native.GetWindowLongPtr(handle, -20) | 0x08000000 | 0x80 | 0x20);
-            Native.SetWindowDisplayAffinity(handle, 0x11);
         };
     }
     private static TextBlock Text(string value, double size, string color = "#BEB6A5", FontWeight? weight = null) => new()
