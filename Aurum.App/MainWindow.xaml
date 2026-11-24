@@ -7,7 +7,7 @@
         PreviewMouseLeftButtonDown="HeaderDown" PreviewMouseMove="HeaderMove" PreviewMouseLeftButtonUp="HeaderUp" LostMouseCapture="HeaderCaptureLost">
    <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-    <Border Width="28" Height="28" CornerRadius="7" Background="#302819" BorderBrush="#8D6C30" BorderThickness="1" Margin="0,0,10,0"><TextBlock Text="A" FontSize="19" Foreground="{StaticResource Gold}" FontFamily="Georgia" HorizontalAlignment="Center" VerticalAlignment="Center" /></Border>
+    <Image x:Name="MeterBrand" Width="30" Height="30" Margin="0,0,9,0"/>
     <StackPanel><TextBlock Text="A U R U M" Foreground="{StaticResource Gold}" FontSize="15" FontWeight="SemiBold" /><TextBlock x:Name="BrandSubtitle" Text="C O M B A T   M E T E R" FontSize="8" Foreground="{StaticResource Muted}" /></StackPanel>
    </StackPanel>
    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><Button Content="↻" Click="ResetClick" ToolTip="Nowy pomiar" Padding="8,3" Margin="0,0,5,0" /><Button Content="—" Click="HideClick" ToolTip="Ukryj • Ctrl+Shift+M" Padding="8,3" /></StackPanel>

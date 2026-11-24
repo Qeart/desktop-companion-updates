@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidatePattern('^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$')][string]$Version = '0.2.5',
+    [ValidatePattern('^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$')][string]$Version = '0.2.6',
     [ValidateSet('stable', 'beta')][string]$Channel = 'stable',
     [string]$OutputDirectory,
     [switch]$SkipTests
@@ -24,7 +24,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Publikacja aplikacji nie powiodła się.' }
     if (Test-Path -LiteralPath (Join-Path $publishDirectory 'user-data')) { throw 'Paczka zawiera prywatne dane użytkownika.' }
     if (!(Test-Path -LiteralPath (Join-Path $publishDirectory 'LICENSE'))) { throw 'Brak licencji w paczce.' }
-    dotnet tool run vpk -- pack --packId DesktopCompanion --packTitle 'Aurum Meter' --packAuthors 'Qeart and contributors' --packVersion $Version --channel "win-$Channel" --runtime win-x64 --packDir $publishDirectory --mainExe AurumMeter.exe --outputDir $OutputDirectory --framework vcredist143-x64 --releaseNotes (Join-Path $repoRoot 'RELEASE-NOTES.md')
+    dotnet tool run vpk -- pack --packId DesktopCompanion --packTitle 'Aurum Meter' --packAuthors 'Qeart and contributors' --packVersion $Version --channel "win-$Channel" --runtime win-x64 --packDir $publishDirectory --mainExe AurumMeter.exe --icon (Join-Path $repoRoot 'Aurum.App/Assets/aurum.ico') --outputDir $OutputDirectory --framework vcredist143-x64 --releaseNotes (Join-Path $repoRoot 'RELEASE-NOTES.md')
     if ($LASTEXITCODE -ne 0) { throw 'Budowanie instalatora nie powiodło się.' }
     $sourceDirectory = Join-Path $repoRoot ('artifacts/source/' + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $sourceDirectory -Force | Out-Null

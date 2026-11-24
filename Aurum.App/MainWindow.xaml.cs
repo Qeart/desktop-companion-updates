@@ -40,6 +40,9 @@ public partial class MainWindow : Window, IDisposable
     private int _shopTabRequest;
     private int _gameMapId;
     private PetMapController? _petMap;
+    private PetTrackerWindow? _petTracker;
+    private System.Windows.Forms.ToolStripMenuItem? _petTrackerMenu;
+    private System.Drawing.Icon? _trayIcon;
     private readonly PlayerPositionTracker _playerPosition;
     private readonly HiddenCubeTracker _hiddenCubes = new();
     private HiddenCubeController? _cube;
@@ -77,6 +80,7 @@ public partial class MainWindow : Window, IDisposable
     {
         _preview = preview;
         _settings = preview ? new() : UserSettings.Load();
+        Icon = AurumBrand.Image;
         _playerPosition = new(new PositionTrackingOptions { LiveMilliseconds = _settings.CubePositionLiveMilliseconds,
             StaleMilliseconds = _settings.CubePositionStaleMilliseconds, MaxPredictionMilliseconds = _settings.CubePredictionMilliseconds });
         _backend = (captureBackend ?? _settings.CaptureBackend).Equals("Pktmon", StringComparison.OrdinalIgnoreCase) ? "PktMon" : "Npcap";
@@ -107,7 +111,7 @@ public partial class MainWindow : Window, IDisposable
             if (petCache != null) _petProgress.Restore(petCache, expectedProfile);
             _savedNamesVersion = _tracker.CacheVersion;
         }
-        InitializeComponent(); DataContext = this;
+        InitializeComponent(); DataContext = this; MeterBrand.Source = AurumBrand.Image;
         _placementTimer.Tick += (_, _) => { _placementTimer.Stop(); PersistPlacement(); };
         Width = Math.Clamp(_settings.Width, MinWidth, 1000); Height = Math.Clamp(_settings.Height, MinHeight, 1000);
         Left = Math.Clamp(_settings.Left, SystemParameters.VirtualScreenLeft,
@@ -125,6 +129,7 @@ public partial class MainWindow : Window, IDisposable
                 Native.RegisterHotKey(_hwnd, 3, 2 | 4 | 0x4000, 0x47);
                 Native.RegisterHotKey(_hwnd, 4, 2 | 4 | 0x4000, 0x48);
                 Native.RegisterHotKey(_hwnd, 5, 2 | 4 | 0x4000, 0x41);
+                Native.RegisterHotKey(_hwnd, 6, 2 | 4 | 0x4000, 0x54);
                 HwndSource.FromHwnd(_hwnd)?.AddHook((nint hwnd, int msg, nint w, nint l, ref bool handled) =>
                 {
                     if (msg == 0x0312 && w == 1) { ToggleVisible(); handled = true; }
@@ -132,6 +137,7 @@ public partial class MainWindow : Window, IDisposable
                     if (msg == 0x0312 && w == 3) { ArmPetMap(); handled = true; }
                     if (msg == 0x0312 && w == 4) { HubAction(HubCommand.Cube); handled = true; }
                     if (msg == 0x0312 && w == 5) { _hub?.ToggleMenu(); handled = true; }
+                    if (msg == 0x0312 && w == 6) { TogglePetTracker(); handled = true; }
                     return 0;
                 });
             }
@@ -162,9 +168,10 @@ public partial class MainWindow : Window, IDisposable
             _identity.EventDecoded += ev => { if (ev is MarketTabEvent market) Interlocked.Exchange(ref _shopTabRequest, market.Tab); };
             _identity.EventDecoded += ev => { if (ev is ZoneChangedEvent zone) Interlocked.Exchange(ref _gameMapId, zone.MapId); };
             _capture.Start();
+            _trayIcon = AurumBrand.TrayIcon();
             _tray = new System.Windows.Forms.NotifyIcon
             {
-                Icon = System.Drawing.SystemIcons.Application, Text = "Aurum Meter • DPS / HEAL", Visible = true,
+                Icon = _trayIcon, Text = "Aurum Meter • DPS / HEAL", Visible = true,
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(),
             };
             _tray.ContextMenuStrip.Items.Add("Pokaż / ukryj (Ctrl+Shift+M)", null, (_, _) => ToggleVisible());
@@ -188,6 +195,10 @@ public partial class MainWindow : Window, IDisposable
             mapToggle.CheckedChanged += (_, _) => { _settings.ShowPetMap = mapToggle.Checked; _settings.Save(); if (mapToggle.Checked) ArmPetMap(); else _petMap?.Stop(); };
             _tray.ContextMenuStrip.Items.Add(mapToggle);
             _tray.ContextMenuStrip.Items.Add("Otwórz mapę Aurum (Ctrl+Shift+G)", null, (_, _) => ArmPetMap());
+            _petTrackerMenu = new System.Windows.Forms.ToolStripMenuItem("Tracker petów (Ctrl+Shift+T)") { Checked = _settings.ShowPetTracker, CheckOnClick = true };
+            _petTrackerMenu.CheckedChanged += (_, _) => { _settings.ShowPetTracker = _petTrackerMenu.Checked; _settings.Save(); EnsurePetTracker(); _petTracker?.Refresh(); };
+            _tray.ContextMenuStrip.Items.Add(_petTrackerMenu);
+            if (_settings.ShowPetTracker) EnsurePetTracker();
             if (_settings.ShowPetMap) { EnsurePetMap(); if (!_settings.UseOwnPetMap) _petMap!.Arm(); }
             _cubeMenu = new System.Windows.Forms.ToolStripMenuItem("Hidden Cube (Ctrl+Shift+H)") { Checked = _settings.ShowHiddenCube, CheckOnClick = true };
             _cubeMenu.CheckedChanged += (_, _) => { _settings.ShowHiddenCube = _cubeMenu.Checked; _settings.Save(); _cube?.RefreshEnabled(); };
@@ -213,7 +224,7 @@ public partial class MainWindow : Window, IDisposable
             _hub = new AurumHubWindow(_settings, () => new HubState(IsVisible, _petMap?.HasMapView == true,
                 _settings.ShowHiddenCube, _settings.ShowPetProgress, _settings.ShowShopPetProgress, _cube.Status, _settings.ShowItemAdvice,
                 _updates?.Status.Message ?? "Sprawdź dostępną wersję", _updates?.Status.Stage is UpdateStage.Available or UpdateStage.Ready,
-                _captureSummary), HubAction);
+                _captureSummary, _settings.ShowPetTracker), HubAction);
             _timer.Start();
             _shopTimer.Start();
         }
@@ -318,7 +329,7 @@ public partial class MainWindow : Window, IDisposable
                     PlayerPosition = _playerPosition.Snapshot(), PlayerScope = _tracker.InDungeon ? "DungeonParticipants" : "PartyOrForce", Group = _tracker.GroupState,
                     PositionTracking = _playerPosition.Diagnostics(now), CaptureDiagnostics = (_capture as PktmonCapture)?.Statistics(),
                     LocalPlayer = _identity?.State,
-                    HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
+                    HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, PetTracker = _petTracker?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
                 });
                 try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "session-status.json"), json); }
                 catch (IOException) { }
@@ -585,6 +596,7 @@ public partial class MainWindow : Window, IDisposable
         if (_disposed) return; _disposed = true;
         _updateTimer.Stop(); _updatesWindow?.Close(); _updates?.Dispose();
         _hub?.Close(); _cube?.Dispose(); _itemAdvice?.Dispose(); _arcanaAdvice?.Dispose();
+        _petTracker?.Dispose();
         _timer.Stop(); _shopTimer.Stop(); _capture?.Dispose();
         _petMap?.Dispose();
         if (!_preview) _petStore.Save(_petProgress.Snapshot());
@@ -593,11 +605,13 @@ public partial class MainWindow : Window, IDisposable
         if (!_preview && _identity != null) _characters?.Save(_identity.KnownCharacters);
         if (!_preview) _tracker.Reset(); // save the active encounter on a graceful update/exit
         _tray?.Dispose();
+        _trayIcon?.Dispose();
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 1);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 2);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 3);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 4);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 5);
+        if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 6);
         _details?.Close();
         _petToast?.Close();
         _shopPets?.Stop(); _shopPets?.Close();
@@ -611,6 +625,7 @@ public partial class MainWindow : Window, IDisposable
     {
         switch (command)
         {
+            case HubCommand.PetTracker: TogglePetTracker(); break;
             case HubCommand.Updates: OpenUpdates(); break;
             case HubCommand.Meter: ToggleVisible(); break;
             case HubCommand.Map:
@@ -638,4 +653,16 @@ public partial class MainWindow : Window, IDisposable
     }
     private void EnsurePetMap() => _petMap ??= new PetMapController(_petProgress, _settings,
         () => Volatile.Read(ref _gameMapId), new WindowInteropHelper(this).Handle, _playerPosition.Snapshot);
+    private void TogglePetTracker() { if (_petTrackerMenu != null) _petTrackerMenu.Checked = !_petTrackerMenu.Checked; }
+    private void EnsurePetTracker()
+    {
+        if (_petTracker != null) return;
+        _petTracker = new(_petProgress, _settings, () => Volatile.Read(ref _gameMapId), _playerPosition.Tracking);
+        _petTracker.HideRequested += () => { if (_petTrackerMenu != null) _petTrackerMenu.Checked = false; };
+        _petTracker.MapRequested += (pet, map) => {
+            _settings.SelectedMapPetId = pet; _settings.Save();
+            if (_mapMenu != null && !_mapMenu.Checked) _mapMenu.Checked = true;
+            EnsurePetMap(); _petMap!.OpenPet(pet, map);
+        };
+    }
 }

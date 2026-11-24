@@ -14,36 +14,23 @@ using Path = System.Windows.Shapes.Path;
 
 namespace Aurum;
 
-internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice, Updates }
+internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice, Updates, PetTracker }
 internal sealed record HubState(bool MeterVisible, bool MapVisible, bool CubeEnabled, bool SoulsEnabled, bool ShopEnabled, string CubeStatus,
     bool ItemAdviceEnabled = true, string UpdateStatus = "Sprawdź dostępną wersję", bool UpdateAvailable = false,
-    string MeterStatus = "Licznik walki party i force");
+    string MeterStatus = "Licznik walki party i force", bool PetTrackerVisible = false);
 
 internal sealed class AurumOrbVisual : FrameworkElement
 {
     internal bool Highlight { get; set; }
     protected override void OnRender(DrawingContext drawing)
     {
-        var gold = new LinearGradientBrush(Color.FromRgb(253, 226, 157), Color.FromRgb(149, 105, 37), 110);
-        drawing.DrawEllipse(PetAppearance.Ink("#C5050709"), null, new Point(32, 33), 31, 31);
-        drawing.DrawEllipse(new RadialGradientBrush(Color.FromRgb(Highlight ? (byte)56 : (byte)40, 35, 25), Color.FromRgb(12, 15, 19)),
-            new Pen(gold, 1.6), new Point(32, 31), 27.5, 27.5);
-        drawing.DrawEllipse(null, new Pen(PetAppearance.Ink("#6D5934"), .65), new Point(32, 31), 23.5, 23.5);
-        for (var i = 0; i < 4; i++)
-        {
-            var a = i * Math.PI / 2; drawing.DrawEllipse(PetAppearance.Gold, null, new Point(32 + Math.Sin(a) * 28, 31 - Math.Cos(a) * 28), 1.6, 1.6);
-        }
-        var text = new FormattedText("A", CultureInfo.InvariantCulture, FlowDirection.LeftToRight,
-            new Typeface(new FontFamily("Georgia"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal), 29, PetAppearance.Ink("#F1D28C"), VisualTreeHelper.GetDpi(this).PixelsPerDip);
-        drawing.DrawText(text, new Point(32 - text.Width / 2, 11));
-        drawing.DrawLine(new Pen(gold, 1), new Point(25, 48), new Point(39, 48));
-        drawing.DrawEllipse(PetAppearance.Gold, null, new Point(32, 51), 1, 1);
+        drawing.DrawDrawing(Highlight ? AurumBrand.Highlighted : AurumBrand.Normal);
     }
 }
 
 internal sealed class AurumHubWindow : Window
 {
-    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 502, Gap = 10;
+    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 558, Gap = 10;
     private readonly Canvas _canvas = new();
     private readonly AurumOrbVisual _orbVisual = new() { Width = 64, Height = 64 };
     private readonly Border _orb;
@@ -108,6 +95,7 @@ internal sealed class AurumHubWindow : Window
         body.Children.Add(new Border { Height = 1, Background = PetAppearance.Ink("#4F422C"), Margin = new Thickness(0, 7, 0, 7) });
         AddRow(body, HubCommand.Meter, "DPS / HEAL", "Licznik walki party i force", false, "M2,20 L2,12 M8,20 L8,4 M14,20 L14,9 M20,20 L20,1");
         AddRow(body, HubCommand.Map, "Mapa petów", "Występowanie i Twoja kolekcja", false, "M1,4 L7,1 L14,4 L21,1 L21,18 L14,21 L7,18 L1,21 Z M7,1 L7,18 M14,4 L14,21");
+        AddRow(body, HubCommand.PetTracker, "Tracker petów", "Poniżej MAX lub własna lista", false, "M2,3 L7,3 L7,8 L2,8 Z M11,5 L22,5 M2,12 L7,12 L7,17 L2,17 Z M11,14 L22,14 M2,21 L7,21 M11,23 L22,23");
         AddRow(body, HubCommand.ItemAdvice, "BiS sprzętu i arkan", "Sprzęt: Ctrl · Arkana: auto", true, "M12,1 L21,5 L21,13 C21,18 17,22 12,25 C7,22 3,18 3,13 L3,5 Z M7,12 L11,16 L17,8");
         AddRow(body, HubCommand.Cube, "Hidden Cube", "Złoty kompas do skrzynki", true, "M11,1 L21,7 L21,18 L11,24 L1,18 L1,7 Z M1,7 L11,13 L21,7 M11,13 L11,24");
         AddRow(body, HubCommand.Souls, "Zdobywane dusze", "Postęp po podniesieniu soula", true, "M12,1 C17,6 22,9 22,14 C22,20 18,24 12,24 C6,24 2,20 2,14 C2,9 7,6 12,1 Z M12,8 L12,19 M7,14 L17,14");
@@ -133,7 +121,7 @@ internal sealed class AurumHubWindow : Window
         var button = new Button { Content = grid, Height = 52, Margin = new Thickness(0, 2, 0, 2), Padding = new Thickness(5, 0, 6, 0),
             Background = Brushes.Transparent, BorderBrush = Brushes.Transparent, Template = RowTemplate, HorizontalContentAlignment = HorizontalAlignment.Stretch, Focusable = false, Cursor = Cursors.Hand };
         AutomationProperties.SetName(button, title);
-        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map or HubCommand.Updates) SetExpanded(false); };
+        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map or HubCommand.Updates or HubCommand.PetTracker) SetExpanded(false); };
         parent.Children.Add(button); _rows[command] = (detail, action, state);
     }
     private static FrameworkElement Switch(bool enabled)
@@ -155,6 +143,7 @@ internal sealed class AurumHubWindow : Window
         _rows[HubCommand.Updates].Description.Text = state.UpdateStatus;
         _rows[HubCommand.Updates].Description.ToolTip = state.UpdateStatus;
         _rows[HubCommand.Map].Action!.Text = state.MapVisible ? "ZAMKNIJ" : "OTWÓRZ";
+        _rows[HubCommand.PetTracker].Action!.Text = state.PetTrackerVisible ? "UKRYJ" : "OTWÓRZ";
         _rows[HubCommand.Cube].State.Child = Switch(state.CubeEnabled);
         _rows[HubCommand.Cube].Description.Text = state.CubeEnabled ? state.CubeStatus : "Wskaźnik wyłączony";
         _rows[HubCommand.Souls].State.Child = Switch(state.SoulsEnabled);

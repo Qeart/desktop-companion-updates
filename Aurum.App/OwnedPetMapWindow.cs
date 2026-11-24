@@ -137,6 +137,22 @@ public sealed class OwnedPetMapWindow : Window
         _regions.SelectedItem = map;
         if (!IsVisible) Show(); Activate(); RefreshData();
     }
+    public void OpenPet(int petId, int mapId)
+    {
+        var pet = _pets.FirstOrDefault(p => p.Id == petId); if (pet == null) return;
+        _rebuilding = true; _filterBatch = true;
+        try
+        {
+            _search.Text = "";
+            if (_progress.State(petId)?.Level >= 3) _missing.IsChecked = false;
+            if (_genera.TryGetValue(pet.Genus, out var genus)) genus.IsChecked = true;
+        }
+        finally { _rebuilding = false; _filterBatch = false; }
+        Open(mapId); Rebuild();
+        _list.SelectedItem = (_list.ItemsSource as IEnumerable<Choice>)?.FirstOrDefault(p => p.Pet.Id == petId);
+        _settings.SelectedMapPetId = petId; _settings.MapPetGenera = _genera.Where(g => g.Value.IsChecked == true).Select(g => g.Key).ToArray(); _settings.Save();
+        _surface.UpdateLayout(); _surface.FrameAreas();
+    }
     private void SaveFilter() { if (_filterBatch) return; _settings.MapPetGenera = _genera.Where(g => g.Value.IsChecked == true).Select(g => g.Key).ToArray(); _settings.Save(); Rebuild(); }
     private void Rebuild()
     {

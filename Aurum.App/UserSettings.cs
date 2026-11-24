@@ -17,6 +17,15 @@ public sealed class UserSettings
     public bool ShowPetProgress { get; set; } = true;
     public bool ShowShopPetProgress { get; set; } = true;
     public bool ShowPetMap { get; set; } = true;
+    public bool ShowPetTracker { get; set; }
+    public bool PetTrackerAutomatic { get; set; } = true;
+    public int PetTrackerRegion { get; set; }
+    public int[] TrackedPetIds { get; set; } = [];
+    public bool PetTrackerLocked { get; set; }
+    public double? PetTrackerLeft { get; set; }
+    public double? PetTrackerTop { get; set; }
+    public double PetTrackerWidth { get; set; } = 326;
+    public double PetTrackerHeight { get; set; } = 468;
     public bool ShowHiddenCube { get; set; } = true;
     public bool ShowItemAdvice { get; set; } = true;
     public double CubeNearbyMetres { get; set; } = 100;

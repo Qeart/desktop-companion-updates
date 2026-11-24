@@ -20,6 +20,10 @@ public partial class App : System.Windows.Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        if (e.Args is ["--render-brand", var brandDirectory])
+        { AurumBrand.Generate(brandDirectory); Shutdown(); return; }
+        if (e.Args is ["--render-pet-tracker", var trackerDirectory])
+        { RenderPetTracker(trackerDirectory); Shutdown(); return; }
         if (e.Args is ["--render-bis-catalog", var bisDirectory])
         {
             // Diagnostic only: no capture, updater, settings writes or game connection.
@@ -180,6 +184,25 @@ public partial class App : System.Windows.Application
         _window.Show();
     }
     private static bool IsAdministrator() => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+    private static void RenderPetTracker(string directory)
+    {
+        var pets = JsonSerializer.Deserialize<AionMeter.Core.Pets.PetDefinition[]>(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "data", "pets.json")))!;
+        var maps = AionMeter.Core.PetMaps.PetMapCatalog.Load(Path.Combine(AppContext.BaseDirectory, "data", "pet-map-spawns.json"));
+        var chosen = pets.Where(p => maps.HasSpawns(1110, p)).OrderBy(p => p.Id is 1064 or 1219 ? 0 : 1).ThenBy(p => p.Name).Take(5).ToArray();
+        var states = pets.ToDictionary(p => p.Id, _ => new AionMeter.Core.Pets.PetState(3, 0));
+        for (var i = 0; i < chosen.Length; i++) states[chosen[i].Id] = new(i == 1 ? 1 : 2, i == 1 ? 1 : 12 + i * 9);
+        var progress = new AionMeter.Core.Pets.PetProgress(pets); progress.Restore(new("2305:Preview", 100, true, 1, states));
+        var positions = new AionMeter.Core.PetMaps.PlayerPositionTracker(); positions.SeedIdentity(100, 1110);
+        var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(); positions.Observe(new(1110, 100, 200, 10, now, "Preview"));
+        var settings = new UserSettings { ShowPetTracker = true, PetTrackerAutomatic = true, PetTrackerRegion = 1110, TrackedPetIds = chosen.Take(2).Select(p => p.Id).ToArray() };
+        using var window = new PetTrackerWindow(progress, settings, () => 1110, _ => positions.Tracking(now), preview: true);
+        window.RenderPreview(Path.Combine(directory, "automatic"));
+        progress.Process(new AionMeter.Core.Pets.PetSoulsEvent(now, [new(chosen[0].Id, 75 - states[chosen[0].Id].Points)]));
+        window.RenderPreview(Path.Combine(directory, "after-max"));
+        settings.PetTrackerAutomatic = false;
+        using var manual = new PetTrackerWindow(progress, settings, () => 1110, _ => positions.Tracking(now), preview: true);
+        manual.RenderPreview(Path.Combine(directory, "manual"));
+    }
     private async Task RenderArcanaAdvice(string image, string directory)
     {
         Directory.CreateDirectory(directory);

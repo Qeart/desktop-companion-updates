@@ -9,6 +9,7 @@ internal interface IPetMapView : IDisposable
 {
     void Arm();
     void Stop();
+    void OpenPet(int petId, int mapId) => Arm();
 }
 
 // Map windows have their own dispatcher. Combat UI refreshes, tooltips, and
@@ -53,6 +54,7 @@ public sealed class PetMapController : IDisposable
         if (dispatcher != null && !dispatcher.HasShutdownStarted) dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(Drain));
     }
     public void Arm() => Post(view => view.Arm());
+    public void OpenPet(int petId, int mapId) => Post(view => view.OpenPet(petId, mapId));
     public void Stop() => Post(view => view.Stop());
     public void Dispose()
     {

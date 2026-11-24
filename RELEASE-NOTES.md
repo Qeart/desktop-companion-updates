@@ -1,3 +1,13 @@
+# 0.2.6
+
+- Nowy tracker petów: automat dla wszystkich poniżej MAX lub własna zapamiętana lista wybierana przyciskiem +.
+- Filtr aktualnej krainy, konkretnego regionu albo wszystkich krain; portrety, poziomy, licznik dusz i suma pozostała do MAX.
+- Ukończony pet automatycznie znika z listy. Tracker korzysta ze wspólnego postępu petów, bez OCR i drugiej sesji przechwytywania.
+- Kliknięcie peta otwiera i kadruje jego obszary na mapie Aurum. Dystans do znanych spawnów tylko z aktualnych danych pozycji.
+- Przesuwanie, zmiana rozmiaru, kłódka i zapis ustawień. Otwieranie z menu Aurum lub Ctrl+Shift+T.
+- Oryginalna złoto-czarna ikona Aurum w 7 rozmiarach dla EXE, zasobnika, skrótów, instalatora i menu.
+- 416 testów oraz kontrola przycisków WPF, ikony i podglądu 5 → 4 pety po osiągnięciu MAX. Szczegóły w PET-TRACKER.md.
+
 # 0.2.5
 
 - Aktualizacje w głównym menu okrągłej ikony Aurum, ze wskazaniem dostępnej wersji.

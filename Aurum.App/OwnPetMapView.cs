@@ -65,6 +65,21 @@ internal sealed class OwnPetMapView : IPetMapView
             _window.Left = area.Left + (area.Width - _window.Width) / 2; _window.Top = area.Top + (area.Height - _window.Height) / 2;
         }
     }
+    public void OpenPet(int petId, int mapId)
+    {
+        if (_disposed || !_settings.ShowPetMap) return;
+        _requested = true;
+        try
+        {
+            if (_window == null)
+            {
+                _window = new OwnedPetMapWindow(_progress, _settings, _position); _window.HideRequested += Stop; PlaceWindow();
+            }
+            _window.OpenPet(petId, mapId);
+        }
+        catch (Exception error) { WriteError(error); _requested = false; }
+        Refresh();
+    }
     public void Stop() { _requested = false; _window?.Hide(); Refresh(); }
     private void Refresh()
     {
