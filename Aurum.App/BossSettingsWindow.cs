@@ -34,8 +34,8 @@ internal sealed class BossSettingsWindow : Window
             if (open.ShowDialog(this) == true) Safe(() => controller.Replay(open.FileName));
         }); root.Children.Add(actions);
         Note(root, "DEMO zawiera fikcyjnego bossa. W grze odczytany atak i przewidywany timer mają osobne oznaczenia. Paski ≈ z profili społeczności mogą różnić się na obecnym patchu.");
-        Heading(root, "TWÓJ PANEL");
-        Toggle(root, "Zablokuj panel · kliknięcia przechodzą do gry", settings.BossOverlayLocked, v => settings.BossOverlayLocked = v);
+        Heading(root, "POŁOŻENIE I WYGLĄD");
+        Toggle(root, "Zablokuj nakładki · kliknięcia przechodzą do gry", settings.BossOverlayLocked, v => settings.BossOverlayLocked = v);
         Note(root, "Odblokuj, aby osobno przeciągnąć paski i duży komunikat ostrzeżenia. Oba elementy są bez ramki, jak w DBM.");
         Slider(root, "Rozmiar", .7, 1.6, settings.BossScale, v => settings.BossScale = v, v => $"{v:P0}");
         Slider(root, "Szerokość", 280, 560, settings.BossWidth, v => settings.BossWidth = v, v => $"{v:0} px");

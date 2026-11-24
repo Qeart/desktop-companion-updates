@@ -84,6 +84,9 @@ Nie przypisuj prawdziwemu bossowi czasów lub reakcji z `demo.json`.
 Zapis `boss-fights/boss-<session>.jsonl` odbywa się przez ograniczoną kolejkę w tle.
 Limit to 12 000 zdarzeń na walkę i 100 ostatnich plików przy uruchomieniu. Zrzucenia
 z kolejki są widoczne w `session-status.json → BossAssistant.JournalDropped`.
+Powtarzalne trafienia i HP są zapisywane najwyżej co 500 ms na bossa. Nie ogranicza
+to przetwarzania walki ani zapisu castów, zmian faz i resetów; chroni miejsce dla
+ważnych późniejszych zdarzeń w długiej walce raidowej.
 Analiza obejmuje maksymalnie 50 najnowszych plików / około 250 tys. zdarzeń.
 `timing-proposals.json` zawiera medianę, MAD, zgodność, liczbę próbek i walk.
 Uczenie cooldownów wymaga >=4 odstępów, >=2 walk oraz zgodności i pewności >=80%.
@@ -92,7 +95,7 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
 
 ## Weryfikacja
 
-- 449 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
+- 450 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
   fikcyjnego pulla w środku walki, nieznane HP, duplikaty AoE, progi alarmów,
   fazy, śmierć, reset HP, zmiana mapy/tożsamości, utrata capture, odtwarzanie JSONL,
   walidacja wbudowanych profili i rozdzielenie danych demonstracyjnych.

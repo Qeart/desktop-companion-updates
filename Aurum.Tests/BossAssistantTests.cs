@@ -123,4 +123,14 @@ public class BossAssistantTests
         replay.AdvanceTo(21000); Assert.Equal(29, Assert.Single(engine.Snapshot(21000).Bars).Seconds);
         replay.AdvanceTo(30000); Assert.Empty(engine.Snapshot(30000).Bars); Assert.True(replay.Complete);
     }
+    [Fact]
+    public void Dense_raid_hits_do_not_fill_the_journal_or_drop_later_casts_and_phases()
+    {
+        var engine = Engine(); var rows = new List<BossLogRecord>(); engine.Record += rows.Add;
+        engine.Process(Signal(1000, BossSignalKind.Pull));
+        for (var at = 1000; at < 10000; at++) engine.Process(Signal(at, BossSignalKind.Hit));
+        engine.Process(Signal(10000, BossSignalKind.Cast, -101)); engine.Process(Signal(10001, BossSignalKind.Phase) with { Phase = 2 });
+        Assert.InRange(rows.Count, 20, 22); Assert.Contains(rows, r => r.Signal.Kind == BossSignalKind.Cast && r.Signal.At == 10000);
+        Assert.Contains(rows, r => r.Signal.Kind == BossSignalKind.Phase);
+    }
 }

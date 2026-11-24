@@ -7,7 +7,7 @@
 - Obsługa faz/progów HP, śmierci, resetu i zmiany mapy. Pierwszy timer od pulla wymaga potwierdzenia początku walki.
 - Demonstracja z fikcyjnym bossem, replay lokalnego dziennika i analiza powtarzalności skilli. Dane demonstracyjne oddzielone od gry i uczenia.
 - Otwieranie: okrągła ikona Aurum → Asystent bossów. Zapis lokalnych obserwacji, własne profile JSON i eksperymentalne uczenie cooldownów.
-- 449 testów. Replay, render, blokada nakładek i dostępność na zrzutach ekranu zweryfikowane; aktualność pomiarów i opóźnienie alarmów wymagają testu w rzeczywistej walce. Szczegóły w BOSS-ASSISTANT.md.
+- 450 testów. Replay, render, blokada nakładek i dostępność na zrzutach ekranu zweryfikowane; aktualność pomiarów i opóźnienie alarmów wymagają testu w rzeczywistej walce. Szczegóły w BOSS-ASSISTANT.md.
 
 # 0.2.6
 

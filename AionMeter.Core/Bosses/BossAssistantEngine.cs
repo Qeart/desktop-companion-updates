@@ -10,6 +10,7 @@ public sealed class BossAssistantEngine
         internal int Phase;
         internal double? Hp;
         internal long LastActivity, HpAt;
+        internal long JournalHitAt = long.MinValue / 2, JournalHpAt = long.MinValue / 2;
         internal Dictionary<int, long> Casts = new();
         internal HashSet<string> HpRules = new();
     }
@@ -117,7 +118,7 @@ public sealed class BossAssistantEngine
                             if (m.FirstSeconds is { } delay) Schedule(f, m, signal.At, delay); }
                     }
             }
-            else if (signal.Kind == BossSignalKind.Phase && signal.Phase is > 0 and <= 20) SetPhase(f, signal.Phase, signal.At);
+            else if (signal.Kind == BossSignalKind.Phase && signal.Phase is > 0 and <= 20) { SetPhase(f, signal.Phase, signal.At); return; }
             Log(f, signal);
         }
     }
@@ -132,7 +133,14 @@ public sealed class BossAssistantEngine
         foreach (var m in f.Profile?.Mechanics ?? []) if (m.Phase == phase && m.FirstSeconds is { } delay && Enabled(f, m)) Schedule(f, m, at, delay);
         Log(f, f.Pull with { At = at, Kind = BossSignalKind.Phase, Phase = phase, Source = "Profile phase" });
     }
-    private void Log(Fight f, BossSignal signal) => Record?.Invoke(new(1, f.Id, signal with { Phase = f.Phase }));
+    private void Log(Fight f, BossSignal signal)
+    {
+        // Combat activity is always processed. Only repetitive journal samples are thinned;
+        // dense raid hits must not exhaust the log before later casts/phases arrive.
+        if (signal.Kind == BossSignalKind.Hit) { if (signal.At - f.JournalHitAt < 500) return; f.JournalHitAt = signal.At; }
+        if (signal.Kind == BossSignalKind.Hp) { if (signal.At - f.JournalHpAt < 500) return; f.JournalHpAt = signal.At; }
+        Record?.Invoke(new(1, f.Id, signal with { Phase = f.Phase }));
+    }
     private void Schedule(Fight f, BossMechanic rule, long at, double seconds, string? kind = null)
     {
         if (!double.IsFinite(seconds) || seconds is <= 0 or > 3600 || _bars.Count >= 128) return;
