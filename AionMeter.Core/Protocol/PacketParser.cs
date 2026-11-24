@@ -101,6 +101,9 @@ public sealed class PacketParser
             case Opcodes.MapLoad:
                 ParseMapLoad(body);
                 break;
+            case Opcodes.CurrentZone:
+                ParseCurrentZone(body);
+                break;
             case Opcodes.RemainHp:
                 ParseRemainHp(body);
                 break;
@@ -918,6 +921,15 @@ public sealed class PacketParser
         var teleport = (int)mapId == _lastMapId;
         _lastMapId = (int)mapId;
         Emit(new ZoneChangedEvent(TimeMs, (int)mapId, _data.MapName((int)mapId), GameData.IsDungeonMap((int)mapId), teleport));
+    }
+    private void ParseCurrentZone(ReadOnlySpan<byte> b)
+    {
+        var o = 0;
+        if (!Wire.TryU32(b, ref o, out var map) || map is < 1000 or > 9_999_999) return;
+        var id = (int)map;
+        if (!_data.Maps.ContainsKey(id) && !GameData.IsDungeonMap(id) && id is not (>= 1000 and <= 9999)) return;
+        var same = id == _lastMapId; _lastMapId = id;
+        Emit(new ZoneChangedEvent(TimeMs, id, _data.MapName(id), GameData.IsDungeonMap(id), same));
     }
 
     // ------------------------------------------------------------------ helpers

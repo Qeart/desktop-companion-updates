@@ -48,8 +48,10 @@ profile show their observed skill uses and can be recorded for analysis. Observe
 uses have a separate list, while mechanic warnings/countdowns follow profile rules.
 See [BOSS-ASSISTANT.md](BOSS-ASSISTANT.md) for sources, format, diagnostics and limits.
 
-Krao Cave's final boss is **Ultimate Berk**, already included with two measured
-predictions. **Test Krao Cave** records its decoded events for up to 15 minutes;
+Krao Cave's final boss is **Ultimate Berk**: two measured predictions plus reactive
+warnings for Rush, Wrathful Blade, a provisional spin and an unidentified heavy
+attack. Wave of Fury shows a measured preparation countdown from its observed cue,
+not a fabricated client cast bar. **Test Krao Cave** records decoded events for up to 15 minutes;
 Ctrl+Shift+B marks a visible mechanic while the game/Aurum is foreground. After the
 fight, **Zapisz raport testu** saves a local JSON report in `boss-reports`. Markers
 show nearby candidate skills without assigning the mechanic automatically. All 12
@@ -61,7 +63,7 @@ On Windows x64, install the .NET 10 SDK, then run:
 
 ```powershell
 dotnet test Aurum.Tests/Aurum.Tests.csproj -c Release
-./scripts/Build-Release.ps1 -Version 0.2.7-beta.3 -Channel beta
+./scripts/Build-Release.ps1 -Version 0.2.7-beta.4 -Channel beta
 ```
 
 The script restores pinned Velopack 1.2.161 tooling, tests, publishes a self-contained

@@ -87,7 +87,7 @@ public sealed class BossAssistantEngine
                 foreach (var key in _bars.Where(p => p.Value.Fight == f && p.Value.Skill == signal.SkillId && p.Value.Kind != "cast").Select(p => p.Key).ToArray()) _bars.Remove(key);
                 var own = rules.Where(m => m.SkillId == signal.SkillId).ToArray();
                 var rule = own.FirstOrDefault(m => Enabled(f, m));
-                if (_options.ShowObservedSkills) {
+                if (_options.ShowObservedSkills && f.Profile?.QuietSkills.Contains(signal.SkillId) != true) {
                     var name = own.FirstOrDefault()?.Name ?? (string.IsNullOrWhiteSpace(signal.SkillName) ? "Atak #" + signal.SkillId : signal.SkillName);
                     var previousName = _observed.LastOrDefault(s => s.Actor == signal.Actor && s.Name == name);
                     if (previousName == null || signal.At - previousName.At >= 700) {
@@ -97,7 +97,7 @@ public sealed class BossAssistantEngine
                     }
                 }
                 if (rule is { AlertOnCast: true })
-                    Alert(f, "cast/" + signal.SkillId + "/" + signal.At, rule.Reaction.Length > 0 ? rule.Reaction : rule.Name, rule.Category, signal.At, true, false);
+                    Alert(f, "cast/" + signal.SkillId + "/" + signal.At, rule.Reaction.Length > 0 ? rule.Reaction : rule.Name, rule.Category, signal.At, true, false, rule.AlertSeconds);
                 foreach (var m in rules.Where(m => Enabled(f, m)))
                 {
                     if (m.SkillId == signal.SkillId)
@@ -105,7 +105,11 @@ public sealed class BossAssistantEngine
                         if (m.CastSeconds is { } duration) Schedule(f, m, signal.At, duration, "cast");
                         if (m.CooldownSeconds is { } cooldown) Schedule(f, m, signal.At, cooldown);
                     }
-                    if (m.AfterSkillId == signal.SkillId && m.AfterSeconds is { } after) Schedule(f, m, signal.At, after);
+                    if (m.AfterSkillId == signal.SkillId && m.AfterSeconds is { } after) {
+                        if (m.AlertOnAnchor) Alert(f, "anchor/" + m.Id + "/" + signal.At,
+                            (m.Reaction.Length > 0 ? m.Reaction : m.Name) + $" · ≈{after:0.#} s", m.Category, signal.At, m.Confidence >= .8, true, m.AlertSeconds);
+                        Schedule(f, m, signal.At, after, m.WindupFromAnchor ? "windup" : null);
+                    }
                 }
                 if (_options.LearnedTimers && !rules.Any(m => m.SkillId == signal.SkillId && Enabled(f, m)))
                 {
@@ -169,10 +173,10 @@ public sealed class BossAssistantEngine
             Skill = rule.SkillId, Started = at, Due = at + (long)(seconds * 1000), Confidence = rule.Confidence,
             Samples = rule.Samples, Evidence = rule.Evidence.Length > 0 ? rule.Evidence : f.Profile?.Evidence ?? "", Warnings = warnings };
     }
-    private void Alert(Fight f, string key, string text, string category, long at, bool sound, bool predicted)
+    private void Alert(Fight f, string key, string text, string category, long at, bool sound, bool predicted, double seconds = 4.5)
     {
         if (string.IsNullOrWhiteSpace(text)) text = "Umiejętność bossa";
-        var alert = new BossAlert(f.Id + "/" + key, text, category, at, sound, predicted, f.Pull.Synthetic);
+        var alert = new BossAlert(f.Id + "/" + key, text, category, at, sound, predicted, f.Pull.Synthetic) { LifetimeMs = (long)(Math.Clamp(seconds, .5, 30) * 1000) };
         if (_recent.Any(a => a.Key == alert.Key)) return;
         _recent.Add(alert); if (_recent.Count > 16) _recent.RemoveAt(0);
         if (_pending.Count < 32) _pending.Enqueue(alert);
@@ -198,7 +202,7 @@ public sealed class BossAssistantEngine
             foreach (var bar in _bars.Values.ToArray())
             {
                 var remaining = (bar.Due - now) / 1000d;
-                if (remaining < (bar.Kind == "cast" ? 0 : -5)) { _bars.Remove(bar.Key); continue; }
+                if (remaining < (bar.Kind == "cast" ? 0 : bar.Kind == "windup" ? -.75 : -5)) { _bars.Remove(bar.Key); continue; }
                 var crossed = bar.Warnings.Where(w => remaining >= 0 && remaining <= w && bar.Previous > w && bar.Warned.Add(w)).ToArray();
                 if (crossed.Length > 0)
                 {
@@ -208,7 +212,7 @@ public sealed class BossAssistantEngine
                 }
                 bar.Previous = remaining;
             }
-            _recent.RemoveAll(a => now - a.At > 4500);
+            _recent.RemoveAll(a => now - a.At > a.LifetimeMs);
             _observed.RemoveAll(s => now - s.At > 5000);
         }
     }
@@ -217,7 +221,7 @@ public sealed class BossAssistantEngine
         Tick(now);
         lock (_gate) return new(_fights.Values.Select(f => new BossFightSnapshot(f.Id, f.Pull.Actor, f.Pull.NpcCode, f.Pull.BossName, f.Pull.MapId, f.Phase, f.Hp, f.Pull.At, f.Pull.PullConfirmed)).ToArray(),
             _bars.Values.OrderBy(b => b.Due).Select(b => new BossBarSnapshot(b.Key, b.Fight.Pull.Actor, b.Skill, b.Fight.Pull.BossName, b.Label, b.Reaction, b.Category, b.Kind,
-                b.Started, b.Due, Math.Max(0, (b.Due - now) / 1000d), Math.Clamp((b.Due - now) / (double)Math.Max(1, b.Due - b.Started), 0, 1), b.Confidence, b.Samples, b.Evidence)).ToArray(), _recent.ToArray(), now)
+                b.Started, b.Due, Math.Max(0, (b.Due - now) / 1000d), Math.Clamp((b.Kind == "windup" ? now - b.Started : b.Due - now) / (double)Math.Max(1, b.Due - b.Started), 0, 1), b.Confidence, b.Samples, b.Evidence)).ToArray(), _recent.ToArray(), now)
                 { ObservedSkills = _observed.OrderByDescending(s => s.At).ToArray() };
     }
     public IReadOnlyList<BossAlert> TakeAlerts() { lock (_gate) { var a = _pending.ToArray(); _pending.Clear(); return a; } }

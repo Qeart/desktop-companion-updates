@@ -41,7 +41,8 @@ internal sealed class BossAssistantController : IDisposable
     internal BossAssistantSnapshot State { get; private set; } = new([], [], [], 0);
     internal object DiagnosticState => new { Enabled = _settings.BossAssistantEnabled, Mode, Message, Profiles = Catalog.Profiles.Count(p => !p.Synthetic),
         ProfileErrors = Catalog.Errors, Fights = State.Fights.Count, Bars = State.Bars.Count, ObservedSkills = State.ObservedSkills, JournalDropped = _journal.Dropped, AudioError = _sound.LastError, Proposals = _proposals.Count,
-        KraoTest = _practice.Status, MarkerHotkey = MarkerHotkeyAvailable };
+        KraoTest = _practice.Status, MarkerHotkey = MarkerHotkeyAvailable, Adapter = _adapter.Diagnostics,
+        ActiveTimers = State.Bars, ActiveWarnings = State.Alerts };
     internal bool MarkerHotkeyAvailable { get; set; }
     internal event Action<bool>? MarkerHotkeyRequested;
     internal BossAssistantController(UserSettings settings, GameData data, CombatTracker combat, int map)
@@ -220,6 +221,13 @@ internal sealed class BossAssistantController : IDisposable
         observed.Process(new(1000, BossSignalKind.Pull, 700, 2300171) { BossName = "Ultimate Berk", MapId = 600001 });
         observed.Process(new(21751, BossSignalKind.Cast, 700, 2300171) { BossName = "Ultimate Berk", MapId = 600001, SkillId = 1800030, SkillName = "Rush" });
         window.RenderPreview(observed.Snapshot(21751), "REPLAY", Path.Combine(directory, "boss-observed-rush.png"));
+        var berk = new BossAssistantEngine(catalog);
+        BossSignal B(long at, BossSignalKind kind, int skill = 0) => new(at, kind, 700, 2320171) { BossName = "Ultimate Berk", MapId = 1110, SkillId = skill };
+        berk.Process(B(1000, BossSignalKind.Pull)); berk.Process(B(2000, BossSignalKind.Cast, 1800150));
+        window.RenderPreview(berk.Snapshot(6200), "REPLAY", Path.Combine(directory, "berk-preparation.png"));
+        warning.RenderPreview(berk.Snapshot(6200), "REPLAY", Path.Combine(directory, "berk-preparation-warning.png"));
+        berk.Process(B(10400, BossSignalKind.Cast, 1800053)); berk.Process(B(20000, BossSignalKind.Cast, 1800170));
+        warning.RenderPreview(berk.Snapshot(26100), "REPLAY", Path.Combine(directory, "berk-spin-warning.png"));
         File.WriteAllText(Path.Combine(directory, "diagnostics.json"), JsonSerializer.Serialize(new { Profiles = catalog.Profiles.Count(p => !p.Synthetic),
             Mechanics = catalog.Profiles.Where(p => !p.Synthetic).Sum(p => p.Mechanics.Length), catalog.Errors, FightsAfterDeath = engine.Snapshot(62000).Fights.Count,
             BarsAfterDeath = engine.Snapshot(62000).Bars.Count })); window.Close(); warning.Close();

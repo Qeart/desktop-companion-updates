@@ -35,7 +35,42 @@ rzeczywiście odczytany skill właściwego bossa. Nie są potwierdzeniem aktualn
 mechaniki na obecnym patchu. Nazwę skilla dobieramy z istniejących danych Auruma.
 Krao Cave to nazwa dungeona. Jego główny boss **Ultimate Berk** ma już profil
 `boss-2300171` z timerami Wave of Fury oraz Drana Wave. Nie ma jeszcze potwierdzonego
-przypisania obrotowego ataku do skilla; nie kopiujemy ID/czasów z przykładowego prompta.
+przypisania obrotowego ataku do skilla; `1800170` jest obecnie oznaczony „Możliwy
+obrót”, zgodnie z sugestią użytkownika i trzema odczytami poprzedzającymi serię
+`1800160`. Nie przypisujemy mu stałego cooldownu ani prawdziwego czasu castowania.
+
+### Poprawka po walce Hard (0.2.7-beta.4)
+
+W lokalnym dzienniku 143-sekundowej walki `1800170` wystąpił trzykrotnie, lecz
+profil miał tylko dwie reguły timerów. Lista ODCZYT nie zastępowała ostrzeżenia,
+a podstawowe ataki wypierały z niej istotne użycia. Profil v2 dodaje reakcje na
+Rush i Wrathful Blade, prowizoryczny obrót oraz ogólny alarm dla nieprzypisanego
+`1800190`. Ten ostatni nie ma zgadywanej animacji ani kierunku uniku.
+`quietSkills` usuwa powtarzalne podstawowe/systemowe użycia wyłącznie z listy,
+zachowując je w dzienniku. Ostrzeżenie obrotu pozostaje 7 s; to czas wyświetlania,
+nie zmierzony cast. Wrathful Blade ostrzega o możliwym obrocie bez liczbowej prognozy.
+
+Oba odczyty `1800150 → 1800053` dały 8,399/8,402 s, potwierdzając historyczne
+8,4 s (40 próbek / 21 walk). `alertOnAnchor` uruchamia komunikat przygotowania
+od razu po kotwicy; `windupFromAnchor` pokazuje narastający pasek PRZYGOT. z ≈czasem
+i alarmami progów. Potwierdzony skill docelowy usuwa przewidywany pasek. Bez niego
+pasek znika po terminie z 750 ms tolerancji i nie uruchamia kolejnego cyklu.
+To pomiar od sygnału przygotowania do użycia, a nie odczyt paska castowania gry.
+Pole `alertSeconds` (0,5–30 s, domyślnie 4,5 s) kontroluje trwałość komunikatu.
+
+Nie każdy widoczny w grze cast ma obecnie rozpoznany początek/koniec w protokole.
+Samego trafienia nie przedstawiamy jako wczesnego ostrzeżenia. Casty świeżo
+ogłoszonych innych NPC przy aktywnym bossie są zapisywane jako `unmappedCast`
+z osobnym `sourceActor`/`sourceNpcCode` i Confidence=0. Nie uruchamiają mechanik,
+nie udają castu bossa i nie trafiają do uczenia cooldownu. Ograniczona diagnostyka
+ostatnich 16 takich odczytów jest w `BossAssistant.Adapter.UnmappedCasts`;
+`ActiveTimers`/`ActiveWarnings` pokazują stan faktycznie przeznaczony do renderu.
+
+Replay zanonimizowanych względnych czasów Hard sprawdza trzy ostrzeżenia obrotu,
+obie kotwice Fali, narastanie paska i usunięcie na rzeczywistym skillu, brak
+fikcyjnego cooldownu, trwałość alarmu mimo podstawowych ataków oraz wygaśnięcie
+bez kolejnych pakietów. Potwierdzenie animacji obrotu, aktualności sygnałów i
+opóźnień na żywo pozostaje do kolejnej walki; użytkownik jest już poza grupą.
 
 ## Architektura
 
@@ -97,7 +132,7 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
 
 ## Weryfikacja
 
-- 481 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
+- 505 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
   fikcyjnego pulla w środku walki, nieznane HP, duplikaty AoE, progi alarmów,
   fazy, śmierć, reset HP, zmiana mapy/tożsamości, utrata capture, odtwarzanie JSONL,
   walidacja wbudowanych profili i rozdzielenie danych demonstracyjnych.

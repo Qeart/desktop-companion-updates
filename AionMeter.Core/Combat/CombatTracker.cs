@@ -18,8 +18,13 @@ public sealed class CombatTracker
     private bool _viewCleared;
     private readonly GroupMembership _group = new();
     private readonly List<GameEvent> _pendingGroupSummons = [];
+    private int _instanceMap;
+    private long _instanceUntil, _clockMs, _acceptedPlayerDamage, _rejectedPlayerDamage;
+    private readonly Dictionary<uint, (long At, string Reason)> _rejectedActors = new();
     public object GroupState { get { lock (_gate) return new { GroupOnly = Options.GroupOnly, SelfKnown = _entities.SelfId != null,
         NamedMembers = _group.NamedMembers, MembershipSource = InDungeon ? "DungeonParticipants" : "OwnRoster", MapId = _entities.MapId,
+        CombatDungeonMap = CombatDungeonMap, DungeonEvidence = DungeonEvidence, AcceptedPlayerDamage = _acceptedPlayerDamage, RejectedPlayerDamage = _rejectedPlayerDamage,
+        RejectedActors = _rejectedActors.Select(p => new { Actor = p.Key, p.Value.At, p.Value.Reason }).ToArray(),
         AwaitingGroupOwnerConfirmation = _group.AwaitingSelfConfirmation,
         ObservedActors = _group.RecentActors(LastEventMs), SelfId = _entities.SelfId,
         Players = _entities.Export().Players.Select(p => new { p.Id, p.Name, p.ServerId, Eligible = IsGroupSource(p.Id, LastEventMs) }).ToArray(),
@@ -46,7 +51,11 @@ public sealed class CombatTracker
         get { lock (_gate) return _entities.Self?.Name; }
     }
     public GameClass SelfClass { get { lock (_gate) return _entities.Self?.Class ?? GameClass.Unknown; } }
-    public bool InDungeon { get { lock (_gate) return GameData.IsDungeonMap(_entities.MapId); } }
+    private int CombatDungeonMap => GameData.IsDungeonMap(_entities.MapId) ? _entities.MapId :
+        _instanceMap != 0 && _clockMs < _instanceUntil ? _instanceMap : _current is { IsActive: true, DungeonMapId: > 0 } enc ? enc.DungeonMapId : 0;
+    private string DungeonEvidence => GameData.IsDungeonMap(_entities.MapId) ? "ZonePacket" :
+        _instanceMap != 0 && _clockMs < _instanceUntil ? "InstanceTimer" : _current is { IsActive: true, DungeonMapId: > 0 } ? "VerifiedDungeonTarget" : "None";
+    public bool InDungeon { get { lock (_gate) return CombatDungeonMap != 0; } }
     public bool IsCurrentGroupActor(uint actor, long at) { lock (_gate) return IsGroupSource(_entities.ResolveOwner(actor), at); }
     public BossSnapshot? ActiveBoss
     {
@@ -97,11 +106,13 @@ public sealed class CombatTracker
         lock (_gate)
         {
             if (e.TimeMs > LastEventMs) LastEventMs = e.TimeMs;
+            _clockMs = Math.Max(_clockMs, e.TimeMs);
             CheckIdle(e.TimeMs);
 
             switch (e)
             {
                 case LocalIdentityLostEvent lost:
+                    _instanceMap = 0; _instanceUntil = 0;
                     // Save the outgoing fight while its self marker is still
                     // valid; the following zone event must not erase that fact.
                     if (_current is { IsActive: true }) Finish(EncounterEndReason.ZoneChange, _current.LastDamageMs);
@@ -162,6 +173,8 @@ public sealed class CombatTracker
                     break;
                 case InstanceTimerEvent it:
                     _timers[it.Kind] = it;
+                    if (it.Kind is 1 or 2 && GameData.IsDungeonMap(it.MapId) && it.EndMs > it.TimeMs && it.StartMs <= it.TimeMs + 60_000 && it.EndMs - it.TimeMs <= 24 * 3_600_000L)
+                    { _instanceMap = it.MapId; _instanceUntil = it.EndMs; }
                     break;
                 case WorldObjectSeenEvent ws when GameData.HiddenCubeCodes.Contains(ws.Code):
                     _cubes.TryAdd(ws.ActorId, ws.TimeMs);
@@ -188,6 +201,7 @@ public sealed class CombatTracker
                     OnBattleState(b);
                     break;
                 case ZoneChangedEvent z:
+                    if (!z.IsTeleport) { _instanceMap = 0; _instanceUntil = 0; }
                     // A reload of the map we are on keeps every id: an in-map teleport, or the revive after dying on a
                     // boss. The parser knows the map only from the load before; after a meter restart inside a dungeon
                     // the registry knows it from the cache — without that, the first death ended the fight and the boss
@@ -210,6 +224,7 @@ public sealed class CombatTracker
     {
         lock (_gate)
         {
+            _clockMs = Math.Max(_clockMs, nowMs);
             if (_current is { IsActive: true } enc) AttributeOrphans(enc, nowMs);
             CheckIdle(nowMs);
         }
@@ -275,7 +290,13 @@ public sealed class CombatTracker
             return;
         }
         if (!sourceIsPlayer && IsLikelyNpc(source)) return; // NPC hitting NPC
-        if (Options.GroupOnly && !IsGroupSource(source, d.TimeMs)) { KeepPendingSummon(d, source); return; }
+        var targetDungeon = DungeonOfTarget(target);
+        if (Options.GroupOnly && !IsGroupSource(source, d.TimeMs, targetDungeon)) {
+            _rejectedPlayerDamage++;
+            if (_rejectedActors.Count < 16 || _rejectedActors.ContainsKey(source)) _rejectedActors[source] = (d.TimeMs, _entities.TryGetPlayer(source, out var rejected) && !string.IsNullOrWhiteSpace(rejected.Name) ? "OutsideConfirmedScope" : "MissingPlayerIdentity");
+            KeepPendingSummon(d, source); return;
+        }
+        _acceptedPlayerDamage++;
 
         var npc = _entities.UpsertNpc(target);
         if (npc.Hp == 0) return; // trailing DoT ticks on a corpse must not open a new segment after the kill
@@ -289,6 +310,7 @@ public sealed class CombatTracker
 
         if (_current is not { IsActive: true }) StartEncounter(d.TimeMs);
         var enc = _current!;
+        if (targetDungeon != 0) { enc.DungeonMapId = targetDungeon; enc.Zone = _data.MapName(targetDungeon); }
 
         if (npc.IsBoss && (enc.BossId is null || !IsAlive(enc.BossId.Value))) SetBoss(enc, npc, d.TimeMs);
 
@@ -500,7 +522,10 @@ public sealed class CombatTracker
         GetCombatant(enc, _entities.ResolveOwner(ownerId)).MergeFrom(pet);
         enc.Combatants.Remove(summonId);
     }
-    private bool IsGroupSource(uint actor, long at)
+    private int DungeonOfTarget(uint target)
+        => _entities.TryGetNpc(target, out var npc) && !npc.FromCache && npc.Hp != 0 && _data.Npcs.TryGetValue(npc.NpcCode, out var def)
+            && def.IsBoss && !def.IsDummy && GameData.IsDungeonMap(def.DungeonId) ? def.DungeonId : 0;
+    private bool IsGroupSource(uint actor, long at, int targetDungeon = 0)
     {
         if (_entities.IsUnowned(actor) || _entities.IsSummon(actor)) return false;
         _entities.TryGetPlayer(actor, out var player);
@@ -508,7 +533,8 @@ public sealed class CombatTracker
         // be absent after a restart. Named players in this instance are its
         // participants. NPCs, anonymous class-skill actors and unowned effects
         // remain excluded; open-world party/force filtering stays strict.
-        if (GameData.IsDungeonMap(_entities.MapId) && player != null && !string.IsNullOrWhiteSpace(player.Name)) return true;
+        if ((CombatDungeonMap != 0 || targetDungeon != 0) && player != null && !string.IsNullOrWhiteSpace(player.Name) &&
+            (GameData.IsDungeonMap(_entities.MapId) || !player.FromCache)) return true;
         return _group.Contains(actor, player, _entities.SelfId, at);
     }
     private static uint SourceOf(GameEvent ev) => ev switch { DamageEvent damage => damage.SourceId, HealEvent heal => heal.SourceId, _ => 0 };
@@ -616,7 +642,7 @@ public sealed class CombatTracker
     private void NoticeBoss(NpcInfo npc, BossNoticeKind kind, long timeMs, float x = 0, float y = 0, float z = 0)
     {
         if (npc.NpcCode == 0 || !_data.Npcs.TryGetValue(npc.NpcCode, out var def) || !def.IsBoss || def.IsDummy) return;
-        if (GameData.IsDungeonMap(_entities.MapId)) return; // instance bosses do not respawn on a timer
+        if (GameData.IsDungeonMap(_entities.MapId) || GameData.IsDungeonMap(def.DungeonId)) return; // instance bosses do not respawn on a timer
         _pendingNotices.Add(new BossNotice(npc.NpcCode, _entities.MapId, _entities.ZoneName, kind, timeMs, x, y, z, _entities.Self?.ServerId ?? 0));
     }
 
@@ -663,7 +689,7 @@ public sealed class CombatTracker
 
     private void StartEncounter(long timeMs)
     {
-        _current = new Encounter { StartMs = timeMs, LastDamageMs = timeMs, Zone = _entities.ZoneName };
+        _current = new Encounter { StartMs = timeMs, LastDamageMs = timeMs, Zone = CombatDungeonMap != 0 ? _data.MapName(CombatDungeonMap) : _entities.ZoneName, DungeonMapId = CombatDungeonMap };
         _viewCleared = false;
     }
 

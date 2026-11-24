@@ -1,3 +1,12 @@
+# 0.2.7-beta.4 — Berk: ostrzeżenia mechanik i odzyskiwanie DPS instancji
+
+- Fala Furii: komunikat przygotowania i narastające odliczanie ≈8,4 s od odczytanej kotwicy, z alarmami przed atakiem. Jest to pomiar sekwencji, nie odczyt czasu castowania z gry.
+- Reakcje na szarżę i Wrathful Blade, dłuższe ostrzeżenie „Możliwy obrót” dla 1800170 oraz ogólny alarm nieprzypisanego ataku 1800190. Obrót wymaga jeszcze potwierdzenia animacji; bez zgadywanego cooldownu.
+- Podstawowe/systemowe użycia Berka nie wypierają istotnych skilli z listy; surowe zdarzenia pozostają w lokalnym dzienniku.
+- Naprawiono kwalifikowanie DPS/HPS przy pozostawionym ID mapy świata w dungeonie: niezależny kontekst z licznika instancji lub świeżo rozpoznanego, atakowanego bossa z dungeonId. Filtr świata nadal wymaga własnej grupy.
+- Osobna obsługa wiadomości bieżącej mapy 01 40, z zachowaniem układu 21 36. Diagnostyka kontekstu instancji, odrzuconych aktorów, aktywnych alarmów i castów pomocniczych NPC.
+- 505 testów, w tym replay trzech odczytów 1800170 i obu przygotowań Fali z walki Hard. Nie odtworzono wcześniej odrzuconych obrażeń. Test na żywo z party i wizualne potwierdzenie obrotu pozostają do kolejnej walki.
+
 # 0.2.7-beta.3 — widoczne użycia skilli bossów
 
 - Naprawiono brak Rush Berka na nakładce: w rzeczywistym logu atak był poprawnie odebrany, lecz dotychczas wyświetlane były wyłącznie ostrzeżenia z profilu mechanik.

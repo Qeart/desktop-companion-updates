@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AionMeter.Core.Bosses;
 
-public enum BossSignalKind { Pull, Cast, Hit, Hp, Death, Reset, Phase, CastEnd, Mark }
+public enum BossSignalKind { Pull, Cast, Hit, Hp, Death, Reset, Phase, CastEnd, Mark, UnmappedCast }
 public sealed record BossSignal(long At, BossSignalKind Kind, uint Actor, int NpcCode)
 {
     public string BossName { get; init; } = "";
@@ -16,6 +16,8 @@ public sealed record BossSignal(long At, BossSignalKind Kind, uint Actor, int Np
     public bool Synthetic { get; init; }
     public string Source { get; init; } = "Aurum";
     public double Confidence { get; init; } = 1;
+    public uint? SourceActor { get; init; }
+    public int? SourceNpcCode { get; init; }
 }
 public sealed record BossMechanic
 {
@@ -35,6 +37,9 @@ public sealed record BossMechanic
     public int? SetPhase { get; init; }
     public double[] WarningSeconds { get; init; } = [10, 5, 3];
     public bool AlertOnCast { get; init; } = true;
+    public bool AlertOnAnchor { get; init; }
+    public bool WindupFromAnchor { get; init; }
+    public double AlertSeconds { get; init; } = 4.5;
     public double Confidence { get; init; } = .8;
     public int Samples { get; init; }
     public string Evidence { get; init; } = "";
@@ -52,6 +57,7 @@ public sealed record BossProfile
     public string Source { get; init; } = "";
     public double ResetAfterSeconds { get; init; } = 45;
     public BossMechanic[] Mechanics { get; init; } = [];
+    public int[] QuietSkills { get; init; } = [];
 }
 public sealed record BossEngineOptions
 {
@@ -62,7 +68,10 @@ public sealed record BossEngineOptions
     public double[]? WarningSeconds { get; init; }
     public IReadOnlySet<string> DisabledMechanics { get; init; } = new HashSet<string>();
 }
-public sealed record BossAlert(string Key, string Text, string Category, long At, bool Sound, bool Predicted, bool Synthetic);
+public sealed record BossAlert(string Key, string Text, string Category, long At, bool Sound, bool Predicted, bool Synthetic)
+{
+    public long LifetimeMs { get; init; } = 4500;
+}
 public sealed record BossObservedSkill(string Key, uint Actor, int SkillId, string Name, string Boss, long At, bool Synthetic);
 public sealed record BossBarSnapshot(string Key, uint Actor, int SkillId, string Boss, string Label, string Reaction, string Category,
     string Kind, long StartedAt, long DueAt, double Seconds, double Fraction, double Confidence, int Samples, string Evidence);

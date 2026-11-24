@@ -119,9 +119,9 @@ internal sealed class BossBarsVisual : BossOverlayVisual
             }
             d.DrawRectangle(Ink("#25211B"), new Pen(Ink("#AF9154"), 1), new Rect(1, y + 1, 28, 28));
             Text(d, bar.Kind == "cast" ? "✦" : "!", 2, y + 2, 26, 19, color, true, TextAlignment.Center);
-            var prefix = bar.Kind == "cast" ? "CAST · " : "≈ ";
+            var prefix = bar.Kind == "cast" ? "CAST · " : bar.Kind == "windup" ? "PRZYGOT. · " : "≈ ";
             Text(d, prefix + bar.Label, 39, y + 5, w - 103, 12, Ink("#FFF8E9"));
-            Text(d, bar.Seconds.ToString("0.0", CultureInfo.InvariantCulture), w - 61, y + 4, 52, 14, Ink(urgent ? "#FFE5D4" : "#FFFFFF"), true, TextAlignment.Right);
+            Text(d, (bar.Kind == "windup" ? "≈" : "") + bar.Seconds.ToString("0.0", CultureInfo.InvariantCulture), w - 61, y + 4, 52, 14, Ink(urgent ? "#FFE5D4" : "#FFFFFF"), true, TextAlignment.Right);
             y += 35;
         }
         if (Placement && State.Bars.Count == 0 && State.ObservedSkills.Count == 0) {

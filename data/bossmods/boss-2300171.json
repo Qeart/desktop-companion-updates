@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "boss-2300171",
-  "version": 1,
+  "version": 2,
   "name": "Ultimate Berk",
   "npcCodes": [
     2300171,
@@ -26,7 +26,11 @@
         3
       ],
       "afterSkillId": 1800150,
-      "afterSeconds": 8.4
+      "afterSeconds": 8.4,
+      "category": "danger",
+      "windupFromAnchor": true,
+      "alertOnAnchor": true,
+      "reaction": "Fala Furii — schowaj się za skałą"
     },
     {
       "id": "skill-1800060",
@@ -40,7 +44,59 @@
         5,
         3
       ],
-      "cooldownSeconds": 99.7
+      "cooldownSeconds": 99.7,
+      "reaction": "Drana Wave — przygotuj unik",
+      "category": "danger"
+    },
+    {
+      "id": "rush",
+      "skillId": 1800030,
+      "name": "Rush",
+      "reaction": "Szarża — zejdź z linii ataku",
+      "category": "danger",
+      "confidence": 1,
+      "samples": 2,
+      "evidence": "Observed casts in a Hard encounter; no future cooldown asserted."
+    },
+    {
+      "id": "wrathful-blade",
+      "skillId": 1800070,
+      "name": "Wrathful Blade",
+      "reaction": "Atak mieczem — stań za Berkiem, uważaj na obrót",
+      "category": "danger",
+      "confidence": 0.9,
+      "samples": 2,
+      "evidence": "Observed Wrathful Blade casts; both followed by 1800170 about 6.1 s later in one fight. No numeric prediction; sequence is not a verified fixed cooldown."
+    },
+    {
+      "id": "possible-whirlwind",
+      "skillId": 1800170,
+      "name": "Możliwy obrót",
+      "reaction": "Możliwy obrót — odsuń się od Berka",
+      "category": "danger",
+      "alertSeconds": 7,
+      "confidence": 0.75,
+      "samples": 3,
+      "evidence": "Three casts followed by repeated 1800160 attacks over about 6 s. User suspects the spin. Visual association remains provisional; no future cooldown."
+    },
+    {
+      "id": "unidentified-heavy-attack",
+      "skillId": 1800190,
+      "name": "Atak Berka #1800190",
+      "reaction": "Uwaga — atak Berka",
+      "category": "warning",
+      "confidence": 0.7,
+      "samples": 2,
+      "evidence": "Two observed casts followed by hits about 1.75 s later. Animation/mechanic not identified; no timer or specific dodge direction inferred."
     }
+  ],
+  "quietSkills": [
+    1000009,
+    1001450,
+    1800000,
+    1800010,
+    1800031,
+    1800150,
+    1800160
   ]
 }

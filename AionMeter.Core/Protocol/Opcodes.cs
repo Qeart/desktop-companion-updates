@@ -16,6 +16,7 @@ public static class Opcodes
     public const ushort Spawn = 0x4136;          // NPC / summon / effect entity
     public const ushort Death = 0x4236;
     public const ushort MapLoad = 0x2136;
+    public const ushort CurrentZone = 0x0140; // current client: map u32 (no load counter)
     public const ushort Teleport = 0x2336;
     public const ushort Cast = 0x0238;           // skill use announcement (players and effect entities)
     public const ushort HitNotice = 0x0338;      // a hit landed: actor, target, skill — no damage

@@ -13,7 +13,7 @@ public class BossCastVisibilityTests
         { BossName = "Ultimate Berk", MapId = 600001, SkillId = skill, SkillName = name };
     private static BossAssistantEngine Engine() => new(BossProfileCatalog.Load(Path.Combine(AppContext.BaseDirectory, "boss-data", "bossmods")));
     [Fact]
-    public void Recorded_Berk_Rush_is_visible_without_a_timer_rule_or_an_invented_cooldown()
+    public void Recorded_Berk_Rush_is_visible_without_an_invented_cooldown()
     {
         // Real NPC cast order/gaps from the reported 2026-11-24 fight. Epoch,
         // actor/player IDs, session IDs and network data have been removed.
@@ -27,7 +27,7 @@ public class BossCastVisibilityTests
                 Assert.DoesNotContain(state.Bars, b => b.SkillId is 1800030 or 1800031);
             }
         }
-        Assert.DoesNotContain(engine.TakeAlerts(), a => a.Text.Contains("Rush"));
+        Assert.Contains(engine.TakeAlerts(), a => a.Text.Contains("Szarża"));
         Assert.Single(engine.Snapshot(23752).ObservedSkills, s => s.Name == "Rush");
     }
     [Fact]
@@ -59,8 +59,8 @@ public class BossCastVisibilityTests
     {
         var engine = Engine(); engine.Process(Signal(1000, BossSignalKind.Pull));
         engine.Process(Signal(2000, BossSignalKind.Cast, 1800053, "Wave of Fury")); engine.TakeAlerts();
-        engine.Process(Signal(3000, BossSignalKind.Cast, 1800030, "Rush")); var state = engine.Snapshot(3000);
-        Assert.Equal("Wave of Fury", Assert.Single(state.Alerts).Text); Assert.Equal("Rush", state.ObservedSkills[0].Name); Assert.Empty(engine.TakeAlerts());
+        engine.Process(Signal(3000, BossSignalKind.Cast, 1800120, "Other skill")); var state = engine.Snapshot(3000);
+        Assert.Contains("Fala Furii", Assert.Single(state.Alerts).Text); Assert.Equal("Other skill", state.ObservedSkills[0].Name); Assert.Empty(engine.TakeAlerts());
     }
     [Fact]
     public void A_confirmed_boss_actor_can_also_show_a_player_shaped_skill_code()

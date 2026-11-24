@@ -3,7 +3,7 @@ using AionMeter.Core.Events;
 
 namespace AionMeter.Core.Game;
 
-public sealed record NpcDef(int Code, string Name, bool IsBoss, bool IsDummy);
+public sealed record NpcDef(int Code, string Name, bool IsBoss, bool IsDummy, int DungeonId = 0);
 
 /// <summary>
 /// Static lookup tables loaded from the <c>data</c> folder (see <c>data/NOTICE.md</c> for formats and sources).
@@ -95,7 +95,7 @@ public sealed class GameData
             data.Npcs.TryGetValue(code, out var prev);
             if (value.ValueKind == JsonValueKind.String)
             {
-                data.Npcs[code] = new NpcDef(code, value.GetString()!, prev?.IsBoss ?? false, prev?.IsDummy ?? false);
+                data.Npcs[code] = new NpcDef(code, value.GetString()!, prev?.IsBoss ?? false, prev?.IsDummy ?? false, prev?.DungeonId ?? 0);
             }
             else if (value.ValueKind == JsonValueKind.Object)
             {
@@ -103,7 +103,8 @@ public sealed class GameData
                 if (name.Length == 0 && prev is not null) name = prev.Name;
                 var boss = value.TryGetProperty("isBoss", out var b) ? b.ValueKind == JsonValueKind.True : prev?.IsBoss ?? false;
                 var dummy = value.TryGetProperty("isDummy", out var d) ? d.ValueKind == JsonValueKind.True : prev?.IsDummy ?? false;
-                data.Npcs[code] = new NpcDef(code, name, boss, dummy);
+                var dungeon = value.TryGetProperty("dungeonId", out var instance) && instance.TryGetInt32(out var instanceId) && IsDungeonMap(instanceId) ? instanceId : prev?.DungeonId ?? 0;
+                data.Npcs[code] = new NpcDef(code, name, boss, dummy, dungeon);
             }
         }
     }

@@ -94,7 +94,7 @@ public class BossLiveAdapterTests
         var data = GameData.Load(root);
         foreach (var profile in catalog.Profiles.Where(p => !p.Synthetic)) {
             Assert.All(profile.NpcCodes, id => Assert.True(data.Npcs[id].IsBoss));
-            Assert.All(profile.Mechanics, rule => { Assert.True(rule.CooldownSeconds > 0 || rule.AfterSeconds > 0); Assert.Null(rule.FirstSeconds); Assert.Null(rule.CastSeconds); Assert.True(rule.SkillId > 0); });
+            Assert.All(profile.Mechanics, rule => { Assert.True(rule.CooldownSeconds > 0 || rule.AfterSeconds > 0 || rule.AlertOnCast && rule.Reaction.Length > 0); Assert.Null(rule.FirstSeconds); Assert.Null(rule.CastSeconds); Assert.True(rule.SkillId > 0); });
         }
         Assert.Single(catalog.Profiles, p => p.Synthetic);
     }

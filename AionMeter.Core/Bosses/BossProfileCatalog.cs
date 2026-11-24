@@ -46,11 +46,13 @@ public sealed class BossProfileCatalog
         if (p.NpcCodes is not { Length: > 0 and <= 32 } || p.NpcCodes.Any(n => p.Synthetic ? n >= 0 : n is <= 0 or > 9_999_999)) return "Nieprawidłowy kod NPC";
         if (p.Maps == null || p.Maps.Length > 32 || p.Maps.Any(n => n <= 0) || !Time(p.ResetAfterSeconds)) return "Nieprawidłowa mapa/reset";
         if (p.Mechanics is not { Length: <= 64 } || p.Mechanics.Any(m => m == null) || p.Mechanics.Select(m => m.Id).Distinct().Count() != p.Mechanics.Length) return "Nieprawidłowa lista mechanik";
+        if (p.QuietSkills is not { Length: <= 64 } || p.QuietSkills.Any(s => s == 0 || (p.Synthetic ? s > 0 : s < 0))) return "Nieprawidłowe ciche skille";
         foreach (var m in p.Mechanics)
         {
             if (!Id(m.Id) || string.IsNullOrWhiteSpace(m.Name) || m.Name.Length > 120 || m.Reaction == null || m.Reaction.Length > 160) return "Nieprawidłowa nazwa mechaniki";
             if (m.SkillId == 0 && m.HpBelowPercent == null || m.SkillId != 0 && (p.Synthetic ? m.SkillId > 0 : m.SkillId < 0)) return "Nieprawidłowy skill";
             if (!Time(m.FirstSeconds) || !Time(m.CooldownSeconds) || !Time(m.AfterSeconds) || !Time(m.CastSeconds)) return "Nieprawidłowy czas";
+            if (!double.IsFinite(m.AlertSeconds) || m.AlertSeconds is < .5 or > 30 || (m.AlertOnAnchor || m.WindupFromAnchor) && !m.AfterSkillId.HasValue) return "Nieprawidłowe przygotowanie/alarm";
             if (m.AfterSkillId.HasValue != m.AfterSeconds.HasValue || m.AfterSkillId == 0 || m.AfterSkillId is { } after && (p.Synthetic ? after > 0 : after < 0) || m.Evidence == null) return "Niepełna sekwencja";
             if (!double.IsFinite(m.Confidence) || m.Confidence is < 0 or > 1 || m.Samples < 0 || m.WarningSeconds is not { Length: <= 8 } || m.WarningSeconds.Any(w => !double.IsFinite(w) || w is <= 0 or > 60)) return "Nieprawidłowa pewność/ostrzeżenia";
             if (m.HpBelowPercent is { } hp && (!double.IsFinite(hp) || hp is <= 0 or >= 100) || m.SetPhase is < 1 or > 20 || m.Phase is < 1 or > 20) return "Nieprawidłowa faza";

@@ -20,11 +20,15 @@ public sealed class BossLiveAdapter
     private readonly Func<uint, long, bool> _member;
     private readonly Func<BossSnapshot?> _context;
     private readonly Dictionary<uint, Npc> _npcs = new();
+    private readonly Dictionary<uint, int> _otherNpcs = new();
+    private readonly List<BossSignal> _unmapped = new();
+    private readonly Dictionary<(uint Actor, int Skill), long> _unmappedAt = new();
+    public object Diagnostics { get { lock (_gate) return new { MapId = _map, BossActors = _npcs.Count, OtherNpcActors = _otherNpcs.Count, UnmappedCasts = _unmapped.ToArray() }; } }
     private int _map;
     public bool Enabled { get; set; } = true;
     public BossLiveAdapter(GameData data, BossAssistantEngine engine, Func<uint, long, bool> member, Func<BossSnapshot?> context, int map = 0)
     { _data = data; _engine = engine; _member = member; _context = context; _map = map; }
-    public void Clear(long at, string reason) { lock (_gate) { _npcs.Clear(); _engine.Reset(at, reason); } }
+    public void Clear(long at, string reason) { lock (_gate) { _npcs.Clear(); _otherNpcs.Clear(); _unmapped.Clear(); _unmappedAt.Clear(); _engine.Reset(at, reason); } }
     private Npc? Find(uint actor)
     {
         if (_npcs.TryGetValue(actor, out var npc)) return npc;
@@ -44,6 +48,7 @@ public sealed class BossLiveAdapter
     }
     private void Remove(uint actor, long at)
     {
+        _otherNpcs.Remove(actor);
         if (_npcs.Remove(actor, out var old)) _engine.Process(Signal(old, at, BossSignalKind.Reset));
     }
     public void Process(GameEvent ev)
@@ -61,6 +66,7 @@ public sealed class BossLiveAdapter
                 case NpcSeenEvent seen:
                     if (_data.Npcs.TryGetValue(seen.NpcCode, out var def) && def.IsBoss && !def.IsDummy)
                     {
+                        _otherNpcs.Remove(seen.ActorId);
                         if (_npcs.Count >= 256 && !_npcs.ContainsKey(seen.ActorId)) return;
                         if (_npcs.TryGetValue(seen.ActorId, out var old) && old.Code == seen.NpcCode) { if (seen.MaxHp > 0) old.Max = seen.MaxHp; }
                         else {
@@ -68,7 +74,7 @@ public sealed class BossLiveAdapter
                             _npcs[seen.ActorId] = new() { Actor = seen.ActorId, Code = seen.NpcCode, Name = string.IsNullOrWhiteSpace(seen.Name) ? def.Name : seen.Name, Max = seen.MaxHp };
                         }
                     }
-                    else Remove(seen.ActorId, ev.TimeMs);
+                    else { Remove(seen.ActorId, ev.TimeMs); if (_otherNpcs.Count < 512 && seen.NpcCode > 0) _otherNpcs[seen.ActorId] = seen.NpcCode; }
                     return;
                 case NpcHpEvent hp when Find(hp.ActorId) is { } npc:
                     if (ev.TimeMs < npc.HpAt) return;
@@ -85,10 +91,25 @@ public sealed class BossLiveAdapter
                     _npcs.Remove(death.ActorId); return;
             }
             if (!Enabled) return;
+            if (ev is DeathEvent otherDeath) _otherNpcs.Remove(otherDeath.ActorId);
             if (ev is CastEvent cast && Find(cast.ActorId) is { } caster)
             {
                 if (!_engine.HasFight(caster.Actor) && !_member(cast.TargetId, ev.TimeMs) && _context()?.ActorId != caster.Actor) return;
                 Engage(caster, ev.TimeMs); _engine.Process(Signal(caster, ev.TimeMs, BossSignalKind.Cast, cast.SkillCode));
+            }
+            else if (ev is CastEvent unknown && _otherNpcs.TryGetValue(unknown.ActorId, out var code) && _context() is { } context &&
+                _engine.HasFight(context.ActorId) && Find(context.ActorId) is { } activeBoss)
+            {
+                // This caster is not the boss. Preserve the source as unverified
+                // diagnostic evidence, never as a boss cast, warning or learned timer.
+                var key = (unknown.ActorId, unknown.SkillCode);
+                if (_unmappedAt.TryGetValue(key, out var previous) && unknown.TimeMs - previous < 700) return;
+                if (_unmappedAt.Count >= 256) _unmappedAt.Remove(_unmappedAt.MinBy(p => p.Value).Key);
+                _unmappedAt[key] = unknown.TimeMs;
+                var signal = Signal(activeBoss, unknown.TimeMs, BossSignalKind.UnmappedCast, unknown.SkillCode) with
+                { SourceActor = unknown.ActorId, SourceNpcCode = code, Confidence = 0, Source = "Nearby NPC cast; boss association unverified" };
+                _unmapped.Add(signal); if (_unmapped.Count > 16) _unmapped.RemoveAt(0);
+                _engine.Process(signal);
             }
             else if (ev is DamageEvent damage) Hit(damage.SourceId, damage.TargetId, damage.SkillCode, damage.TimeMs);
             else if (ev is HitNoticeEvent hit) Hit(hit.ActorId, hit.TargetId, hit.SkillCode, hit.TimeMs);

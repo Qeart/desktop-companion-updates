@@ -159,6 +159,7 @@ public sealed class Encounter
     public bool IsActive => Reason == EncounterEndReason.None;
     public EncounterEndReason Reason { get; set; }
     public string? Zone { get; set; }
+    public int DungeonMapId { get; set; }
 
     public uint? BossId { get; set; }
     public int BossCode { get; set; }

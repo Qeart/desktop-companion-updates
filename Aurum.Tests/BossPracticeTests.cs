@@ -21,7 +21,7 @@ public class BossPracticeTests
             Assert.True(BossPracticeSession.IsBerk(npc));
         }
         Assert.False(BossPracticeSession.IsBerk(2300107));
-        Assert.Equal(2, Catalog.Find(2300171, 600001, false)!.Mechanics.Length);
+        Assert.Equal(2, Catalog.Find(2300171, 600001, false)!.Mechanics.Count(m => m.AfterSeconds > 0 || m.CooldownSeconds > 0));
     }
     [Theory]
     [InlineData("off")] [InlineData("other")] [InlineData("demo")] [InlineData("early")] [InlineData("schema")]
