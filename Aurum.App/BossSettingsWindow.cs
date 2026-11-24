@@ -107,5 +107,5 @@ internal sealed class BossSettingsWindow : Window
     private static void Heading(Panel parent, string text) => parent.Children.Add(new TextBlock { Text = text, FontWeight = FontWeights.SemiBold, Foreground = PetAppearance.Gold, FontSize = 11, Margin = new Thickness(0, 20, 0, 8) });
     private static void Note(Panel parent, string text) => parent.Children.Add(new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap, Foreground = PetAppearance.Muted, FontSize = 11, LineHeight = 17, Margin = new Thickness(0, 6, 0, 4) });
     private static void Button(Panel parent, string label, Action action) { var button = new Button { Content = label, Margin = new Thickness(0, 0, 7, 7) }; button.Click += (_, _) => action(); parent.Children.Add(button); }
-    private void Safe(Action action) { try { action(); } catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception) { System.Windows.MessageBox.Show(this, e.Message, "Aurum", MessageBoxButton.OK, MessageBoxImage.Information); } }
+    private void Safe(Action action) { try { action(); } catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or System.ComponentModel.Win32Exception) { System.Windows.MessageBox.Show(this, e.Message, "Aurum", MessageBoxButton.OK, MessageBoxImage.Information); } }
 }

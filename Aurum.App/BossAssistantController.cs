@@ -104,7 +104,7 @@ internal sealed class BossAssistantController : IDisposable
         var result = await Task.Run(() => {
             var rows = new List<BossLogRecord>(); var errors = 0;
             if (Directory.Exists(JournalDirectory)) foreach (var file in new DirectoryInfo(JournalDirectory).EnumerateFiles("boss-*.jsonl").OrderByDescending(f => f.LastWriteTimeUtc).Take(50)) {
-                try { rows.AddRange(BossJournal.Read(file.FullName, allowIncompleteTail: true)); } catch (Exception e) when (e is IOException or JsonException or UnauthorizedAccessException) { errors++; }
+                try { rows.AddRange(BossJournal.Read(file.FullName, allowIncompleteTail: true)); } catch (Exception e) when (e is IOException or InvalidDataException or JsonException or UnauthorizedAccessException) { errors++; }
                 if (rows.Count >= 250000) break;
             }
             var proposals = BossFightAnalyzer.Analyze(rows);

@@ -95,7 +95,7 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
 
 ## Weryfikacja
 
-- 450 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
+- 452 testy: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
   fikcyjnego pulla w środku walki, nieznane HP, duplikaty AoE, progi alarmów,
   fazy, śmierć, reset HP, zmiana mapy/tożsamości, utrata capture, odtwarzanie JSONL,
   walidacja wbudowanych profili i rozdzielenie danych demonstracyjnych.

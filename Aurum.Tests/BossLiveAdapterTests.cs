@@ -136,4 +136,14 @@ public class BossLiveAdapterTests
         adapter.Process(new NpcHpEvent(3000, 200, 400, 1000)); adapter.Process(new NpcHpEvent(2000, 200, 900, 1000));
         adapter.Process(new CastEvent(4000, 200, 100, 1800001)); Assert.Equal(40, engine.Snapshot(4000).Fights[0].HpPercent);
     }
+    [Theory]
+    [InlineData("null")] [InlineData("large")]
+    public void Empty_or_oversized_local_profile_is_reported_without_crashing_the_addon(string content)
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "aurum-invalid-profile-" + Guid.NewGuid().ToString("N")); Directory.CreateDirectory(directory);
+        try {
+            File.WriteAllText(Path.Combine(directory, "invalid.json"), content == "null" ? "null" : new string(' ', 512001));
+            var catalog = BossProfileCatalog.Load(directory); Assert.Empty(catalog.Profiles); Assert.Single(catalog.Errors);
+        } finally { Directory.Delete(directory, true); }
+    }
 }

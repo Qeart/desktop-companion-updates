@@ -33,7 +33,7 @@ public sealed class BossProfileCatalog
                     if (new FileInfo(file).Length > 512_000) throw new InvalidDataException("Za duży plik");
                     profiles.Add(JsonSerializer.Deserialize<BossProfile>(File.ReadAllText(file), BossJson.Options) ?? throw new InvalidDataException("Pusty profil"));
                 }
-                catch (Exception ex) when (ex is IOException or JsonException or UnauthorizedAccessException)
+                catch (Exception ex) when (ex is IOException or InvalidDataException or JsonException or UnauthorizedAccessException)
                 { errors.Add(Path.GetFileName(file) + ": " + ex.Message); }
         }
         return new(profiles, errors);
