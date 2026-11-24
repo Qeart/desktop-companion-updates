@@ -1,3 +1,12 @@
+# 0.2.7-beta.2 — test Krao Cave / Ultimate Berk
+
+- Doprecyzowano: główny boss Krao Cave to Ultimate Berk, którego profil z dwoma timerami był już w beta.1. Liczba profili pozostaje 13; obrót nie jest jeszcze przypisany do potwierdzonego skilla.
+- Przycisk Test Krao Cave: ograniczony do 15 minut zapis zdarzeń wszystkich 12 rozpoznanych form Berka, także bez profilu timerów.
+- Ctrl+Shift+B lub przycisk zaznacza chwilę zauważonej mechaniki. Skrót działa tylko podczas testu, gdy gra lub Aurum jest na pierwszym planie.
+- Eksport lokalnego raportu JSON: surowa oś zdarzeń, użycia skilli, próbki trafień, formy, znaczniki i możliwe skille w ich pobliżu. Bez automatycznego przypisywania mechaniki.
+- Rozdzielono ograniczanie zapisu trafień według skilla, żeby kontakt drużyny nie wypierał próbek ataków bossa.
+- 466 testów; test przycisków i eksportu WPF. Rzeczywista walka z Berkiem pozostaje do wykonania.
+
 # 0.2.7-beta.1 — asystent bossów (wersja testowa)
 
 - Moduł bossowy w istniejącym Aurumie: odbiera ten sam strumień zdarzeń co DPS, bez dodatkowego przechwytywania i OCR.

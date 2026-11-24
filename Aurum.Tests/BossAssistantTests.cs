@@ -133,4 +133,14 @@ public class BossAssistantTests
         Assert.InRange(rows.Count, 20, 22); Assert.Contains(rows, r => r.Signal.Kind == BossSignalKind.Cast && r.Signal.At == 10000);
         Assert.Contains(rows, r => r.Signal.Kind == BossSignalKind.Phase);
     }
+    [Fact]
+    public void Group_contact_cannot_starve_distinct_boss_skill_hit_samples()
+    {
+        var engine = Engine(); var rows = new List<BossLogRecord>(); engine.Record += rows.Add;
+        engine.Process(Signal(1000, BossSignalKind.Pull)); engine.Process(Signal(2000, BossSignalKind.Hit));
+        engine.Process(Signal(2010, BossSignalKind.Hit, -101)); engine.Process(Signal(2020, BossSignalKind.Hit, -102));
+        engine.Process(Signal(2030, BossSignalKind.Hit, -101));
+        Assert.Single(rows, r => r.Signal.Kind == BossSignalKind.Hit && r.Signal.SkillId == -101);
+        Assert.Single(rows, r => r.Signal.Kind == BossSignalKind.Hit && r.Signal.SkillId == -102);
+    }
 }

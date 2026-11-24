@@ -18,6 +18,7 @@ internal sealed class BossAssistantController : IDisposable
     private readonly BossOverlayWindow _overlay;
     private readonly BossOverlayWindow _warning;
     private readonly BossJournal _journal;
+    private readonly BossPracticeSession _practice = new();
     private readonly BossSound _sound = new();
     private readonly DispatcherTimer _timer = new(DispatcherPriority.Render) { Interval = TimeSpan.FromMilliseconds(33) };
     private BossAssistantEngine _live = null!;
@@ -27,6 +28,7 @@ internal sealed class BossAssistantController : IDisposable
     private readonly Stopwatch _replayClock = new();
     private BossSettingsWindow? _window;
     private BossSignal? _lastCast;
+    private bool _markerRequested;
     private bool _disposed;
     private IReadOnlyList<BossTimingProposal> _proposals = [];
     internal BossProfileCatalog Catalog { get; private set; } = new([]);
@@ -34,9 +36,14 @@ internal sealed class BossAssistantController : IDisposable
     internal string Message { get; private set; } = "Gotowy · oczekuję na walkę z bossem";
     internal string ProfileDirectory => Path.Combine(UserSettings.DataDirectory, "bossmods");
     internal string JournalDirectory => _journal.DirectoryPath;
+    internal string ReportDirectory => Path.Combine(UserSettings.DataDirectory, "boss-reports");
+    internal BossPracticeStatus PracticeStatus => _practice.Status;
     internal BossAssistantSnapshot State { get; private set; } = new([], [], [], 0);
     internal object DiagnosticState => new { Enabled = _settings.BossAssistantEnabled, Mode, Message, Profiles = Catalog.Profiles.Count(p => !p.Synthetic),
-        ProfileErrors = Catalog.Errors, Fights = State.Fights.Count, Bars = State.Bars.Count, JournalDropped = _journal.Dropped, AudioError = _sound.LastError, Proposals = _proposals.Count };
+        ProfileErrors = Catalog.Errors, Fights = State.Fights.Count, Bars = State.Bars.Count, JournalDropped = _journal.Dropped, AudioError = _sound.LastError, Proposals = _proposals.Count,
+        KraoTest = _practice.Status, MarkerHotkey = MarkerHotkeyAvailable };
+    internal bool MarkerHotkeyAvailable { get; set; }
+    internal event Action<bool>? MarkerHotkeyRequested;
     internal BossAssistantController(UserSettings settings, GameData data, CombatTracker combat, int map)
     {
         _settings = settings; _data = data; _combat = combat;
@@ -52,7 +59,8 @@ internal sealed class BossAssistantController : IDisposable
             _live?.Reset(Now, "Profiles reloaded");
             Catalog = BossProfileCatalog.Load(Path.Combine(AppContext.BaseDirectory, "data", "bossmods"), ProfileDirectory);
             _live = new(Catalog); _live.Record += record => {
-                if (_settings.BossJournal) _journal.Add(record);
+                var practice = _practice.Observe(record);
+                if (_settings.BossJournal || practice) _journal.Add(record);
                 if (record.Signal.Kind == BossSignalKind.Cast) _lastCast = record.Signal;
             };
             _adapter = new(_data, _live, _combat.IsCurrentGroupActor, () => _combat.ActiveBoss, map);
@@ -68,9 +76,9 @@ internal sealed class BossAssistantController : IDisposable
             var options = new BossEngineOptions { Role = _settings.BossRole, CommunityTimers = _settings.BossCommunityTimers,
                 LearnedTimers = _settings.BossLearnedTimers, WarningSeconds = _settings.BossWarningSeconds.Where(s => double.IsFinite(s) && s > 0 && s <= 60).Take(8).ToArray(),
                 DisabledMechanics = _settings.DisabledBossMechanics.ToHashSet(StringComparer.Ordinal) };
-            _adapter.Enabled = _settings.BossAssistantEnabled;
+            _adapter.Enabled = _settings.BossAssistantEnabled || _practice.IsRunning;
             _live.Configure(options); _live.SetProposals(_proposals); _playback?.Configure(options);
-            if (!_settings.BossAssistantEnabled) { _live.Reset(Now, "Disabled"); _sound.Clear(); }
+            if (!_settings.BossAssistantEnabled && !_practice.IsRunning) { _live.Reset(Now, "Disabled"); _sound.Clear(); }
         }
         _overlay.ApplyOptions(); _warning.ApplyOptions();
     }
@@ -87,6 +95,7 @@ internal sealed class BossAssistantController : IDisposable
     }
     internal void Demo()
     {
+        if (_practice.IsRunning) StopPractice();
         Mode = "DEMO"; _playback = new(Catalog, true); ApplyOptions();
         _replay = new(_playback, DemoSignals()); _replayClock.Restart();
         Message = "DEMO · fikcyjny boss i czasy. Po teście wybierz Powrót do gry."; Refresh();
@@ -94,6 +103,7 @@ internal sealed class BossAssistantController : IDisposable
     internal void Replay(string file)
     {
         var records = BossJournal.Read(file); if (records.Count == 0) throw new InvalidDataException("Dziennik nie zawiera zdarzeń");
+        if (_practice.IsRunning) StopPractice();
         Mode = "REPLAY"; _playback = new(Catalog, true); ApplyOptions();
         _replay = new(_playback, records.Select(r => r.Signal)); _replayClock.Restart();
         Message = "Odtwarzanie: " + Path.GetFileName(file); Refresh();
@@ -129,11 +139,42 @@ internal sealed class BossAssistantController : IDisposable
             Message = "Oznaczono: " + _lastCast.SkillName + " (#" + _lastCast.SkillId + ")";
         }
     }
+    internal void TogglePractice()
+    {
+        if (_practice.IsRunning) { StopPractice(); return; }
+        Live(); _practice.Start(Now); ApplyOptions();
+        Message = "Test Krao Cave: walcz z Ultimate Berk. Ctrl+Shift+B zaznacza widoczną mechanikę. Limit: 15 minut.";
+    }
+    private void StopPractice()
+    {
+        _practice.Stop(Now); ApplyOptions(); Message = "Test Krao Cave zatrzymany. Kliknij Zapisz raport testu.";
+    }
+    internal void MarkPracticeMechanic()
+    {
+        if (!_practice.IsRunning) { Message = "Najpierw włącz Test Krao Cave."; return; }
+        var mark = _practice.Mark(Now);
+        if (mark == null) { Message = "Nie ma aktualnych zdarzeń Berka do oznaczenia."; return; }
+        _journal.Add(mark); Message = "Zapisano moment mechaniki. Powiązanie ze skillem wymaga sprawdzenia.";
+    }
+    internal async Task<string?> ExportPractice()
+    {
+        StopPractice();
+        var report = _practice.Report(Catalog, Now);
+        if (report.Timeline.Count == 0) { Message = "Brak odczytanych zdarzeń Berka. Włącz test przed walką z głównym bossem Krao Cave."; return null; }
+        var file = Path.Combine(ReportDirectory, "Krao-Cave-Berk-" + DateTimeOffset.UtcNow.ToString("yyyyMMdd-HHmmss-fff") + ".json");
+        await Task.Run(() => { Directory.CreateDirectory(ReportDirectory); File.WriteAllText(file, JsonSerializer.Serialize(report,
+            new JsonSerializerOptions(BossJson.Options) { WriteIndented = true })); });
+        Message = $"Raport zapisany: {Path.GetFileName(file)}. Zdarzeń: {report.Timeline.Count}, znaczników: {report.Markers.Count}.";
+        return file;
+    }
     internal void TestSound() => _sound.Enqueue(new("test", "Test ostrzeżenia Aurum", "warning", Now, true, false, true), _settings.BossVolume);
     private void Refresh()
     {
         if (_disposed) return;
         var now = Now; BossAssistantEngine active; long time;
+        if (_practice.Tick(now)) { ApplyOptions(); Message = "Minął limit 15 minut. Zapisz raport testu Krao Cave."; }
+        var markerRequested = _practice.IsRunning && GameWindowAccess.GameOrAurumForeground();
+        if (_markerRequested != markerRequested) { _markerRequested = markerRequested; MarkerHotkeyRequested?.Invoke(markerRequested); }
         lock (_gate) {
             _live.Tick(now);
             if (_replay != null && _playback != null) {
@@ -179,7 +220,8 @@ internal sealed class BossAssistantController : IDisposable
     }
     public void Dispose()
     {
-        lock (_gate) { if (_disposed) return; _disposed = true; _live.Reset(Now, "Aurum closed"); }
+        lock (_gate) { if (_disposed) return; _disposed = true; _live.Reset(Now, "Aurum closed"); _practice.Stop(Now); }
+        MarkerHotkeyRequested?.Invoke(false);
         _timer.Stop(); _window?.Close(); _overlay.Close(); _warning.Close(); _sound.Dispose(); _journal.Dispose();
     }
 }

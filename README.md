@@ -47,13 +47,20 @@ observed skill use is distinct from an estimated next event (`≈`). Bosses with
 profile can be recorded for analysis, without fabricated warnings or future timers.
 See [BOSS-ASSISTANT.md](BOSS-ASSISTANT.md) for sources, format, diagnostics and limits.
 
+Krao Cave's final boss is **Ultimate Berk**, already included with two measured
+predictions. **Test Krao Cave** records its decoded events for up to 15 minutes;
+Ctrl+Shift+B marks a visible mechanic while the game/Aurum is foreground. After the
+fight, **Zapisz raport testu** saves a local JSON report in `boss-reports`. Markers
+show nearby candidate skills without assigning the mechanic automatically. All 12
+known forms can be observed; timing profiles remain limited to the measured forms.
+
 ## Build
 
 On Windows x64, install the .NET 10 SDK, then run:
 
 ```powershell
 dotnet test Aurum.Tests/Aurum.Tests.csproj -c Release
-./scripts/Build-Release.ps1 -Version 0.2.7-beta.1 -Channel beta
+./scripts/Build-Release.ps1 -Version 0.2.7-beta.2 -Channel beta
 ```
 
 The script restores pinned Velopack 1.2.161 tooling, tests, publishes a self-contained

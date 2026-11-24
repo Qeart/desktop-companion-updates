@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidatePattern('^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$')][string]$Version = '0.2.7-beta.1',
+    [ValidatePattern('^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$')][string]$Version = '0.2.7-beta.2',
     [ValidateSet('stable', 'beta')][string]$Channel = 'beta',
     [string]$OutputDirectory,
     [switch]$SkipTests

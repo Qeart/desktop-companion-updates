@@ -15,6 +15,8 @@ internal sealed class BossSettingsWindow : Window
     private readonly UserSettings _settings;
     private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap, Foreground = PetAppearance.Muted, FontSize = 11, Margin = new Thickness(0, 10, 0, 14) };
     private readonly StackPanel _mechanics = new();
+    private readonly TextBlock _practiceStatus = new() { TextWrapping = TextWrapping.Wrap, Foreground = PetAppearance.Muted, FontSize = 11, Margin = new Thickness(0, 6, 0, 8) };
+    private readonly Button _practiceButton = new() { Content = "▶ Test Krao Cave", Margin = new Thickness(0, 0, 7, 7) };
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     internal BossSettingsWindow(BossAssistantController controller, UserSettings settings)
     {
@@ -26,6 +28,15 @@ internal sealed class BossSettingsWindow : Window
         root.Children.Add(new TextBlock { Text = "ASYSTENT BOSSÓW", FontSize = 22, FontWeight = FontWeights.SemiBold, Foreground = PetAppearance.Gold });
         root.Children.Add(new TextBlock { Text = "Ataki, odliczanie i ostrzeżenia podczas walki.", FontSize = 12, Foreground = PetAppearance.Muted, Margin = new Thickness(0, 4, 0, 8) });
         root.Children.Add(_status);
+        Heading(root, "KRAO CAVE · ULTIMATE BERK");
+        Note(root, "To główny boss Krao Cave. Profil zawiera obecnie Wave of Fury i Drana Wave. Włącz test przed walką; przy obrocie lub innej ważnej mechanice naciśnij Ctrl+Shift+B.");
+        var practiceActions = new WrapPanel(); _practiceButton.Click += (_, _) => controller.TogglePractice(); practiceActions.Children.Add(_practiceButton);
+        Button(practiceActions, "Znacznik · Ctrl+Shift+B", controller.MarkPracticeMechanic);
+        var export = new Button { Content = "Zapisz raport testu", Margin = new Thickness(0, 0, 7, 7) };
+        export.Click += async (_, _) => { export.IsEnabled = false; try { await controller.ExportPractice(); } catch (Exception e) when (e is IOException or UnauthorizedAccessException) { System.Windows.MessageBox.Show(this, e.Message, "Nie udało się zapisać raportu"); } finally { export.IsEnabled = true; } }; practiceActions.Children.Add(export);
+        Button(practiceActions, "Folder raportów", () => Safe(() => { Directory.CreateDirectory(controller.ReportDirectory); Process.Start(new ProcessStartInfo(controller.ReportDirectory) { UseShellExecute = true }); }));
+        root.Children.Add(practiceActions); root.Children.Add(_practiceStatus);
+        Note(root, "Test zapisuje zdarzenia wszystkich rozpoznanych form Berka. Znacznik to tylko moment obserwacji — raport pokazuje możliwe skille obok niego. Do ustalenia powtarzalności potrzebujemy co najmniej dwóch walk.");
         Toggle(root, "Włącz asystenta bossów", settings.BossAssistantEnabled, v => settings.BossAssistantEnabled = v);
         var actions = new WrapPanel { Margin = new Thickness(0, 9, 0, 6) };
         Button(actions, "▶ Demonstracja", () => controller.Demo()); Button(actions, "Powrót do gry", () => controller.Live());
@@ -73,6 +84,13 @@ internal sealed class BossSettingsWindow : Window
     {
         var state = _controller.State;
         _status.Text = $"{_controller.Mode} · {_controller.Catalog.Profiles.Count(p => !p.Synthetic)} profili · {state.Fights.Count} bossów · {state.Bars.Count} pasków\n" + _controller.Message;
+        var test = _controller.PracticeStatus;
+        _practiceButton.Content = test.Running ? "■ Zatrzymaj test" : "▶ Test Krao Cave";
+        _practiceStatus.Text = test.StartedAt == 0 ? "Test jeszcze nieuruchomiony." :
+            (test.Running ? "NAGRYWANIE" : "ZATRZYMANO") + $" · {test.Casts} użyć skilli · {test.Skills} różnych skilli · {test.Markers} znaczników" +
+            (test.LastNpcCode > 0 ? $"\nOstatnia forma: #{test.LastNpcCode}" : "\nCzekam na kontakt Twojej grupy z Berkiem.");
+        if (test.Running && !_controller.MarkerHotkeyAvailable) _practiceStatus.Text += "\nSkrót Ctrl+Shift+B jest niedostępny; możesz użyć przycisku znacznika.";
+        if (test.Dropped > 0) _practiceStatus.Text += $"\nLimit pamięci: pominięto {test.Dropped} zdarzeń. Raport jest niepełny.";
         if (_controller.Catalog.Errors.Count > 0) _status.Text += "\nBłędy profili: " + string.Join("; ", _controller.Catalog.Errors.Take(3));
     }
     private void BuildMechanics()
@@ -86,7 +104,7 @@ internal sealed class BossSettingsWindow : Window
                     _settings.DisabledBossMechanics = (on ? _settings.DisabledBossMechanics.Where(k => k != key) : _settings.DisabledBossMechanics.Append(key)).Distinct().ToArray();
                 });
             }
-            _mechanics.Children.Add(new Expander { Header = profile.Name, Foreground = PetAppearance.Gold, Content = body, Margin = new Thickness(0, 5, 0, 5) });
+            _mechanics.Children.Add(new Expander { Header = profile.Name + (profile.Id == "boss-2300171" ? " · Krao Cave" : ""), Foreground = PetAppearance.Gold, Content = body, Margin = new Thickness(0, 5, 0, 5) });
         }
     }
     private void Toggle(Panel parent, string label, bool value, Action<bool> set)

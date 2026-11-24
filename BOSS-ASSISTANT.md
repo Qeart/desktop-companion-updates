@@ -33,8 +33,9 @@ referencyjnego, który bywa celowo przesunięty względem mediany.
 Takie paski mają oznaczenie przewidywania społecznościowego. Uruchamia je dopiero
 rzeczywiście odczytany skill właściwego bossa. Nie są potwierdzeniem aktualności
 mechaniki na obecnym patchu. Nazwę skilla dobieramy z istniejących danych Auruma.
-Nie kopiujemy przykładowych Krao/skillId/czasów z wklejonego prompta: nie znaleziono
-tam potwierdzonego powiązania konkretnego bossa Krao z opisanym obrotowym atakiem.
+Krao Cave to nazwa dungeona. Jego główny boss **Ultimate Berk** ma już profil
+`boss-2300171` z timerami Wave of Fury oraz Drana Wave. Nie ma jeszcze potwierdzonego
+przypisania obrotowego ataku do skilla; nie kopiujemy ID/czasów z przykładowego prompta.
 
 ## Architektura
 
@@ -84,7 +85,8 @@ Nie przypisuj prawdziwemu bossowi czasów lub reakcji z `demo.json`.
 Zapis `boss-fights/boss-<session>.jsonl` odbywa się przez ograniczoną kolejkę w tle.
 Limit to 12 000 zdarzeń na walkę i 100 ostatnich plików przy uruchomieniu. Zrzucenia
 z kolejki są widoczne w `session-status.json → BossAssistant.JournalDropped`.
-Powtarzalne trafienia i HP są zapisywane najwyżej co 500 ms na bossa. Nie ogranicza
+Powtarzalne trafienia są zapisywane najwyżej co 500 ms na bossa i skill, HP co 500 ms
+na bossa. Kontakt drużyny nie wypiera ataków bossa o innych ID. Nie ogranicza
 to przetwarzania walki ani zapisu castów, zmian faz i resetów; chroni miejsce dla
 ważnych późniejszych zdarzeń w długiej walce raidowej.
 Analiza obejmuje maksymalnie 50 najnowszych plików / około 250 tys. zdarzeń.
@@ -95,7 +97,7 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
 
 ## Weryfikacja
 
-- 452 testy: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
+- 466 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
   fikcyjnego pulla w środku walki, nieznane HP, duplikaty AoE, progi alarmów,
   fazy, śmierć, reset HP, zmiana mapy/tożsamości, utrata capture, odtwarzanie JSONL,
   walidacja wbudowanych profili i rozdzielenie danych demonstracyjnych.
@@ -105,8 +107,32 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
   zweryfikowanego nagrania; niektóre bezcelowe/obszarowe skille mogą nie docierać
   jako CastEvent. Trafienie nie jest zamieniane w brakujące rozpoczęcie castu.
 - 13 profili / 17 timerów obejmuje tylko pomiary z kotwicą w rzeczywistym skillu.
-  Brak profilu Krao z potwierdzonym przypisaniem obrotu. Ogólne skille nieznanych
-  bossów są rejestrowane bez spamowania alarmami.
+  Profil Berka z Krao Cave ma dwie mechaniki; obrót pozostaje do zidentyfikowania.
+  Ogólne skille nieznanych bossów są rejestrowane bez spamowania alarmami.
 - **Do sprawdzenia w grze:** odbiór wskazanych skillId na aktualnym buildzie,
   rzeczywiste przesunięcie ostrzeżeń, wipe/re-pull, fazy i osobne położenie obu
   nakładek podczas walki. Sam test replay nie potwierdza aktualności mechanik.
+
+## Test Krao Cave / Ultimate Berk
+
+1. W ustawieniach asystenta wybierz **Test Krao Cave** przed walką z głównym bossem.
+2. Przy zaobserwowanym obrocie/ważnej mechanice naciśnij **Ctrl+Shift+B**. Skrót jest
+   rejestrowany wyłącznie w trakcie testu, gdy gra lub Aurum jest na pierwszym planie.
+   Jeśli jest zajęty, panel pokazuje informację i pozostaje przycisk znacznika.
+3. Po walce wybierz **Zapisz raport testu**. Zatrzymuje to test i zapisuje JSON do
+   `%LocalAppData%\DesktopCompanionData\boss-reports`. W portable: `user-data/boss-reports`.
+4. Do sprawdzenia powtarzalności zbierz co najmniej dwie walki. Raport nie potwierdza
+   mechaniki automatycznie; pokazuje kandydatów z 3 s przed i 2 s po znaczniku.
+
+Test obserwuje kody 2300171–2300174, 2310171–2310174, 2320171–2320174. Ich wspólną
+nazwę i dungeon potwierdzają własne tabele NPC (12 rekordów). Nie rozszerza to
+automatycznie profilu timerów na niezmierzone formy. `HasTimerProfile` w raporcie
+pozwala odróżnić samo zarejestrowanie zdarzeń od posiadania profilu dla danej formy.
+
+Znacznik ma `SkillId=0`, niezależną chwilę obserwacji i źródło opisujące niepotwierdzone
+powiązanie. Cast i trafienie pozostają osobnymi zdarzeniami. Demo jest wykluczone.
+Raport zawiera wyłącznie zdarzenia NPC, bez nicków graczy, adresów ani pakietów;
+zostaje lokalnie. Maksymalnie 20 tys. zdarzeń przez 15 minut. Utracone zdarzenia są
+oznaczone w `Dropped`; taki raport jest niepełny. Bieżący postęp testu jest w pamięci,
+więc raport należy zapisać przed zamknięciem Auruma. Zdarzenia są też przekazywane
+do zwykłego lokalnego dziennika podczas testu, nawet przy wyłączonym ogólnym zapisie.

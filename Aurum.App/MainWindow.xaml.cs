@@ -140,6 +140,7 @@ public partial class MainWindow : Window, IDisposable
                     if (msg == 0x0312 && w == 4) { HubAction(HubCommand.Cube); handled = true; }
                     if (msg == 0x0312 && w == 5) { _hub?.ToggleMenu(); handled = true; }
                     if (msg == 0x0312 && w == 6) { TogglePetTracker(); handled = true; }
+                    if (msg == 0x0312 && w == 7) { _bossAssistant?.MarkPracticeMechanic(); handled = true; }
                     return 0;
                 });
             }
@@ -162,6 +163,11 @@ public partial class MainWindow : Window, IDisposable
             _capture = _backend == "PktMon" ? new PktmonCapture(_data) : new LiveCapture(_data, new LiveCaptureOptions());
             _identity!.EventDecoded += _tracker.Process;
             _bossAssistant = new(_settings, _data, _tracker, _gameMapId);
+            _bossAssistant.MarkerHotkeyRequested += requested => {
+                if (_hwnd == 0) return;
+                if (!requested) { Native.UnregisterHotKey(_hwnd, 7); _bossAssistant.MarkerHotkeyAvailable = false; }
+                else _bossAssistant.MarkerHotkeyAvailable = Native.RegisterHotKey(_hwnd, 7, 2 | 4 | 0x4000, 0x42);
+            };
             _identity.EventDecoded += _bossAssistant.Process;
             _identity.EventDecoded += _petProgress.Process;
             _identity.EventDecoded += _playerPosition.Process;
@@ -620,6 +626,7 @@ public partial class MainWindow : Window, IDisposable
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 4);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 5);
         if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 6);
+        if (_hwnd != 0) Native.UnregisterHotKey(_hwnd, 7);
         _details?.Close();
         _petToast?.Close();
         _shopPets?.Stop(); _shopPets?.Close();

@@ -10,7 +10,8 @@ public sealed class BossAssistantEngine
         internal int Phase;
         internal double? Hp;
         internal long LastActivity, HpAt;
-        internal long JournalHitAt = long.MinValue / 2, JournalHpAt = long.MinValue / 2;
+        internal long JournalHpAt = long.MinValue / 2;
+        internal Dictionary<int, long> JournalHits = new();
         internal Dictionary<int, long> Casts = new();
         internal HashSet<string> HpRules = new();
     }
@@ -137,7 +138,11 @@ public sealed class BossAssistantEngine
     {
         // Combat activity is always processed. Only repetitive journal samples are thinned;
         // dense raid hits must not exhaust the log before later casts/phases arrive.
-        if (signal.Kind == BossSignalKind.Hit) { if (signal.At - f.JournalHitAt < 500) return; f.JournalHitAt = signal.At; }
+        if (signal.Kind == BossSignalKind.Hit) {
+            if (f.JournalHits.TryGetValue(signal.SkillId, out var previous) && signal.At - previous < 500) return;
+            if (f.JournalHits.Count >= 128 && !f.JournalHits.ContainsKey(signal.SkillId)) f.JournalHits.Remove(f.JournalHits.MinBy(p => p.Value).Key);
+            f.JournalHits[signal.SkillId] = signal.At;
+        }
         if (signal.Kind == BossSignalKind.Hp) { if (signal.At - f.JournalHpAt < 500) return; f.JournalHpAt = signal.At; }
         Record?.Invoke(new(1, f.Id, signal with { Phase = f.Phase }));
     }
