@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2300218",
+  "version": 1,
+  "name": "Divine Auldor",
+  "npcCodes": [
+    2300218,
+    2310218,
+    2320218
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1601030",
+      "skillId": 1601030,
+      "name": "Tempest Strike",
+      "confidence": 1,
+      "samples": 36,
+      "evidence": "36× in 18 pull(s), M0 K0 H35; after 1601010: 11,6 s (±0,0, 36/36 = 100 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "afterSkillId": 1601010,
+      "afterSeconds": 11.6
+    },
+    {
+      "id": "skill-1601055",
+      "skillId": 1601055,
+      "name": "Snatch",
+      "confidence": 0.75,
+      "samples": 4,
+      "evidence": "10× in 6 pull(s), M0 K0 H10; cooldown: 32,2 s (±2,1, 3/4 = 75 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "cooldownSeconds": 32.2
+    }
+  ]
+}

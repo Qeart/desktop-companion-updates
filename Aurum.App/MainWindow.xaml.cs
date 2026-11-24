@@ -47,6 +47,8 @@ public partial class MainWindow : Window, IDisposable
     private readonly HiddenCubeTracker _hiddenCubes = new();
     private HiddenCubeController? _cube;
     private AurumHubWindow? _hub;
+    private BossAssistantController? _bossAssistant;
+    private CaptureState? _bossCaptureState;
     private ItemAdviceController? _itemAdvice;
     private ArcanaAdviceController? _arcanaAdvice;
     private System.Windows.Forms.ToolStripMenuItem? _itemAdviceMenu;
@@ -159,6 +161,8 @@ public partial class MainWindow : Window, IDisposable
             };
             _capture = _backend == "PktMon" ? new PktmonCapture(_data) : new LiveCapture(_data, new LiveCaptureOptions());
             _identity!.EventDecoded += _tracker.Process;
+            _bossAssistant = new(_settings, _data, _tracker, _gameMapId);
+            _identity.EventDecoded += _bossAssistant.Process;
             _identity.EventDecoded += _petProgress.Process;
             _identity.EventDecoded += _playerPosition.Process;
             _identity.EventDecoded += _hiddenCubes.Process;
@@ -177,6 +181,7 @@ public partial class MainWindow : Window, IDisposable
             _tray.ContextMenuStrip.Items.Add("Pokaż / ukryj (Ctrl+Shift+M)", null, (_, _) => ToggleVisible());
             _tray.ContextMenuStrip.Items.Add("DPS", null, (_, _) => SetMode(false));
             _tray.ContextMenuStrip.Items.Add("HEAL", null, (_, _) => SetMode(true));
+            _tray.ContextMenuStrip.Items.Add("Asystent bossów…", null, (_, _) => _bossAssistant.OpenSettings());
             _tray.ContextMenuStrip.Items.Add("Źródło danych: " + _backend).Enabled = false;
             var petsToggle = new System.Windows.Forms.ToolStripMenuItem("Postęp petów po zabiciu")
                 { Checked = _settings.ShowPetProgress, CheckOnClick = true };
@@ -320,6 +325,8 @@ public partial class MainWindow : Window, IDisposable
             {
                 _lastStatusSave = now;
                 var status = _capture?.Status;
+                if (_bossCaptureState == CaptureState.Capturing && status?.State != CaptureState.Capturing) _bossAssistant?.ConnectionLost();
+                _bossCaptureState = status?.State;
                 var json = System.Text.Json.JsonSerializer.Serialize(new {
                     UpdatedAt = DateTimeOffset.UtcNow, ProcessId = Environment.ProcessId,
                     ProgramDirectory = AppContext.BaseDirectory, PetDisplay = "PortraitCounterUnderTargetHp",
@@ -329,7 +336,8 @@ public partial class MainWindow : Window, IDisposable
                     PlayerPosition = _playerPosition.Snapshot(), PlayerScope = _tracker.InDungeon ? "DungeonParticipants" : "PartyOrForce", Group = _tracker.GroupState,
                     PositionTracking = _playerPosition.Diagnostics(now), CaptureDiagnostics = (_capture as PktmonCapture)?.Statistics(),
                     LocalPlayer = _identity?.State,
-                    HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, PetTracker = _petTracker?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState
+                    HiddenCube = _cube?.DiagnosticState, Hub = _hub?.DiagnosticState, PetTracker = _petTracker?.DiagnosticState, ItemAdvice = _itemAdvice?.DiagnosticState, ArcanaAdvice = _arcanaAdvice?.DiagnosticState,
+                    BossAssistant = _bossAssistant?.DiagnosticState
                 });
                 try { File.WriteAllText(Path.Combine(UserSettings.DataDirectory, "session-status.json"), json); }
                 catch (IOException) { }
@@ -596,7 +604,7 @@ public partial class MainWindow : Window, IDisposable
         if (_disposed) return; _disposed = true;
         _updateTimer.Stop(); _updatesWindow?.Close(); _updates?.Dispose();
         _hub?.Close(); _cube?.Dispose(); _itemAdvice?.Dispose(); _arcanaAdvice?.Dispose();
-        _petTracker?.Dispose();
+        _petTracker?.Dispose(); _bossAssistant?.Dispose();
         _timer.Stop(); _shopTimer.Stop(); _capture?.Dispose();
         _petMap?.Dispose();
         if (!_preview) _petStore.Save(_petProgress.Snapshot());
@@ -625,6 +633,7 @@ public partial class MainWindow : Window, IDisposable
     {
         switch (command)
         {
+            case HubCommand.BossAssistant: _bossAssistant?.OpenSettings(); break;
             case HubCommand.PetTracker: TogglePetTracker(); break;
             case HubCommand.Updates: OpenUpdates(); break;
             case HubCommand.Meter: ToggleVisible(); break;

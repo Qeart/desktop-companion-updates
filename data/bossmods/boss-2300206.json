@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2300206",
+  "version": 1,
+  "name": "Guardian Captain Raur",
+  "npcCodes": [
+    2300206,
+    2320206
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1224470",
+      "skillId": 1224470,
+      "name": "Summon Flame Totem",
+      "confidence": 0.89,
+      "samples": 28,
+      "evidence": "46× in 18 pull(s), M0 K0 H14; cooldown: 18,2 s (±1,0, 25/28 = 89 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "cooldownSeconds": 18.2
+    }
+  ]
+}

@@ -11,6 +11,23 @@ public sealed class UserSettings
     public double Width { get; set; } = 450;
     public double Height { get; set; } = 470;
     public bool HealMode { get; set; }
+    public bool BossAssistantEnabled { get; set; } = true;
+    public bool BossOverlayLocked { get; set; } = true;
+    public bool BossSounds { get; set; } = true;
+    public bool BossCommunityTimers { get; set; } = true;
+    public bool BossLearnedTimers { get; set; }
+    public bool BossJournal { get; set; } = true;
+    public string BossRole { get; set; } = "dps";
+    public double BossVolume { get; set; } = 45;
+    public double BossScale { get; set; } = 1;
+    public double BossOpacity { get; set; } = .95;
+    public double BossWidth { get; set; } = 360;
+    public double? BossLeft { get; set; }
+    public double? BossTop { get; set; }
+    public double? BossWarningLeft { get; set; }
+    public double? BossWarningTop { get; set; }
+    public double[] BossWarningSeconds { get; set; } = [10, 5, 3];
+    public string[] DisabledBossMechanics { get; set; } = [];
     public string CaptureBackend { get; set; } = "Pktmon";
     public string UpdateChannel { get; set; } = "stable";
     public bool CheckUpdatesAutomatically { get; set; } = true;

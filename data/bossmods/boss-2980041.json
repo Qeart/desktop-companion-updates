@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2980041",
+  "version": 1,
+  "name": "Gatekeeper Pinopi",
+  "npcCodes": [
+    2980041,
+    2980042,
+    2980043,
+    2980044,
+    2980045,
+    2980046,
+    2980047,
+    2980048,
+    2980049
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1607620",
+      "skillId": 1607620,
+      "name": "Atak #1607620",
+      "confidence": 0.83,
+      "samples": 12,
+      "evidence": "25× in 13 pull(s), M0 K0 H20, unnamed skill 1607620; cooldown: 36,7 s (±1,0, 10/12 = 83 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "cooldownSeconds": 36.7
+    }
+  ]
+}

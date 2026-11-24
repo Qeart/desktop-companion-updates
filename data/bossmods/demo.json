@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "aurum-demo",
+  "version": 1,
+  "name": "Strażnik Aurum · TEST",
+  "npcCodes": [-9001],
+  "synthetic": true,
+  "evidence": "Synthetic",
+  "resetAfterSeconds": 120,
+  "mechanics": [
+    { "id": "spin", "skillId": -101, "name": "TEST · Wir ostrzy", "reaction": "Odsuń się od bossa", "category": "danger", "firstSeconds": 16, "cooldownSeconds": 24, "castSeconds": 3, "confidence": 1 },
+    { "id": "wave", "skillId": -102, "name": "TEST · Fala energii", "reaction": "Przygotuj unik", "afterSkillId": -101, "afterSeconds": 12, "confidence": 1 },
+    { "id": "phase-two", "name": "TEST · Faza druga", "hpBelowPercent": 70, "setPhase": 2, "category": "info", "confidence": 1 },
+    { "id": "nova", "skillId": -103, "name": "TEST · Złota nova", "reaction": "Opuść obszar", "phase": 2, "firstSeconds": 12, "cooldownSeconds": 20, "category": "danger", "confidence": 1 }
+  ]
+}

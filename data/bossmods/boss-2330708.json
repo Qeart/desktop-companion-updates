@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2330708",
+  "version": 1,
+  "name": "Ruthilis of Pain",
+  "npcCodes": [
+    2330708,
+    2350708,
+    2353708,
+    2356708
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1606371",
+      "skillId": 1606371,
+      "name": "Atak #1606371",
+      "confidence": 0.82,
+      "samples": 19,
+      "evidence": "19× in 9 pull(s), M0 K0 H5, unnamed skill 1606371; after 1606390: 3,6 s (±0,1, 16/19 = 82 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "afterSkillId": 1606390,
+      "afterSeconds": 3.6
+    }
+  ]
+}

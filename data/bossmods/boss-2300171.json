@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2300171",
+  "version": 1,
+  "name": "Ultimate Berk",
+  "npcCodes": [
+    2300171,
+    2310171,
+    2320171
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1800053",
+      "skillId": 1800053,
+      "name": "Wave of Fury",
+      "confidence": 0.98,
+      "samples": 40,
+      "evidence": "40× in 21 pull(s), M0 K6 H3; after 1800150: 8,4 s (±0,0, 40/40 = 98 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "afterSkillId": 1800150,
+      "afterSeconds": 8.4
+    },
+    {
+      "id": "skill-1800060",
+      "skillId": 1800060,
+      "name": "Drana Wave",
+      "confidence": 1,
+      "samples": 9,
+      "evidence": "30× in 21 pull(s), M0 K1 H5; cooldown: 99,7 s (±2,7, 9/9 = 100 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "cooldownSeconds": 99.7
+    }
+  ]
+}

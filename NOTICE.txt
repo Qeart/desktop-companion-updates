@@ -74,3 +74,7 @@ A2Tools-DPS-Meter src-tauri/src/capture/stream_processor.rs (GPL-3.0).
 207 pet portraits are from keytftw/aion2pettracker, commit
 8a57ba3c36ce0cccb9c783c35ffba4fd2983c3f6 (GPL-3.0), originally Questlog/NCSOFT
 game-art snapshots. See data/pet-icons/NOTICE.md and licenses/PetPortraits-GPL-3.0.txt.
+Boss timing profiles adapt measured NPC/skill IDs and interval facts from dr89mh and
+contributors, aion2-raid-ansager (GPL-3.0), commit
+8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c. The Aurum engine/UI are original code.
+https://github.com/dr89mh/aion2-raid-ansager — see data/bossmods/NOTICE.md.

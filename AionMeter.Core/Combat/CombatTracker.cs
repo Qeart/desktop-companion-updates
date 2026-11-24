@@ -47,6 +47,17 @@ public sealed class CombatTracker
     }
     public GameClass SelfClass { get { lock (_gate) return _entities.Self?.Class ?? GameClass.Unknown; } }
     public bool InDungeon { get { lock (_gate) return GameData.IsDungeonMap(_entities.MapId); } }
+    public bool IsCurrentGroupActor(uint actor, long at) { lock (_gate) return IsGroupSource(_entities.ResolveOwner(actor), at); }
+    public BossSnapshot? ActiveBoss
+    {
+        get
+        {
+            lock (_gate) return _current is { IsActive: true, BossId: { } id } e
+                && !_entities.IsKnownPlayer(id) && !_entities.IsSummon(id) && !_entities.IsUnowned(id)
+                && _entities.TryGetNpc(id, out var npc) && npc.NpcCode == e.BossCode
+                ? new(id, e.BossCode, e.BossName ?? "Boss", BossHpNow(e), e.BossMaxHp, e.BossMaxHpKnown) : null;
+        }
+    }
 
     public string? ZoneName
     {

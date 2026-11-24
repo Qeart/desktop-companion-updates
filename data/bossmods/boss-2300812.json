@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2300812",
+  "version": 1,
+  "name": "Vakron",
+  "npcCodes": [
+    2300812,
+    2320812
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1604420",
+      "skillId": 1604420,
+      "name": "Atak #1604420",
+      "confidence": 1,
+      "samples": 8,
+      "evidence": "8× in 5 pull(s), M0 K0 H8, unnamed skill 1604420; after 1604401: 4,6 s (±0,0, 8/8 = 100 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "afterSkillId": 1604401,
+      "afterSeconds": 4.6
+    }
+  ]
+}

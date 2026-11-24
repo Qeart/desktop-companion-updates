@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2340158",
+  "version": 1,
+  "name": "Air Raiders Captain Tetrata",
+  "npcCodes": [
+    2340158
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1219630",
+      "skillId": 1219630,
+      "name": "Magic Cannon",
+      "confidence": 0.8571428571428571,
+      "samples": 7,
+      "evidence": "12× in 5 pull(s), M0 K0 H4; cooldown: 22,6 s (±1,2, 6/7 = 86 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "cooldownSeconds": 22.6
+    }
+  ]
+}

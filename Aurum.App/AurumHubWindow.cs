@@ -14,7 +14,7 @@ using Path = System.Windows.Shapes.Path;
 
 namespace Aurum;
 
-internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice, Updates, PetTracker }
+internal enum HubCommand { Meter, Map, Cube, Souls, Shop, ItemAdvice, Updates, PetTracker, BossAssistant }
 internal sealed record HubState(bool MeterVisible, bool MapVisible, bool CubeEnabled, bool SoulsEnabled, bool ShopEnabled, string CubeStatus,
     bool ItemAdviceEnabled = true, string UpdateStatus = "Sprawdź dostępną wersję", bool UpdateAvailable = false,
     string MeterStatus = "Licznik walki party i force", bool PetTrackerVisible = false);
@@ -30,7 +30,7 @@ internal sealed class AurumOrbVisual : FrameworkElement
 
 internal sealed class AurumHubWindow : Window
 {
-    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 558, Gap = 10;
+    private const double OrbSize = 64, PanelWidth = 290, PanelHeight = 614, Gap = 10;
     private readonly Canvas _canvas = new();
     private readonly AurumOrbVisual _orbVisual = new() { Width = 64, Height = 64 };
     private readonly Border _orb;
@@ -94,6 +94,7 @@ internal sealed class AurumHubWindow : Window
         close.Click += (_, _) => SetExpanded(false); Grid.SetColumn(close, 1); header.Children.Add(close); body.Children.Add(header);
         body.Children.Add(new Border { Height = 1, Background = PetAppearance.Ink("#4F422C"), Margin = new Thickness(0, 7, 0, 7) });
         AddRow(body, HubCommand.Meter, "DPS / HEAL", "Licznik walki party i force", false, "M2,20 L2,12 M8,20 L8,4 M14,20 L14,9 M20,20 L20,1");
+        AddRow(body, HubCommand.BossAssistant, "Asystent bossów", "Timery, ostrzeżenia i demonstracja", false, "M12,1 L20,5 L22,14 L16,23 L8,23 L2,14 L4,5 Z M7,10 L10,12 M17,10 L14,12 M8,18 L16,18");
         AddRow(body, HubCommand.Map, "Mapa petów", "Występowanie i Twoja kolekcja", false, "M1,4 L7,1 L14,4 L21,1 L21,18 L14,21 L7,18 L1,21 Z M7,1 L7,18 M14,4 L14,21");
         AddRow(body, HubCommand.PetTracker, "Tracker petów", "Poniżej MAX lub własna lista", false, "M2,3 L7,3 L7,8 L2,8 Z M11,5 L22,5 M2,12 L7,12 L7,17 L2,17 Z M11,14 L22,14 M2,21 L7,21 M11,23 L22,23");
         AddRow(body, HubCommand.ItemAdvice, "BiS sprzętu i arkan", "Sprzęt: Ctrl · Arkana: auto", true, "M12,1 L21,5 L21,13 C21,18 17,22 12,25 C7,22 3,18 3,13 L3,5 Z M7,12 L11,16 L17,8");
@@ -103,8 +104,9 @@ internal sealed class AurumHubWindow : Window
         AddRow(body, HubCommand.Updates, "Aktualizacje", "Sprawdź dostępną wersję", false, "M19,8 A9,9 0 1 0 21,17 M19,1 L19,8 L12,8 M11,12 L11,21 M7,17 L11,21 L15,17");
         body.Children.Add(new TextBlock { Text = "Przeciągnij ikonę  ·  Ctrl+Shift+A", Foreground = PetAppearance.Ink("#9D9483"), FontSize = 9,
             Margin = new Thickness(4, 12, 0, 0), HorizontalAlignment = HorizontalAlignment.Center });
-        return new Border { Width = PanelWidth, Height = PanelHeight, CornerRadius = new CornerRadius(12), BorderThickness = new Thickness(1),
-            BorderBrush = PetAppearance.Ink("#9C7C45"), Background = new LinearGradientBrush(Color.FromRgb(26, 29, 34), Color.FromRgb(12, 15, 19), 90), Child = body };
+        return new Border { Width = PanelWidth, Height = Math.Min(PanelHeight, Math.Max(200, SystemParameters.WorkArea.Height - 24)), CornerRadius = new CornerRadius(12), BorderThickness = new Thickness(1),
+            BorderBrush = PetAppearance.Ink("#9C7C45"), Background = new LinearGradientBrush(Color.FromRgb(26, 29, 34), Color.FromRgb(12, 15, 19), 90),
+            Child = new ScrollViewer { Content = body, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto } };
     }
     private void AddRow(Panel parent, HubCommand command, string title, string description, bool toggle, string path)
     {
@@ -121,7 +123,7 @@ internal sealed class AurumHubWindow : Window
         var button = new Button { Content = grid, Height = 52, Margin = new Thickness(0, 2, 0, 2), Padding = new Thickness(5, 0, 6, 0),
             Background = Brushes.Transparent, BorderBrush = Brushes.Transparent, Template = RowTemplate, HorizontalContentAlignment = HorizontalAlignment.Stretch, Focusable = false, Cursor = Cursors.Hand };
         AutomationProperties.SetName(button, title);
-        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map or HubCommand.Updates or HubCommand.PetTracker) SetExpanded(false); };
+        button.Click += (_, _) => { _command(command); RefreshState(); if (command is HubCommand.Meter or HubCommand.Map or HubCommand.Updates or HubCommand.PetTracker or HubCommand.BossAssistant) SetExpanded(false); };
         parent.Children.Add(button); _rows[command] = (detail, action, state);
     }
     private static FrameworkElement Switch(bool enabled)
@@ -144,6 +146,7 @@ internal sealed class AurumHubWindow : Window
         _rows[HubCommand.Updates].Description.ToolTip = state.UpdateStatus;
         _rows[HubCommand.Map].Action!.Text = state.MapVisible ? "ZAMKNIJ" : "OTWÓRZ";
         _rows[HubCommand.PetTracker].Action!.Text = state.PetTrackerVisible ? "UKRYJ" : "OTWÓRZ";
+        _rows[HubCommand.BossAssistant].Action!.Text = "OTWÓRZ";
         _rows[HubCommand.Cube].State.Child = Switch(state.CubeEnabled);
         _rows[HubCommand.Cube].Description.Text = state.CubeEnabled ? state.CubeStatus : "Wskaźnik wyłączony";
         _rows[HubCommand.Souls].State.Child = Switch(state.SoulsEnabled);
@@ -158,7 +161,7 @@ internal sealed class AurumHubWindow : Window
         if (!expanded) { Width = Height = OrbSize; Left = _anchorLeft; Top = _anchorTop; Canvas.SetLeft(_orb, 0); Canvas.SetTop(_orb, 0); return; }
         var area = VirtualArea(); var openLeft = _anchorLeft + OrbSize + Gap + PanelWidth > area.Right;
         var orbX = openLeft ? PanelWidth + Gap : 0;
-        Width = OrbSize + Gap + PanelWidth; Height = PanelHeight;
+        Width = OrbSize + Gap + PanelWidth; Height = _panel.Height;
         Left = _anchorLeft - orbX; Top = ClampCoordinate(_anchorTop, area.Top, area.Bottom - Height);
         Canvas.SetLeft(_orb, orbX); Canvas.SetTop(_orb, _anchorTop - Top);
         Canvas.SetLeft(_panel, openLeft ? 0 : OrbSize + Gap); Canvas.SetTop(_panel, 0);

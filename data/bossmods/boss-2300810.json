@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "boss-2300810",
+  "version": 1,
+  "name": "Tiere",
+  "npcCodes": [
+    2300810,
+    2320810
+  ],
+  "maps": [],
+  "evidence": "Community",
+  "source": "https://github.com/dr89mh/aion2-raid-ansager/blob/8473d1d9055ae8ff3a2ed3c2a1dff4ea14fff64c/mods/dungeon-timers.json",
+  "resetAfterSeconds": 45,
+  "mechanics": [
+    {
+      "id": "skill-1604532",
+      "skillId": 1604532,
+      "name": "Atak #1604532",
+      "confidence": 1,
+      "samples": 5,
+      "evidence": "5× in 5 pull(s), M0 K0 H3, unnamed skill 1604532; after 1604500: 9,5 s (±0,0, 5/5 = 100 %)",
+      "warningSeconds": [
+        10,
+        5,
+        3
+      ],
+      "afterSkillId": 1604500,
+      "afterSeconds": 9.5
+    }
+  ]
+}

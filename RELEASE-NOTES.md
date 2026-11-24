@@ -1,3 +1,14 @@
+# 0.2.7-beta.1 — asystent bossów (wersja testowa)
+
+- Moduł bossowy w istniejącym Aurumie: odbiera ten sam strumień zdarzeń co DPS, bez dodatkowego przechwytywania i OCR.
+- Wygląd w stylu DBM: osobne wąskie paski z ikoną i odliczaniem oraz duże ostrzeżenie bez tła. Oddzielne przesuwanie, blokada kliknięć, rozmiar i przezroczystość.
+- 13 profili bossów i 17 timerów z historycznych pomiarów społeczności. Timery synchronizowane odczytanymi skillami, z oznaczeniem przewidywania ≈. Bez wymyślonych reakcji i czasów castowania.
+- Kolejka alarmów 10/5/3 s, krótkie sygnały dźwiękowe, deduplikacja i filtrowanie mechanik/roli. Bez głosu Windows.
+- Obsługa faz/progów HP, śmierci, resetu i zmiany mapy. Pierwszy timer od pulla wymaga potwierdzenia początku walki.
+- Demonstracja z fikcyjnym bossem, replay lokalnego dziennika i analiza powtarzalności skilli. Dane demonstracyjne oddzielone od gry i uczenia.
+- Otwieranie: okrągła ikona Aurum → Asystent bossów. Zapis lokalnych obserwacji, własne profile JSON i eksperymentalne uczenie cooldownów.
+- 449 testów. Replay, render, blokada nakładek i dostępność na zrzutach ekranu zweryfikowane; aktualność pomiarów i opóźnienie alarmów wymagają testu w rzeczywistej walce. Szczegóły w BOSS-ASSISTANT.md.
+
 # 0.2.6
 
 - Nowy tracker petów: automat dla wszystkich poniżej MAX lub własna zapamiętana lista wybierana przyciskiem +.
