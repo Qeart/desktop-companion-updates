@@ -52,6 +52,8 @@ internal sealed class BossSettingsWindow : Window
         Slider(root, "Szerokość", 280, 560, settings.BossWidth, v => settings.BossWidth = v, v => $"{v:0} px");
         Slider(root, "Widoczność", .35, 1, settings.BossOpacity, v => settings.BossOpacity = v, v => $"{v:P0}");
         Heading(root, "OSTRZEŻENIA");
+        Toggle(root, "Pokazuj odczytane skille, również bez profilu timerów", settings.BossShowObservedSkills, v => settings.BossShowObservedSkills = v);
+        Note(root, "Lista ODCZYT pokazuje odebrane użycia skilli. Ostrzeżenia i odliczanie korzystają z osobnych reguł mechanik.");
         Toggle(root, "Dźwięk ostrzeżenia", settings.BossSounds, v => settings.BossSounds = v);
         Slider(root, "Głośność", 0, 100, settings.BossVolume, v => settings.BossVolume = v, v => $"{v:0}%");
         var sound = new WrapPanel(); Button(sound, "Test dźwięku", controller.TestSound); root.Children.Add(sound);

@@ -101,12 +101,14 @@ internal abstract class BossOverlayVisual : FrameworkElement
 internal sealed class BossBarsVisual : BossOverlayVisual
 {
     private double Header => Mode == "LIVE" ? 0 : 18;
-    internal override double DesiredHeight => Header + Math.Max(Placement ? 2 : 1, Math.Min(6, State.Bars.Count)) * 35 + (Placement ? 24 : 0);
+    private int TimerRows => State.Bars.Count > 0 ? Math.Min(6, State.Bars.Count) : Placement && State.ObservedSkills.Count == 0 ? 2 : 0;
+    internal override double DesiredHeight => Math.Max(1, Header + TimerRows * 35 +
+        (State.ObservedSkills.Count > 0 ? 19 + Math.Min(4, State.ObservedSkills.Count) * 30 : 0) + (Placement ? 24 : 0));
     protected override void OnRender(DrawingContext d)
     {
         var w = ActualWidth; var y = Header;
         if (Placement) d.DrawRoundedRectangle(Ink("#15151515"), new Pen(Ink("#BFA06B"), 1) { DashStyle = DashStyles.Dash }, new Rect(.5, .5, Math.Max(1, w - 1), DesiredHeight - 1), 3, 3);
-        if (Mode != "LIVE") Text(d, Mode + " · PRZEWIDYWANIA TESTOWE".Replace("TESTOWE", Mode == "DEMO" ? "TESTOWE" : "Z DZIENNIKA"), 34, 0, w - 35, 9, Ink("#DEC6FF"));
+        if (Mode != "LIVE") Text(d, Mode == "DEMO" ? "DEMO · DANE TESTOWE" : "REPLAY · ZAPIS WALKI", 34, 0, w - 35, 9, Ink("#DEC6FF"));
         foreach (var bar in State.Bars.Take(6)) {
             var urgent = bar.Seconds <= 5 && bar.Kind != "cast";
             var color = ColorFor(urgent ? "danger" : bar.Category);
@@ -122,9 +124,21 @@ internal sealed class BossBarsVisual : BossOverlayVisual
             Text(d, bar.Seconds.ToString("0.0", CultureInfo.InvariantCulture), w - 61, y + 4, 52, 14, Ink(urgent ? "#FFE5D4" : "#FFFFFF"), true, TextAlignment.Right);
             y += 35;
         }
-        if (Placement && State.Bars.Count == 0) {
+        if (Placement && State.Bars.Count == 0 && State.ObservedSkills.Count == 0) {
             DrawSample(d, w, y, "≈ Następna mechanika", "12.5", .65, "warning");
             DrawSample(d, w, y + 35, "≈ Pilna mechanika", "3.0", .18, "danger");
+            y += 70;
+        }
+        if (State.ObservedSkills.Count > 0) {
+            Text(d, "OSTATNIE UŻYCIA", 34, y + 1, w - 35, 9, Ink("#B2C2D3")); y += 19;
+            foreach (var skill in State.ObservedSkills.Take(4)) {
+                d.DrawRectangle(Ink("#DA101923"), new Pen(Ink("#62778C"), .7), new Rect(33, y + 1, w - 35, 24));
+                d.DrawRectangle(Ink("#162330"), new Pen(Ink("#62778C"), 1), new Rect(3, y + 1, 24, 24));
+                Text(d, "◆", 4, y + 3, 22, 14, Ink("#A4C9EA"), true, TextAlignment.Center);
+                Text(d, skill.Name, 39, y + 4, w - 106, 12, Ink("#F1F5FA"));
+                Text(d, "ODCZYT", w - 61, y + 7, 52, 8, Ink("#B3C9DE"), true, TextAlignment.Right);
+                y += 30;
+            }
         }
         if (Placement) Text(d, "PASKI · PRZECIĄGNIJ", 34, DesiredHeight - 20, w - 35, 9, Ink("#F4D894"));
     }

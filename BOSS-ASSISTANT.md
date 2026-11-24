@@ -97,18 +97,19 @@ Po restarcie przy włączonym uczeniu pomiary są ponownie analizowane w tle.
 
 ## Weryfikacja
 
-- 466 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
+- 481 testów: m.in. odczyt skilla kontra trafienie, kontakt własnej grupy, brak
   fikcyjnego pulla w środku walki, nieznane HP, duplikaty AoE, progi alarmów,
   fazy, śmierć, reset HP, zmiana mapy/tożsamości, utrata capture, odtwarzanie JSONL,
   walidacja wbudowanych profili i rozdzielenie danych demonstracyjnych.
 - `AurumMeter.exe --render-boss-demo <folder>` generuje sześć stanów pasków i
   ostrzeżeń oraz raport. Nie uruchamia PktMon, audio, zapisu ustawień ani updatera.
-- Bieżący parser `02 38` odrzuca cel równy 0. Nie rozszerzono układu pakietu bez
-  zweryfikowanego nagrania; niektóre bezcelowe/obszarowe skille mogą nie docierać
-  jako CastEvent. Trafienie nie jest zamieniane w brakujące rozpoczęcie castu.
+- Parser `02 38` przyjmuje cel 0 dla siedmiocyfrowych skilli NPC, zachowując granice
+  aktora/skilla/celu. Układ sprawdzono z dekoderem RaidAnsager i testami granicznymi;
+  w nagraniu zgłoszonego Rush zdarzenia były już poprawnie zdekodowane. Nie twierdzimy,
+  że ten konkretny brak był spowodowany celem 0. Trafienie nie zastępuje castu.
 - 13 profili / 17 timerów obejmuje tylko pomiary z kotwicą w rzeczywistym skillu.
   Profil Berka z Krao Cave ma dwie mechaniki; obrót pozostaje do zidentyfikowania.
-  Ogólne skille nieznanych bossów są rejestrowane bez spamowania alarmami.
+  Odczytane skille mają osobną listę informacyjną, również bez profilu timerów.
 - **Do sprawdzenia w grze:** odbiór wskazanych skillId na aktualnym buildzie,
   rzeczywiste przesunięcie ostrzeżeń, wipe/re-pull, fazy i osobne położenie obu
   nakładek podczas walki. Sam test replay nie potwierdza aktualności mechanik.
@@ -136,3 +137,22 @@ zostaje lokalnie. Maksymalnie 20 tys. zdarzeń przez 15 minut. Utracone zdarzeni
 oznaczone w `Dropped`; taki raport jest niepełny. Bieżący postęp testu jest w pamięci,
 więc raport należy zapisać przed zamknięciem Auruma. Zdarzenia są też przekazywane
 do zwykłego lokalnego dziennika podczas testu, nawet przy wyłączonym ogólnym zapisie.
+
+## Brak Rush na nakładce — regresja beta.3
+
+Rzeczywisty dziennik zgłoszonej walki zawierał Rush `1800030` i `1800031`.
+Przyczyną widocznego braku było uzależnienie ostrzeżeń od istnienia reguły w profilu,
+który obejmował tylko Wave of Fury i Drana Wave. Odczytany cast był zapisywany, ale
+nie trafiał na ekran. Od beta.3 snapshot zawiera niezależne `ObservedSkills`.
+
+Lista **Ostatnie użycia** pokazuje maksymalnie 4 wpisy przez 5 s, z tagiem ODCZYT,
+bez odliczania i dodatkowego dźwięku. Nie zastępuje centralnego ostrzeżenia i nie
+tworzy niepotwierdzonego przyszłego timera. Domyślnie jest włączona; ustawienie
+**Pokazuj odczytane skille, również bez profilu timerów** wyłącza wyłącznie tę listę.
+Krótkie duplikaty nazw/aktorów są scalane, a dziennik zachowuje surowe ID.
+
+`Aurum.Tests/Fixtures/berk-casts.json` zachowuje kolejność i odstępy 11 odczytanych
+castów z walki, z czasem przesuniętym na względną oś. Brak nicków, oryginalnych ID
+aktorów, identyfikatorów sesji, adresów i pakietów. Regresja sprawdza widoczność Rush
+oraz brak wymyślonego cooldownu. Dodatkowy render `boss-observed-rush.png` pokazuje
+ten przypadek jako odrębny replay, bez połączenia z grą i audio.

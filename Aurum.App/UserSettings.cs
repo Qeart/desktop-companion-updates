@@ -14,6 +14,7 @@ public sealed class UserSettings
     public bool BossAssistantEnabled { get; set; } = true;
     public bool BossOverlayLocked { get; set; } = true;
     public bool BossSounds { get; set; } = true;
+    public bool BossShowObservedSkills { get; set; } = true;
     public bool BossCommunityTimers { get; set; } = true;
     public bool BossLearnedTimers { get; set; }
     public bool BossJournal { get; set; } = true;

@@ -58,15 +58,20 @@ public sealed record BossEngineOptions
     public string Role { get; init; } = "dps";
     public bool CommunityTimers { get; init; } = true;
     public bool LearnedTimers { get; init; }
+    public bool ShowObservedSkills { get; init; } = true;
     public double[]? WarningSeconds { get; init; }
     public IReadOnlySet<string> DisabledMechanics { get; init; } = new HashSet<string>();
 }
 public sealed record BossAlert(string Key, string Text, string Category, long At, bool Sound, bool Predicted, bool Synthetic);
+public sealed record BossObservedSkill(string Key, uint Actor, int SkillId, string Name, string Boss, long At, bool Synthetic);
 public sealed record BossBarSnapshot(string Key, uint Actor, int SkillId, string Boss, string Label, string Reaction, string Category,
     string Kind, long StartedAt, long DueAt, double Seconds, double Fraction, double Confidence, int Samples, string Evidence);
 public sealed record BossFightSnapshot(Guid SessionId, uint Actor, int NpcCode, string Name, int MapId, int Phase, double? HpPercent, long StartedAt, bool PullConfirmed);
 public sealed record BossAssistantSnapshot(IReadOnlyList<BossFightSnapshot> Fights, IReadOnlyList<BossBarSnapshot> Bars,
-    IReadOnlyList<BossAlert> Alerts, long At);
+    IReadOnlyList<BossAlert> Alerts, long At)
+{
+    public IReadOnlyList<BossObservedSkill> ObservedSkills { get; init; } = [];
+}
 public sealed record BossLogRecord(int SchemaVersion, Guid SessionId, BossSignal Signal);
 public sealed record BossTimingProposal(int NpcCode, int SkillId, int Phase, string Skill, string Type, int? AfterSkillId,
     double MedianSeconds, double MadSeconds, double InlierRatio, int Samples, int Fights, double Confidence, bool Eligible);

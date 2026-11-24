@@ -247,7 +247,9 @@ public sealed class PacketParser
         if (!Wire.TryVarint(b, ref o, out _) || !Wire.TryU32(b, ref o, out var skill)) return;
         if (skill is < 1 or > 299_999_999 || o + 2 > b.Length) return;
         o += 2;
-        if (!Wire.TryVarint(b, ref o, out var target) || !IsEntityId(target)) return;
+        // NPC ground/area casts may announce no entity target. Keep actor, skill
+        // and target bounds; do not expand the player-cast layout here.
+        if (!Wire.TryVarint(b, ref o, out var target) || target > 9_999_999 || target == 0 && !GameData.IsNpcSkill((int)skill)) return;
         Emit(new CastEvent(TimeMs, actor, target, (int)skill));
     }
 

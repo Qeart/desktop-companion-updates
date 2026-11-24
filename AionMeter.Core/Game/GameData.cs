@@ -185,6 +185,9 @@ public sealed class GameData
         if (Skills.TryGetValue(code, out var name)) return name;
         var b = BaseSkill(code);
         if (b != code && Skills.TryGetValue(b, out name)) return name;
+        // NPC variants preserve their raw ID for combat/profile matching. Only
+        // their display name can fall back to the last-digit-zero entry.
+        if (IsNpcSkill(code) && code % 10 != 0 && Skills.TryGetValue(code - code % 10, out name)) return name;
         return $"Skill {code}";
     }
 

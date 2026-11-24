@@ -44,7 +44,8 @@ to live observation. Demo/replay never enters DPS or the live position tracker.
 13 community profiles currently provide 17 measured skill-anchored predictions.
 They are historical measurements, not verified timings for the current patch. An
 observed skill use is distinct from an estimated next event (`≈`). Bosses without a
-profile can be recorded for analysis, without fabricated warnings or future timers.
+profile show their observed skill uses and can be recorded for analysis. Observed
+uses have a separate list, while mechanic warnings/countdowns follow profile rules.
 See [BOSS-ASSISTANT.md](BOSS-ASSISTANT.md) for sources, format, diagnostics and limits.
 
 Krao Cave's final boss is **Ultimate Berk**, already included with two measured
@@ -60,7 +61,7 @@ On Windows x64, install the .NET 10 SDK, then run:
 
 ```powershell
 dotnet test Aurum.Tests/Aurum.Tests.csproj -c Release
-./scripts/Build-Release.ps1 -Version 0.2.7-beta.2 -Channel beta
+./scripts/Build-Release.ps1 -Version 0.2.7-beta.3 -Channel beta
 ```
 
 The script restores pinned Velopack 1.2.161 tooling, tests, publishes a self-contained

@@ -32,6 +32,7 @@ public sealed class BossAssistantEngine
     private readonly Dictionary<uint, Fight> _fights = new();
     private readonly Dictionary<string, Bar> _bars = new();
     private readonly List<BossAlert> _recent = new();
+    private readonly List<BossObservedSkill> _observed = new();
     private readonly Queue<BossAlert> _pending = new();
     private BossEngineOptions _options = new();
     private IReadOnlyList<BossTimingProposal> _proposals = [];
@@ -44,6 +45,7 @@ public sealed class BossAssistantEngine
         {
             _options = options;
             _pending.Clear(); _recent.RemoveAll(a => a.Predicted);
+            if (!options.ShowObservedSkills) _observed.Clear();
             foreach (var key in _bars.Where(p => p.Value.Kind == "learned" && !options.LearnedTimers ||
                 p.Value.Fight.Profile is { Evidence: "Community" } && !options.CommunityTimers || options.DisabledMechanics.Contains(p.Key[(p.Key.LastIndexOf('/') + 1)..]) ||
                 p.Value.Fight.Profile?.Mechanics.FirstOrDefault(m => MechanicKey(p.Value.Fight.Profile, m) == p.Key[(p.Key.LastIndexOf('/') + 1)..]) is { } rule && !Enabled(p.Value.Fight, rule)).Select(p => p.Key).ToArray()) _bars.Remove(key);
@@ -85,6 +87,15 @@ public sealed class BossAssistantEngine
                 foreach (var key in _bars.Where(p => p.Value.Fight == f && p.Value.Skill == signal.SkillId && p.Value.Kind != "cast").Select(p => p.Key).ToArray()) _bars.Remove(key);
                 var own = rules.Where(m => m.SkillId == signal.SkillId).ToArray();
                 var rule = own.FirstOrDefault(m => Enabled(f, m));
+                if (_options.ShowObservedSkills) {
+                    var name = own.FirstOrDefault()?.Name ?? (string.IsNullOrWhiteSpace(signal.SkillName) ? "Atak #" + signal.SkillId : signal.SkillName);
+                    var previousName = _observed.LastOrDefault(s => s.Actor == signal.Actor && s.Name == name);
+                    if (previousName == null || signal.At - previousName.At >= 700) {
+                        _observed.RemoveAll(s => s.Actor == signal.Actor && s.Name == name);
+                        _observed.Add(new(f.Id + "/observed/" + signal.SkillId, signal.Actor, signal.SkillId, name, f.Pull.BossName, signal.At, signal.Synthetic));
+                        if (_observed.Count > 4) _observed.RemoveAt(0);
+                    }
+                }
                 if (rule is { AlertOnCast: true })
                     Alert(f, "cast/" + signal.SkillId + "/" + signal.At, rule.Reaction.Length > 0 ? rule.Reaction : rule.Name, rule.Category, signal.At, true, false);
                 foreach (var m in rules.Where(m => Enabled(f, m)))
@@ -171,11 +182,12 @@ public sealed class BossAssistantEngine
         Log(f, signal); _fights.Remove(f.Pull.Actor);
         foreach (var key in _bars.Where(p => p.Value.Fight == f).Select(p => p.Key).ToArray()) _bars.Remove(key);
         _recent.RemoveAll(a => a.Key.StartsWith(f.Id.ToString(), StringComparison.Ordinal));
+        _observed.RemoveAll(a => a.Key.StartsWith(f.Id.ToString(), StringComparison.Ordinal));
         var pending = _pending.Where(a => !a.Key.StartsWith(f.Id.ToString(), StringComparison.Ordinal)).ToArray(); _pending.Clear(); foreach (var alert in pending) _pending.Enqueue(alert);
     }
     public void Reset(long at, string reason)
     {
-        lock (_gate) { foreach (var f in _fights.Values.ToArray()) End(f, f.Pull with { At = Math.Max(at, f.LastActivity), Kind = BossSignalKind.Reset, Source = reason }); _recent.Clear(); _pending.Clear(); }
+        lock (_gate) { foreach (var f in _fights.Values.ToArray()) End(f, f.Pull with { At = Math.Max(at, f.LastActivity), Kind = BossSignalKind.Reset, Source = reason }); _recent.Clear(); _pending.Clear(); _observed.Clear(); }
     }
     public void Tick(long now)
     {
@@ -197,6 +209,7 @@ public sealed class BossAssistantEngine
                 bar.Previous = remaining;
             }
             _recent.RemoveAll(a => now - a.At > 4500);
+            _observed.RemoveAll(s => now - s.At > 5000);
         }
     }
     public BossAssistantSnapshot Snapshot(long now)
@@ -204,7 +217,8 @@ public sealed class BossAssistantEngine
         Tick(now);
         lock (_gate) return new(_fights.Values.Select(f => new BossFightSnapshot(f.Id, f.Pull.Actor, f.Pull.NpcCode, f.Pull.BossName, f.Pull.MapId, f.Phase, f.Hp, f.Pull.At, f.Pull.PullConfirmed)).ToArray(),
             _bars.Values.OrderBy(b => b.Due).Select(b => new BossBarSnapshot(b.Key, b.Fight.Pull.Actor, b.Skill, b.Fight.Pull.BossName, b.Label, b.Reaction, b.Category, b.Kind,
-                b.Started, b.Due, Math.Max(0, (b.Due - now) / 1000d), Math.Clamp((b.Due - now) / (double)Math.Max(1, b.Due - b.Started), 0, 1), b.Confidence, b.Samples, b.Evidence)).ToArray(), _recent.ToArray(), now);
+                b.Started, b.Due, Math.Max(0, (b.Due - now) / 1000d), Math.Clamp((b.Due - now) / (double)Math.Max(1, b.Due - b.Started), 0, 1), b.Confidence, b.Samples, b.Evidence)).ToArray(), _recent.ToArray(), now)
+                { ObservedSkills = _observed.OrderByDescending(s => s.At).ToArray() };
     }
     public IReadOnlyList<BossAlert> TakeAlerts() { lock (_gate) { var a = _pending.ToArray(); _pending.Clear(); return a; } }
 }

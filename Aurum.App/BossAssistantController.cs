@@ -40,7 +40,7 @@ internal sealed class BossAssistantController : IDisposable
     internal BossPracticeStatus PracticeStatus => _practice.Status;
     internal BossAssistantSnapshot State { get; private set; } = new([], [], [], 0);
     internal object DiagnosticState => new { Enabled = _settings.BossAssistantEnabled, Mode, Message, Profiles = Catalog.Profiles.Count(p => !p.Synthetic),
-        ProfileErrors = Catalog.Errors, Fights = State.Fights.Count, Bars = State.Bars.Count, JournalDropped = _journal.Dropped, AudioError = _sound.LastError, Proposals = _proposals.Count,
+        ProfileErrors = Catalog.Errors, Fights = State.Fights.Count, Bars = State.Bars.Count, ObservedSkills = State.ObservedSkills, JournalDropped = _journal.Dropped, AudioError = _sound.LastError, Proposals = _proposals.Count,
         KraoTest = _practice.Status, MarkerHotkey = MarkerHotkeyAvailable };
     internal bool MarkerHotkeyAvailable { get; set; }
     internal event Action<bool>? MarkerHotkeyRequested;
@@ -74,7 +74,7 @@ internal sealed class BossAssistantController : IDisposable
     {
         lock (_gate) {
             var options = new BossEngineOptions { Role = _settings.BossRole, CommunityTimers = _settings.BossCommunityTimers,
-                LearnedTimers = _settings.BossLearnedTimers, WarningSeconds = _settings.BossWarningSeconds.Where(s => double.IsFinite(s) && s > 0 && s <= 60).Take(8).ToArray(),
+                LearnedTimers = _settings.BossLearnedTimers, ShowObservedSkills = _settings.BossShowObservedSkills, WarningSeconds = _settings.BossWarningSeconds.Where(s => double.IsFinite(s) && s > 0 && s <= 60).Take(8).ToArray(),
                 DisabledMechanics = _settings.DisabledBossMechanics.ToHashSet(StringComparer.Ordinal) };
             _adapter.Enabled = _settings.BossAssistantEnabled || _practice.IsRunning;
             _live.Configure(options); _live.SetProposals(_proposals); _playback?.Configure(options);
@@ -189,7 +189,7 @@ internal sealed class BossAssistantController : IDisposable
         }
         var placement = _window?.IsVisible == true && !_settings.BossOverlayLocked;
         var foreground = GameWindowAccess.GameOrAurumForeground();
-        var barsVisible = (_settings.BossAssistantEnabled && State.Bars.Count > 0 || placement) && foreground;
+        var barsVisible = (_settings.BossAssistantEnabled && (State.Bars.Count > 0 || State.ObservedSkills.Count > 0) || placement) && foreground;
         var warningVisible = (_settings.BossAssistantEnabled && State.Alerts.Count > 0 || placement) && foreground;
         if (barsVisible) { _overlay.Update(State, Mode, placement); if (!_overlay.IsVisible) _overlay.Show(); }
         else if (_overlay.IsVisible) _overlay.Hide();
@@ -214,6 +214,12 @@ internal sealed class BossAssistantController : IDisposable
             replay.AdvanceTo(time); window.RenderPreview(engine.Snapshot(time), "DEMO", Path.Combine(directory, "boss-" + time + ".png"));
             warning.RenderPreview(engine.Snapshot(time), "DEMO", Path.Combine(directory, "warning-" + time + ".png"));
         }
+        // NPC-only UI regression from the recorded Berk fight. No capture, audio,
+        // player identifiers or invented Rush cooldown; replay is a separate engine.
+        var observed = new BossAssistantEngine(catalog);
+        observed.Process(new(1000, BossSignalKind.Pull, 700, 2300171) { BossName = "Ultimate Berk", MapId = 600001 });
+        observed.Process(new(21751, BossSignalKind.Cast, 700, 2300171) { BossName = "Ultimate Berk", MapId = 600001, SkillId = 1800030, SkillName = "Rush" });
+        window.RenderPreview(observed.Snapshot(21751), "REPLAY", Path.Combine(directory, "boss-observed-rush.png"));
         File.WriteAllText(Path.Combine(directory, "diagnostics.json"), JsonSerializer.Serialize(new { Profiles = catalog.Profiles.Count(p => !p.Synthetic),
             Mechanics = catalog.Profiles.Where(p => !p.Synthetic).Sum(p => p.Mechanics.Length), catalog.Errors, FightsAfterDeath = engine.Snapshot(62000).Fights.Count,
             BarsAfterDeath = engine.Snapshot(62000).Bars.Count })); window.Close(); warning.Close();

@@ -1,3 +1,12 @@
+# 0.2.7-beta.3 — widoczne użycia skilli bossów
+
+- Naprawiono brak Rush Berka na nakładce: w rzeczywistym logu atak był poprawnie odebrany, lecz dotychczas wyświetlane były wyłącznie ostrzeżenia z profilu mechanik.
+- Osobna lista Ostatnie użycia / ODCZYT pokazuje do czterech odebranych skilli przez 5 s, także dla bossów bez gotowego profilu. Bez wymyślania cooldownu i bez zagłuszania pilnych ostrzeżeń.
+- Warianty tej samej nazwy są scalane przy krótkich duplikatach; dokładne ID i zdarzenia pozostają w dzienniku. Rozpoznany boss może również używać skilli o kodzie podobnym do kodu klasy gracza.
+- Nazwy wariantów NPC mogą korzystać z wpisu bazowego, z zachowaniem oryginalnego ID do liczenia i dopasowania profilu.
+- Dekoder dopuszcza cel 0 w castach NPC. Zachowuje sprawdzanie granic aktora, celu i skilla; cel 0 nie uruchamia obserwacji przypadkowego bossa bez kontaktu własnej grupy.
+- 481 testów, w tym regresja z odtworzonej kolejności skilli Berka oraz kontrola przełącznika WPF. Obsługa celu 0 nie jest przedstawiana jako przyczyna braku Rush.
+
 # 0.2.7-beta.2 — test Krao Cave / Ultimate Berk
 
 - Doprecyzowano: główny boss Krao Cave to Ultimate Berk, którego profil z dwoma timerami był już w beta.1. Liczba profili pozostaje 13; obrót nie jest jeszcze przypisany do potwierdzonego skilla.
