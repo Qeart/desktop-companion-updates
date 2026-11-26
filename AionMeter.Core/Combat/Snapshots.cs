@@ -55,6 +55,9 @@ public sealed record EncounterSnapshot(
     int TargetCode = 0,
     int Attackers = 0)
 {
+    /// <summary>Live estimate from recent confirmed HP loss; never persisted as a historical prediction.</summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public BossKillEstimate? KillEstimate { get; init; }
     public long TotalHealing => Combatants.Sum(c => c.Healing);
     /// <summary>Players who took part (the unknown-summons row is not one).</summary>
     [System.Text.Json.Serialization.JsonIgnore]

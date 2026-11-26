@@ -1,40 +1,10 @@
-# 0.2.7-beta.4 — Berk: ostrzeżenia mechanik i odzyskiwanie DPS instancji
+# 0.2.7 — stabilna baza, CP i szacowany czas zabicia
 
-- Fala Furii: komunikat przygotowania i narastające odliczanie ≈8,4 s od odczytanej kotwicy, z alarmami przed atakiem. Jest to pomiar sekwencji, nie odczyt czasu castowania z gry.
-- Reakcje na szarżę i Wrathful Blade, dłuższe ostrzeżenie „Możliwy obrót” dla 1800170 oraz ogólny alarm nieprzypisanego ataku 1800190. Obrót wymaga jeszcze potwierdzenia animacji; bez zgadywanego cooldownu.
-- Podstawowe/systemowe użycia Berka nie wypierają istotnych skilli z listy; surowe zdarzenia pozostają w lokalnym dzienniku.
-- Naprawiono kwalifikowanie DPS/HPS przy pozostawionym ID mapy świata w dungeonie: niezależny kontekst z licznika instancji lub świeżo rozpoznanego, atakowanego bossa z dungeonId. Filtr świata nadal wymaga własnej grupy.
-- Osobna obsługa wiadomości bieżącej mapy 01 40, z zachowaniem układu 21 36. Diagnostyka kontekstu instancji, odrzuconych aktorów, aktywnych alarmów i castów pomocniczych NPC.
-- 505 testów, w tym replay trzech odczytów 1800170 i obu przygotowań Fali z walki Hard. Nie odtworzono wcześniej odrzuconych obrażeń. Test na żywo z party i wizualne potwierdzenie obrotu pozostają do kolejnej walki.
-
-# 0.2.7-beta.3 — widoczne użycia skilli bossów
-
-- Naprawiono brak Rush Berka na nakładce: w rzeczywistym logu atak był poprawnie odebrany, lecz dotychczas wyświetlane były wyłącznie ostrzeżenia z profilu mechanik.
-- Osobna lista Ostatnie użycia / ODCZYT pokazuje do czterech odebranych skilli przez 5 s, także dla bossów bez gotowego profilu. Bez wymyślania cooldownu i bez zagłuszania pilnych ostrzeżeń.
-- Warianty tej samej nazwy są scalane przy krótkich duplikatach; dokładne ID i zdarzenia pozostają w dzienniku. Rozpoznany boss może również używać skilli o kodzie podobnym do kodu klasy gracza.
-- Nazwy wariantów NPC mogą korzystać z wpisu bazowego, z zachowaniem oryginalnego ID do liczenia i dopasowania profilu.
-- Dekoder dopuszcza cel 0 w castach NPC. Zachowuje sprawdzanie granic aktora, celu i skilla; cel 0 nie uruchamia obserwacji przypadkowego bossa bez kontaktu własnej grupy.
-- 481 testów, w tym regresja z odtworzonej kolejności skilli Berka oraz kontrola przełącznika WPF. Obsługa celu 0 nie jest przedstawiana jako przyczyna braku Rush.
-
-# 0.2.7-beta.2 — test Krao Cave / Ultimate Berk
-
-- Doprecyzowano: główny boss Krao Cave to Ultimate Berk, którego profil z dwoma timerami był już w beta.1. Liczba profili pozostaje 13; obrót nie jest jeszcze przypisany do potwierdzonego skilla.
-- Przycisk Test Krao Cave: ograniczony do 15 minut zapis zdarzeń wszystkich 12 rozpoznanych form Berka, także bez profilu timerów.
-- Ctrl+Shift+B lub przycisk zaznacza chwilę zauważonej mechaniki. Skrót działa tylko podczas testu, gdy gra lub Aurum jest na pierwszym planie.
-- Eksport lokalnego raportu JSON: surowa oś zdarzeń, użycia skilli, próbki trafień, formy, znaczniki i możliwe skille w ich pobliżu. Bez automatycznego przypisywania mechaniki.
-- Rozdzielono ograniczanie zapisu trafień według skilla, żeby kontakt drużyny nie wypierał próbek ataków bossa.
-- 466 testów; test przycisków i eksportu WPF. Rzeczywista walka z Berkiem pozostaje do wykonania.
-
-# 0.2.7-beta.1 — asystent bossów (wersja testowa)
-
-- Moduł bossowy w istniejącym Aurumie: odbiera ten sam strumień zdarzeń co DPS, bez dodatkowego przechwytywania i OCR.
-- Wygląd w stylu DBM: osobne wąskie paski z ikoną i odliczaniem oraz duże ostrzeżenie bez tła. Oddzielne przesuwanie, blokada kliknięć, rozmiar i przezroczystość.
-- 13 profili bossów i 17 timerów z historycznych pomiarów społeczności. Timery synchronizowane odczytanymi skillami, z oznaczeniem przewidywania ≈. Bez wymyślonych reakcji i czasów castowania.
-- Kolejka alarmów 10/5/3 s, krótkie sygnały dźwiękowe, deduplikacja i filtrowanie mechanik/roli. Bez głosu Windows.
-- Obsługa faz/progów HP, śmierci, resetu i zmiany mapy. Pierwszy timer od pulla wymaga potwierdzenia początku walki.
-- Demonstracja z fikcyjnym bossem, replay lokalnego dziennika i analiza powtarzalności skilli. Dane demonstracyjne oddzielone od gry i uczenia.
-- Otwieranie: okrągła ikona Aurum → Asystent bossów. Zapis lokalnych obserwacji, własne profile JSON i eksperymentalne uczenie cooldownów.
-- 452 testy. Replay, render, blokada nakładek i dostępność na zrzutach ekranu zweryfikowane; aktualność pomiarów i opóźnienie alarmów wymagają testu w rzeczywistej walce. Szczegóły w BOSS-ASSISTANT.md.
+- Powrót do kodu stabilnej wersji 0.2.6. Eksperymentalny asystent bossów z 0.2.7-beta nie jest uruchamiany w tym wydaniu.
+- Naprawiono odczyt CP odwiedzających z innych serwerów: aktualny świat nie musi być ich serwerem macierzystym. Walidacja znacznika zapobiega przesunięciu liczby o bajt i utracie dalszych członków grupy.
+- Pod nazwą bossa pojawia się „≈ 01:25 do zabicia”. Szacunek wynika z aktualnego tempa ubywania jego HP z ostatnich około 10 s; nie zalicza obrażeń zadanych addom.
+- Minimum 3 s danych, wygaśnięcie po utracie świeżych odczytów/zatrzymaniu utraty HP, ponowne zbieranie próbek po leczeniu i resecie. Brak przewidywania dla zapisanej lub zakończonej walki.
+- 431 testów. Poprawka wariantu protokołu sprawdzona na syntetycznych rekordach odwiedzających; pełne potwierdzenie CP na bieżącym kliencie wymaga kolejnej grupy.
 
 # 0.2.6
 

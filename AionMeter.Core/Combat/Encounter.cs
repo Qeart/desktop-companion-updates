@@ -159,7 +159,6 @@ public sealed class Encounter
     public bool IsActive => Reason == EncounterEndReason.None;
     public EncounterEndReason Reason { get; set; }
     public string? Zone { get; set; }
-    public int DungeonMapId { get; set; }
 
     public uint? BossId { get; set; }
     public int BossCode { get; set; }
@@ -169,6 +168,7 @@ public sealed class Encounter
     public bool BossMaxHpKnown { get; set; }
     public long BossHp { get; set; } = -1;
     public long BossLowestHp { get; set; } = long.MaxValue;
+    public BossKillTimeEstimator BossKillTime { get; } = new();
     /// <summary>The boss's HP when the meter began watching it (-1 until a fresh HP record), and the damage on the boss
     /// counted by then: the boss lost <c>max − BossRefHp</c> before that, beyond those hits.</summary>
     /// <remarks>

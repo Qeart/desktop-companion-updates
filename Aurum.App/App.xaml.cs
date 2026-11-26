@@ -20,12 +20,6 @@ public partial class App : System.Windows.Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        if (e.Args is ["--render-boss-demo", var bossDirectory])
-        {
-            try { BossAssistantController.RenderPreview(bossDirectory); }
-            catch (Exception error) { Directory.CreateDirectory(bossDirectory); File.WriteAllText(Path.Combine(bossDirectory, "error.txt"), error.ToString()); }
-            Shutdown(); return;
-        }
         if (e.Args is ["--render-brand", var brandDirectory])
         { AurumBrand.Generate(brandDirectory); Shutdown(); return; }
         if (e.Args is ["--render-pet-tracker", var trackerDirectory])

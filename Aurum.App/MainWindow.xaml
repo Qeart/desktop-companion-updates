@@ -14,7 +14,7 @@
   </Grid>
   <Grid Grid.Row="1" Margin="0,18,0,13">
    <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-   <StackPanel><TextBlock x:Name="FightTitle" Text="Czekam na walkę" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" /><TextBlock x:Name="FightState" Text="" Visibility="Collapsed" Foreground="{StaticResource Muted}" FontSize="10" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" /></StackPanel>
+   <StackPanel><TextBlock x:Name="FightTitle" Text="Czekam na walkę" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" /><TextBlock x:Name="FightState" Text="" Visibility="Collapsed" Foreground="{StaticResource Muted}" FontSize="10" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" /><TextBlock x:Name="KillTimeLabel" Visibility="Collapsed" Foreground="{StaticResource Gold}" FontSize="11" FontWeight="SemiBold" Margin="0,4,0,0" TextTrimming="CharacterEllipsis" ToolTip="Szacowany czas przy tempie ubywania HP bossa z ostatnich około 10 sekund. Zmienia się przy mechanikach, przerwach i zmianie obrażeń." /></StackPanel>
    <TextBlock x:Name="ClockLabel" Grid.Column="1" Text="00:00" FontSize="21" Foreground="{StaticResource Gold}" FontFamily="Consolas" VerticalAlignment="Center" Margin="10,0,0,0" />
   </Grid>
   <Grid Grid.Row="2" Margin="0,0,0,12">

@@ -1,8 +1,7 @@
 # Desktop Companion
 
 Aurum Meter for AION 2: a Windows desktop overlay with party/force DPS and healing,
-pet progress, a pet atlas, Hidden Cube guidance, PvE equipment/Arcana advice and
-an experimental DBM-style boss assistant.
+pet progress, a pet atlas, Hidden Cube guidance and PvE equipment/Arcana advice.
 This is an independent fork, with no affiliation to NCSOFT or Kisk.
 
 ## Install
@@ -19,7 +18,7 @@ Ctrl+Shift+G opens the pet atlas. Hold Ctrl over an equipment tooltip for advice
 
 ## Updates and local data
 
-**Aktualizacje** in the round Aurum menu or the tray menu opens the updater.
+The ↻ button in the meter footer and **Aktualizacje** in the tray menu open the updater.
 The default channel is **Stabilny**. **Testowy** also considers beta releases.
 Checks run on startup and once an hour when enabled. Downloads do not restart the
 application; use **Uruchom ponownie** after combat to apply the verified package.
@@ -33,37 +32,13 @@ The updates window can import data from an older `user-data` folder. Existing da
 is preserved; restart the application to load imported values.
 No player data or captures are uploaded by the application.
 
-## Boss assistant (preview)
-
-Open **Aurum → Asystent bossów**. Independent compact timer bars and a central
-warning have no enclosing panel. Unlock to move both anchors separately, then lock
-to pass clicks through to the game. Sound signals are optional; there is no speech.
-**Demonstracja** runs a clearly marked fictional encounter; **Powrót do gry** returns
-to live observation. Demo/replay never enters DPS or the live position tracker.
-
-13 community profiles currently provide 17 measured skill-anchored predictions.
-They are historical measurements, not verified timings for the current patch. An
-observed skill use is distinct from an estimated next event (`≈`). Bosses without a
-profile show their observed skill uses and can be recorded for analysis. Observed
-uses have a separate list, while mechanic warnings/countdowns follow profile rules.
-See [BOSS-ASSISTANT.md](BOSS-ASSISTANT.md) for sources, format, diagnostics and limits.
-
-Krao Cave's final boss is **Ultimate Berk**: two measured predictions plus reactive
-warnings for Rush, Wrathful Blade, a provisional spin and an unidentified heavy
-attack. Wave of Fury shows a measured preparation countdown from its observed cue,
-not a fabricated client cast bar. **Test Krao Cave** records decoded events for up to 15 minutes;
-Ctrl+Shift+B marks a visible mechanic while the game/Aurum is foreground. After the
-fight, **Zapisz raport testu** saves a local JSON report in `boss-reports`. Markers
-show nearby candidate skills without assigning the mechanic automatically. All 12
-known forms can be observed; timing profiles remain limited to the measured forms.
-
 ## Build
 
 On Windows x64, install the .NET 10 SDK, then run:
 
 ```powershell
 dotnet test Aurum.Tests/Aurum.Tests.csproj -c Release
-./scripts/Build-Release.ps1 -Version 0.2.7-beta.4 -Channel beta
+./scripts/Build-Release.ps1 -Version 0.2.2 -Channel stable
 ```
 
 The script restores pinned Velopack 1.2.161 tooling, tests, publishes a self-contained

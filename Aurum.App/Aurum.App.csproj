@@ -2,7 +2,7 @@
  <PropertyGroup>
   <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
   <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
-  <AssemblyName>AurumMeter</AssemblyName><Product>Aurum Meter</Product><Version>0.2.7-beta.4</Version>
+  <AssemblyName>AurumMeter</AssemblyName><Product>Aurum Meter</Product><Version>0.2.7</Version>
   <StartupObject>Aurum.Program</StartupObject>
   <ApplicationManifest>app.manifest</ApplicationManifest>
   <ApplicationIcon>Assets/aurum.ico</ApplicationIcon>

@@ -12,21 +12,6 @@ nie odrzucają już DPS/HPS. NPC, anonimowi aktorzy rozpoznani tylko po skillu o
 nieprzypisane efekty nadal nie tworzą wierszy graczy. Przywołania trafiają do
 rozpoznanego właściciela. Po wyjściu z instancji wraca filtr party/force.
 
-Od 0.2.7-beta.4 kontekst walki w instancji może potwierdzić także aktualny
-`InstanceTimerEvent` rodzaju 1/2 albo obrażenia zadane świeżo ogłoszonemu bossowi,
-którego wpis NPC zawiera `dungeonId`. W zgłoszonej walce Ultimate Berk Hard miał
-kod 2320171 / dungeonId 600004, a mapa w rejestrze pozostała 1110 („Open world”).
-To powodowało użycie ścisłego filtra świata i odrzucanie uczestników bez serwera.
-Samo zobaczenie bossa nie zmienia zakresu. Fallback wymaga bieżącego ogłoszenia
-nazwanego gracza; same stare nazwy/ID z cache nie wystarczają. Kontekst od celu
-kończy się razem z walką, a timer ma termin ważności i jest kasowany przy zmianie
-mapy/tożsamości. Nie przestawia współrzędnych ani MapId gracza w Hidden Cube.
-
-Parser obsługuje oddzielnie `01 40` (mapa od offsetu 0), porównane z dekoderem
-RaidAnsager, i zachowuje `21 36` (licznik ładowań + mapa od offsetu 4). Nie było
-surowego nagrania zgłoszonej walki, więc obecność `01 40` na docelowym kliencie
-wymaga jeszcze potwierdzenia. Fallback bossa nie zależy od tej wiadomości.
-
 Filtr działa przed utworzeniem walki i naliczeniem obrażeń/leczenia. Obejmuje
 sumy, udziały procentowe, szczegóły umiejętności i nowe zapisy historii.
 Stare pliki historii zachowują pierwotnie zarejestrowaną zawartość.
@@ -70,10 +55,6 @@ MapId, Players z flagą Eligible, ObservedActors).
 `AwaitingGroupOwnerConfirmation` informuje o oczekiwaniu na potwierdzenie
 właściciela zachowanego składu.
 ObservedActors to liczba obserwowanych obiektów, a nie liczba członków grupy.
-`CombatDungeonMap` i `DungeonEvidence` pokazują osobno kontekst walki
-(`ZonePacket`, `InstanceTimer`, `VerifiedDungeonTarget`, `None`). Liczniki
-`AcceptedPlayerDamage`/`RejectedPlayerDamage` i maks. 16 `RejectedActors`
-z czasem/powodem pomagają rozpoznać odrzucenie tożsamości lub zakresu.
 
 Testy obejmują: obcy gracz w otwartym świecie nie rozpoczyna walki i nie zwiększa DPS/HEAL,
 zgodność sum i udziałów, nicki na różnych serwerach, spóźniona identyfikacja,
@@ -92,9 +73,3 @@ potwierdzonych danych; nie kwalifikujemy z tego powodu wszystkich osób w pobli�
 Układy kanałów grupowych, opuszczenia grupy i wolnych slotów porównano
 z A2Tools-DPS-Meter `src-tauri/src/capture/stream_processor.rs` (GPL-3.0).
 Nie korzystamy z funkcji presence ani nie wysyłamy danych grupy do tej usługi.
-
-Regresja 0.2.7-beta.4 obejmuje Berk Hard przy mapie 1110, brak serwera/rosteru,
-DPS/HEAL/przywołania, powrót do ścisłego filtra świata, wykluczenie cache,
-anonimowych efektów i obcych mobów, timer instancji i oba układy wiadomości mapy.
-Test nowej wersji na żywo z drużyną pozostaje do wykonania: użytkownik zdążył
-opuścić grupę. Odrzuconych wcześniej obrażeń nie da się odzyskać z historii.
